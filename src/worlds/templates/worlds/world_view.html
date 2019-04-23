@@ -30,7 +30,7 @@
                         <form method="POST" id="rule-form">
                             {% csrf_token %}
                             <div class="input-group mb-3">
-                                <input type="text" name="name" id="name" class="form-control" placeholder="Rule's name" aria-label="Rule's name" aria-describedby="button-addon2">
+                                <input type="text" name="rname" id="rname" class="form-control" placeholder="Rule's name" aria-label="Rule's name" aria-describedby="button-addon2">
                                 
                                 <div class="input-group-append">
                                     <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Create</button>
@@ -40,7 +40,20 @@
                         <ul id="rule">
                         </ul>
                     </div>
-                    <div class="tab-pane fade" id="v-pills-celestial_bodies" role="tabpanel" aria-labelledby="v-pills-celestial_bodies-tab">CB</div>
+                    <div class="tab-pane fade" id="v-pills-celestial_bodies" role="tabpanel" aria-labelledby="v-pills-celestial_bodies-tab">
+                        <form method="POST" id="cbody-form">
+                            {% csrf_token %}
+                            <div class="input-group mb-3">
+                                <input type="text" name="cbname" id="cbname" class="form-control" placeholder="Celestial Body's name" aria-label="Celestial Body's name" aria-describedby="button-cb">
+                                
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" type="submit" id="button-cb">Create</button>
+                                </div>
+                            </div>
+                        </form>
+                        <ul id="cbodies">
+                        </ul>
+                    </div>
                     <div class="tab-pane fade" id="v-pills-natural_phenomenas" role="tabpanel" aria-labelledby="v-pills-natural_phenomenas-tab">NP</div>
                     <div class="tab-pane fade" id="v-pills-seasons" role="tabpanel" aria-labelledby="v-pills-seasons-tab">Seasons</div>
                     <div class="tab-pane fade" id="v-pills-natural_objects" role="tabpanel" aria-labelledby="v-pills-natural_objects-tab">Natural Objects</div>
@@ -70,6 +83,5 @@
 {% endblock content %}
 
 {% block javascript %}
-<script src="{% static 'js/rules.js' %}"></script>
 <script src="{% static 'js/worlds.js' %}"></script>
 {% endblock javascript %}

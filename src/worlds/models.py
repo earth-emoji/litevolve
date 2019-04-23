@@ -17,8 +17,8 @@ class Rule(models.Model):
     can = HTMLField(null=True, blank=True)
     cannot = HTMLField(null=True, blank=True)
     explanation = HTMLField(null=True, blank=True)
-    world = models.ForeignKey(World, on_delete=models.CASCADE, related_name='rules')
-    creator = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='rules')
+    world = models.ForeignKey(World, on_delete=models.CASCADE, related_name='rules', blank=True)
+    creator = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='rules', blank=True)
 
     def __str__(self):
         return self.name
@@ -26,8 +26,8 @@ class Rule(models.Model):
 class CelestialBody(models.Model):
     name = models.CharField(max_length=255, blank=True)
     description = HTMLField(null=True, blank=True)
-    world = models.ForeignKey(World, on_delete=models.CASCADE, related_name='celestial_bodies')
-    creator = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='celestial_bodies')
+    world = models.ForeignKey(World, on_delete=models.CASCADE, related_name='celestial_bodies', blank=True)
+    creator = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='celestial_bodies', blank=True)
 
     def __str__(self):
         return self.name
@@ -35,8 +35,8 @@ class CelestialBody(models.Model):
 class NaturalPhenomena(models.Model):
     name = models.CharField(max_length=255, blank=True)
     description = HTMLField(null=True, blank=True)
-    world = models.ForeignKey(World, on_delete=models.CASCADE, related_name='natural_phenomenas')
-    creator = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='natural_phenomenas')
+    world = models.ForeignKey(World, on_delete=models.CASCADE, related_name='natural_phenomenas', blank=True)
+    creator = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='natural_phenomenas', blank=True)
 
     def __str__(self):
         return self.name
@@ -45,8 +45,8 @@ class Season(models.Model):
     name = models.CharField(max_length=255, blank=True)
     span = models.CharField(max_length=255, blank=True)
     description = HTMLField(null=True, blank=True)
-    world = models.ForeignKey(World, on_delete=models.CASCADE, related_name='seasons')
-    creator = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='seasons')
+    world = models.ForeignKey(World, on_delete=models.CASCADE, related_name='seasons', blank=True)
+    creator = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='seasons', blank=True)
     
     def __str__(self):
         return self.name
@@ -55,8 +55,8 @@ class Place(models.Model):
     name = models.CharField(max_length=255, blank=True)
     scenery = HTMLField(null=True, blank=True)
     background = HTMLField(null=True, blank=True)
-    world = models.ForeignKey(World, on_delete=models.CASCADE, related_name='places')
-    creator = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='places')
+    world = models.ForeignKey(World, on_delete=models.CASCADE, related_name='places', blank=True)
+    creator = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='places', blank=True)
     seasons = models.ManyToManyField(Season, related_name='seasons', through='PlaceSeason')
 
     def __str__(self):
@@ -80,8 +80,8 @@ class NaturalObject(models.Model):
     value = models.CharField(max_length=255, null=True, blank=True, choices=VALUE_CHOICES)
     value_description = HTMLField(null=True, blank=True)
     places = models.ManyToManyField(Place, related_name='natural_objects', blank=True)
-    world = models.ForeignKey(World, on_delete=models.CASCADE, related_name='natural_objects')
-    creator = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='natural_objects')
+    world = models.ForeignKey(World, on_delete=models.CASCADE, related_name='natural_objects', blank=True)
+    creator = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='natural_objects', blank=True)
 
     def __str__(self):
         return self.name
@@ -99,8 +99,8 @@ class Species(models.Model):
     extra = HTMLField(null=True, blank=True)
     is_intelligent  = models.BooleanField(default=False)
     places = models.ManyToManyField(Place, related_name='species', blank=True)
-    world = models.ForeignKey(World, on_delete=models.CASCADE, related_name='species')
-    creator = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='species')
+    world = models.ForeignKey(World, on_delete=models.CASCADE, related_name='species', blank=True)
+    creator = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='species', blank=True)
 
     def __str__(self):
         return self.name
@@ -119,7 +119,7 @@ class Society(models.Model):
     extra = HTMLField(null=True, blank=True)
     species = models.ManyToManyField(Species, related_name='societies', blank=True)
     places = models.ManyToManyField(Place, related_name='societies', blank=True)
-    creator = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='societies')
+    creator = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='societies', blank=True)
 
     def __str__(self):
         return self.name
@@ -133,8 +133,8 @@ class SocialGroup(models.Model):
     extra = HTMLField(null=True, blank=True)
     parent = models.ForeignKey('self', on_delete=models.CASCADE, related_name='sub_groups', null=True, blank=True)
     species = models.ManyToManyField(Species, related_name='social_groups', blank=True)
-    society = models.ForeignKey(Society, on_delete=models.CASCADE, related_name='social_groups')
-    creator = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='social_groups')    
+    society = models.ForeignKey(Society, on_delete=models.CASCADE, related_name='social_groups', blank=True)
+    creator = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='social_groups', blank=True)    
 
     def __str__(self):
         return self.name
@@ -153,7 +153,7 @@ class Religion(models.Model):
     species = models.ManyToManyField(Species, related_name='religions', blank=True)
     places = models.ManyToManyField(Place, related_name='religions', blank=True)
     societies = models.ManyToManyField(Society, related_name='religions', blank=True)
-    creator = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='religions')
+    creator = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='religions', blank=True)
 
     def __str__(self):
         return self.name
@@ -166,7 +166,7 @@ class Technology(models.Model):
     origins = HTMLField(null=True, blank=True)
     extra = HTMLField(null=True, blank=True)
     societies = models.ManyToManyField(Society, related_name='technologies', blank=True)
-    creator = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='technologies')
+    creator = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='technologies', blank=True)
 
     def __str__(self):
         return self.name
@@ -180,7 +180,7 @@ class Infrastructure(models.Model):
     extra = HTMLField(null=True, blank=True)
     place = models.ForeignKey(Place, on_delete=models.CASCADE, related_name='infrastructures', null=True, blank=True)
     society = models.ForeignKey(Society, on_delete=models.CASCADE, related_name='infrastructures', null=True, blank=True)
-    creator = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='infrastructures')
+    creator = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='infrastructures', blank=True)
 
     def __str__(self):
         return self.name
@@ -196,7 +196,7 @@ class History(models.Model):
     social_group = models.ForeignKey(SocialGroup, on_delete=models.CASCADE, related_name='histories', null=True, blank=True)
     religion = models.ForeignKey(Religion, on_delete=models.CASCADE, related_name='histories', null=True, blank=True)
     infrastructure = models.ForeignKey(Infrastructure, on_delete=models.CASCADE, related_name='histories', null=True, blank=True)
-    creator = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='histories')
+    creator = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='histories', blank=True)
 
     def __str__(self):
         return self.name

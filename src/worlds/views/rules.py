@@ -53,9 +53,7 @@ def update_can(request, pk):
 
     elif request.method == 'PATCH':
         data = {
-            'can': request.data.get('can'),
-            'creator': request.user.profile.id,
-            'world': rule.world.id
+            'can': request.data.get('can')
         }
         serializer = RuleSerializer(rule, data=data)
         if serializer.is_valid():
@@ -77,9 +75,7 @@ def update_cannot(request, pk):
 
     elif request.method == 'PATCH':
         data = {
-            'cannot': request.data.get('cannot'),
-            'creator': request.user.profile.id,
-            'world': rule.world.id
+            'cannot': request.data.get('cannot')
         }
         serializer = RuleSerializer(rule, data=data)
         if serializer.is_valid():
@@ -100,9 +96,7 @@ def update_explanation(request, pk):
 
     elif request.method == 'PATCH':
         data = {
-            'explanation': request.data.get('explanation'),
-            'creator': request.user.profile.id,
-            'world': rule.world.id
+            'explanation': request.data.get('explanation')
         }
         serializer = RuleSerializer(rule, data=data)
         if serializer.is_valid():
