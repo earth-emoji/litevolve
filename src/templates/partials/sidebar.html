@@ -1,0 +1,61 @@
+<!-- Sidebar  -->
+<nav id="sidebar">
+    <div class="sidebar-header">
+        <h3>LitEvolve</h3>
+        <strong>LE</strong>
+    </div>
+
+    <ul class="list-unstyled components">
+        <li class="active">
+            <a href="#worldSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                <i class="fas fa-globe"></i>
+                World Builder
+            </a>
+            <ul class="collapse list-unstyled" id="worldSubmenu">
+                <li>
+                    <a href="#">Create</a>
+                </li>
+                <li>
+                    <a href="{% url 'worlds:index' request.user.profile.id %}">My Worlds</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="#charSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                <i class="fas fa-user-astronaut"></i>
+                Character Builder
+            </a>
+            <ul class="collapse list-unstyled" id="charSubmenu">
+                <li>
+                    <a href="#">Create</a>
+                </li>
+                <li>
+                    <a href="#">My Characters</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="#storySubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                <i class="fas fa-book"></i>
+                Story Builder
+            </a>
+            <ul class="collapse list-unstyled" id="storySubmenu">
+                <li>
+                    <a href="#">Create</a>
+                </li>
+                <li>
+                    <a href="#">My Stories</a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+
+    <ul class="list-unstyled CTAs">
+        <li>
+            <a class="download text-center" href="#">
+                <i class="fas fa-power-off"></i>
+                Logout
+            </a>
+        </li>
+    </ul>
+</nav>

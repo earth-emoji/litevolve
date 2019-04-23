@@ -1,0 +1,33 @@
+{% extends 'app.html' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    {{ creator.user.name }}'s Worlds
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">{{ creator.user.name }}'s Worlds</h4>
+                    <small><a class="btn btn-primary" href="{% url 'worlds:create-world' %}">Create</a></small>
+                    <table class="table table-responsive my-3">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {% for world in creator.worlds.all %}
+                                <tr>
+                                    <td>{{ world.name }}</td>
+                                    <td><a href="{% url 'worlds:view-world' world.id %}">View</a></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

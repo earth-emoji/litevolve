@@ -1,0 +1,75 @@
+{% extends 'app.html' %}
+{% load static %}
+{% load js %}
+
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        
+        <div class="row">
+            <div class="col-3">
+                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Overview</a>
+                    <a class="nav-link" id="v-pills-rules-tab" data-toggle="pill" href="#v-pills-rules" role="tab" aria-controls="v-pills-rules" aria-selected="false">Rules</a>
+                    <a class="nav-link" id="v-pills-celestial_bodies-tab" data-toggle="pill" href="#v-pills-celestial_bodies" role="tab" aria-controls="v-pills-celestial_bodies" aria-selected="false">Celestial Bodies</a>
+                    <a class="nav-link" id="v-pills-natural_phenomenas-tab" data-toggle="pill" href="#v-pills-natural_phenomenas" role="tab" aria-controls="v-pills-natural_phenomenas" aria-selected="false">Natural Phenomenon</a>
+                    <a class="nav-link" id="v-pills-seasons-tab" data-toggle="pill" href="#v-pills-seasons" role="tab" aria-controls="v-pills-seasons" aria-selected="false">Seasons</a>
+                    <a class="nav-link" id="v-pills-natural_objects-tab" data-toggle="pill" href="#v-pills-natural_objects" role="tab" aria-controls="v-pills-natural_objects" aria-selected="false">Natural Objects</a>
+                    <a class="nav-link" id="v-pills-species-tab" data-toggle="pill" href="#v-pills-species" role="tab" aria-controls="v-pills-species" aria-selected="false">Species</a>
+                    <a class="nav-link" id="v-pills-places-tab" data-toggle="pill" href="#v-pills-places" role="tab" aria-controls="v-pills-places" aria-selected="false">Places</a>
+                    <a class="nav-link" id="v-pills-histories-tab" data-toggle="pill" href="#v-pills-histories" role="tab" aria-controls="v-pills-histories" aria-selected="false">History</a>
+                </div>
+            </div>
+            <div class="col-9">
+                <div class="tab-content" id="v-pills-tabContent">
+                    <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                        <h2 class="card-title"><span id="world-{{world.id}}">{{ world.name }}</span></h2>
+                        {{ world.overview|safe }}
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-rules" role="tabpanel" aria-labelledby="v-pills-rules-tab">
+                        <form method="POST" id="rule-form">
+                            {% csrf_token %}
+                            <div class="input-group mb-3">
+                                <input type="text" name="name" id="name" class="form-control" placeholder="Rule's name" aria-label="Rule's name" aria-describedby="button-addon2">
+                                
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Create</button>
+                                </div>
+                            </div>
+                        </form>
+                        <ul id="rule">
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-celestial_bodies" role="tabpanel" aria-labelledby="v-pills-celestial_bodies-tab">CB</div>
+                    <div class="tab-pane fade" id="v-pills-natural_phenomenas" role="tabpanel" aria-labelledby="v-pills-natural_phenomenas-tab">NP</div>
+                    <div class="tab-pane fade" id="v-pills-seasons" role="tabpanel" aria-labelledby="v-pills-seasons-tab">Seasons</div>
+                    <div class="tab-pane fade" id="v-pills-natural_objects" role="tabpanel" aria-labelledby="v-pills-natural_objects-tab">Natural Objects</div>
+                    <div class="tab-pane fade" id="v-pills-species" role="tabpanel" aria-labelledby="v-pills-species-tab">Species</div>
+                    <div class="tab-pane fade" id="v-pills-places" role="tabpanel" aria-labelledby="v-pills-places-tab">Places</div>
+                    <div class="tab-pane fade" id="v-pills-histories" role="tabpanel" aria-labelledby="v-pills-histories-tab">
+                        <form method="POST" id="history-form">
+                            {% csrf_token %}
+                            <div class="input-group mb-3">
+                                <input type="text" name="history_name" id="history_name" class="form-control" placeholder="Enter name" aria-label="Enter name">
+                                <input type="text" name="year" id="year" class="form-control" placeholder="Enter year" aria-label="Enter year">
+                                <input type="text" name="description" id="description" class="form-control" placeholder="Enter description" aria-label="Enter description" aria-describedby="button-addon2">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-primary" type="submit" id="button-addon2">Add History</button>
+                                </div>
+                            </div>
+                        </form>
+                        <ul id="history" class="timeline"> 
+                        </ul>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block javascript %}
+<script src="{% static 'js/rules.js' %}"></script>
+<script src="{% static 'js/worlds.js' %}"></script>
+{% endblock javascript %}
