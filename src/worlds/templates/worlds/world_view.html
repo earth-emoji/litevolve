@@ -54,7 +54,20 @@
                         <ul id="cbodies">
                         </ul>
                     </div>
-                    <div class="tab-pane fade" id="v-pills-natural_phenomenas" role="tabpanel" aria-labelledby="v-pills-natural_phenomenas-tab">NP</div>
+                    <div class="tab-pane fade" id="v-pills-natural_phenomenas" role="tabpanel" aria-labelledby="v-pills-natural_phenomenas-tab">
+                        <form method="POST" id="nphenom-form">
+                            {% csrf_token %}
+                            <div class="input-group mb-3">
+                                <input type="text" name="npname" id="npname" class="form-control" placeholder="Natural Phenomena's name" aria-label="Natural Phenomena's name" aria-describedby="button-np">
+                                
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" type="submit" id="button-np">Create</button>
+                                </div>
+                            </div>
+                        </form>
+                        <ul id="nphenoms">
+                        </ul>
+                    </div>
                     <div class="tab-pane fade" id="v-pills-seasons" role="tabpanel" aria-labelledby="v-pills-seasons-tab">Seasons</div>
                     <div class="tab-pane fade" id="v-pills-natural_objects" role="tabpanel" aria-labelledby="v-pills-natural_objects-tab">Natural Objects</div>
                     <div class="tab-pane fade" id="v-pills-species" role="tabpanel" aria-labelledby="v-pills-species-tab">Species</div>
