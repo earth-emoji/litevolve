@@ -1,6 +1,6 @@
 from django.urls import path, include
 
-from worlds.views import worlds, rules, celestial_bodies, natural_phenomenas
+from worlds.views import worlds, rules, celestial_bodies, natural_phenomenas, seasons
 
 urlpatterns = [
     path('', include(([
@@ -10,6 +10,7 @@ urlpatterns = [
         path('rules/view/<int:pk>/', rules.rule_edit, name='rule-edit'),
         path('celestial_bodies/view/<int:pk>/', celestial_bodies.cbody_edit, name='cbody-edit'),
         path('natural_phenomenas/view/<int:pk>/', natural_phenomenas.nphenom_edit, name='nphenom-edit'),
+        path('seasons/view/<int:pk>/', seasons.season_edit, name='season-edit'),
 
         path('api/worlds/<int:pk>/histories/', worlds.world_history, name='world-history'),
 
@@ -26,6 +27,10 @@ urlpatterns = [
         path('api/worlds/<int:pk>/natural_phenomenas/', natural_phenomenas.nphenom_collection, name='nphenom-collection'),
         path('api/natural_phenomenas/<int:pk>/', natural_phenomenas.nphenom_single, name='nphenom-single'),
         path('api/natural_phenomenas/<int:pk>/update-description/', natural_phenomenas.update_desc, name='nphenom-update-description'),
+
+        path('api/worlds/<int:pk>/seasons/', seasons.season_collection, name='season-collection'),
+        path('api/seasons/<int:pk>/', seasons.season_single, name='season-single'),
+        path('api/seasons/<int:pk>/update-description/', seasons.update_desc, name='season-update-description'),
     ], 'worlds'), namespace='worlds'))
 ]
  

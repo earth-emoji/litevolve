@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Rule, History, CelestialBody, NaturalPhenomena
+from .models import Rule, History, CelestialBody, NaturalPhenomena, Season
 
 class RuleSerializer(serializers.ModelSerializer):
     class Meta:
@@ -20,4 +20,9 @@ class CelestialBodySerializer(serializers.ModelSerializer):
 class NaturalPhenomenaSerializer(serializers.ModelSerializer):
     class Meta:
         model = NaturalPhenomena
+        fields = '__all__'
+
+class SeasonSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Season
         fields = '__all__'

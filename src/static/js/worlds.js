@@ -25,6 +25,14 @@ $( document ).ready(function() {
         } 
     });
 
+    // load seasons
+    load_data( "/api/worlds/"+world+"/seasons/", function(json) {
+        for (var i = 0; i < json.length; i++) {
+            $("#seasons").prepend("<li id='season-"+json[i].id+"'><strong>"+json[i].name+
+                "</strong> - <a href='/seasons/view/"+json[i].id+"'>View</a> | <a id='delete-season-"+json[i].id+"'>delete me</a></li>");
+        } 
+    });
+
     // load histories
     load_data("/api/worlds/"+world+"/histories/", function(json) {
         for (var i = 0; i < json.length; i++) {
@@ -36,6 +44,8 @@ $( document ).ready(function() {
             $("#history").prepend(history);
         }
     });
+
+    
 
 
 
@@ -109,6 +119,23 @@ $( document ).ready(function() {
             console.log(json); // log the returned json to the console
             $("#nphenom-form")[0].reset();
             $("#nphenoms").prepend("<li id='nphenom-"+json.id+"'><strong>"+json.name+"</strong> - <a href='/natural_phenomenas/view/"+json.id+"'>View</a> | <a id='delete-nphenom-"+json.id+"'>Delete</a></li>");
+            console.log("success"); // another sanity check
+        };
+
+        create(url, data, success);
+    });
+
+    $('#season-form').on('submit', function(event){
+        event.preventDefault();
+        console.log("form submitted!")  // sanity check
+        //create_celestial_body();
+        var url = "/api/worlds/"+world+"/seasons/";
+        var data = { name : $('#seaname').val(), span: $("#span").val()};
+        var success = function(json) {
+            $('#seaname').val(); // remove the value from the input
+            console.log(json); // log the returned json to the console
+            $("#season-form")[0].reset();
+            $("#seasons").prepend("<li id='season-"+json.id+"'><strong>"+json.name+"</strong> - <a href='/season/view/"+json.id+"'>View</a> | <a id='delete-season-"+json.id+"'>Delete</a></li>");
             console.log("success"); // another sanity check
         };
 
