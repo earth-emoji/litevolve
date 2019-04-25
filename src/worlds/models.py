@@ -69,10 +69,10 @@ class PlaceSeason(models.Model):
 
 class NaturalObject(models.Model):
     VALUE_CHOICES = (
-        ('Highly', 'Highly'),
+        ('High', 'High'),
         ('Average', 'Average'),
-        ('Barely', 'Barely'),
-        ('No', 'No'),
+        ('Low', 'Low'),
+        ('None', 'None'),
     )
     name = models.CharField(max_length=255, blank=True)
     appearance = HTMLField(null=True, blank=True)
@@ -90,6 +90,7 @@ class Species(models.Model):
     name = models.CharField(max_length=255, blank=True)
     appearance = HTMLField(null=True, blank=True)
     unique_abilities = HTMLField(null=True, blank=True)
+    intelligence = HTMLField(null=True, blank=True)
     origins = HTMLField(null=True, blank=True)
     habitat = HTMLField(null=True, blank=True)
     ecosystem = HTMLField(null=True, blank=True)
@@ -97,7 +98,6 @@ class Species(models.Model):
     predators = HTMLField(null=True, blank=True)
     defense = HTMLField(null=True, blank=True)
     extra = HTMLField(null=True, blank=True)
-    is_intelligent  = models.BooleanField(default=False)
     places = models.ManyToManyField(Place, related_name='species', blank=True)
     world = models.ForeignKey(World, on_delete=models.CASCADE, related_name='species', blank=True)
     creator = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='species', blank=True)

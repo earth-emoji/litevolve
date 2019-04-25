@@ -1,0 +1,101 @@
+{% extends 'app.html' %}
+{% load static %}
+{% load js %}
+
+{% block head_scripts %}
+
+{% endblock head_scripts %}
+
+{% block content %}
+
+<div class="card">
+    <div class="card-header">
+        <span id="world-{{nobject.world.id}}">{{nobject.world.name }}'s Natural Objects</span>
+    </div>
+    <div class="card-body">
+        
+        <div class="row">
+            <div class="col-3">
+                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Overview</a>
+                    <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Appearance</a>
+                    <a class="nav-link" id="v-pills-history-tab" data-toggle="pill" href="#v-pills-history" role="tab" aria-controls="v-pills-history" aria-selected="false">History</a>
+                    <a class="nav-link" id="v-pills-value-tab" data-toggle="pill" href="#v-pills-value" role="tab" aria-controls="v-pills-value" aria-selected="false">Value</a>
+                </div>
+            </div>
+            <div class="col-9">
+                <div id="results"></div>
+                <div class="tab-content" id="v-pills-tabContent">
+                    <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                        <h2 class="card-title"><span id="nobject-{{nobject.id}}">{{ nobject.name }}</span></h2>
+                        <h3>Appearance</h3>
+                        <div id="ap-content">
+                            {{ nobject.appearance|safe }}
+                        </div>
+                        <h3>History</h3>
+                        <div id="history-content">
+                            {{ nobject.history|safe }}
+                        </div>
+                        <h3>Value</h3>
+                        <p>{{ nobject.name }} value is: <span id="rank">{{ nobject.value }}</span></p>
+                        <div id="value-content">
+                            {{ nobject.value_description|safe }}
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                        <form method="POST" id="ap-form">
+                            {% csrf_token %}
+                            <div class="form-group">
+                              <label for="desc">Provide a description of your Natural Object's appearance</label>
+                              <textarea class="description" name="appearance" id="appearance" rows="3">{{nobject.appearance}}</textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </form>
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-history" role="tabpanel" aria-labelledby="v-pills-history-tab">
+                        <form method="POST" id="history-form">
+                            {% csrf_token %}
+                            <div class="form-group">
+                              <label for="history">Provide a description of your Natural Object's history</label>
+                              <textarea class="description" name="history" id="history" rows="3">{{nobject.history}}</textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </form>
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-value" role="tabpanel" aria-labelledby="v-pills-value-tab">
+                        <form method="POST" id="value-form">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="value">Select a value rank.</label>
+                                <select class="form-control" id="value" name="value">
+                                    {% if nobject.value %}
+                                        <option value="{{nobject.value}}">{{nobject.value}}</option>
+                                        <option value="High">High</option>
+                                        <option value="Average">Average</option>
+                                        <option value="Low">Low</option>
+                                        <option value="None">None</option>
+                                    {% else %}
+                                        <option value="High">High</option>
+                                        <option value="Average">Average</option>
+                                        <option value="Low">Low</option>
+                                        <option value="No">None</option>
+                                    {% endif %}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                              <label for="value-desc">Provide a description of your Natural Object's value</label>
+                              <textarea class="description" name="value-desc" id="value-desc" rows="3">{{nobject.value_description}}</textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block javascript %}
+<script src="{% static 'js/natural_objects.js' %}"></script>
+{% endblock javascript %}

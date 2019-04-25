@@ -33,6 +33,22 @@ $( document ).ready(function() {
         } 
     });
 
+    // load natural objects
+    load_data( "/api/worlds/"+world+"/natural_objects/", function(json) {
+        for (var i = 0; i < json.length; i++) {
+            $("#nobjects").prepend("<li id='nobject-"+json[i].id+"'><strong>"+json[i].name+
+                "</strong> - <a href='/natural_objects/view/"+json[i].id+"'>View</a> | <a id='delete-nobject-"+json[i].id+"'>delete me</a></li>");
+        } 
+    });
+
+    // load natural objects
+    load_data( "/api/worlds/"+world+"/species/", function(json) {
+        for (var i = 0; i < json.length; i++) {
+            $("#species").prepend("<li id='nobject-"+json[i].id+"'><strong>"+json[i].name+
+                "</strong> - <a href='/species/view/"+json[i].id+"'>View</a> | <a id='delete-species-"+json[i].id+"'>delete me</a></li>");
+        } 
+    });
+
     // load histories
     load_data("/api/worlds/"+world+"/histories/", function(json) {
         for (var i = 0; i < json.length; i++) {
@@ -44,10 +60,6 @@ $( document ).ready(function() {
             $("#history").prepend(history);
         }
     });
-
-    
-
-
 
     // Submit post on submit
     $('#rule-form').on('submit', function(event){
@@ -135,7 +147,41 @@ $( document ).ready(function() {
             $('#seaname').val(); // remove the value from the input
             console.log(json); // log the returned json to the console
             $("#season-form")[0].reset();
-            $("#seasons").prepend("<li id='season-"+json.id+"'><strong>"+json.name+"</strong> - <a href='/season/view/"+json.id+"'>View</a> | <a id='delete-season-"+json.id+"'>Delete</a></li>");
+            $("#seasons").prepend("<li id='season-"+json.id+"'><strong>"+json.name+"</strong> - <a href='/seasons/view/"+json.id+"'>View</a> | <a id='delete-season-"+json.id+"'>Delete</a></li>");
+            console.log("success"); // another sanity check
+        };
+
+        create(url, data, success);
+    });
+
+    $('#nobject-form').on('submit', function(event){
+        event.preventDefault();
+        console.log("form submitted!")  // sanity check
+        //create_celestial_body();
+        var url = "/api/worlds/"+world+"/natural_objects/";
+        var data = { name : $('#noname').val()};
+        var success = function(json) {
+            $('#noname').val(); // remove the value from the input
+            console.log(json); // log the returned json to the console
+            $("#nobject-form")[0].reset();
+            $("#nobjects").prepend("<li id='nobject-"+json.id+"'><strong>"+json.name+"</strong> - <a href='/natural_objects/view/"+json.id+"'>View</a> | <a id='delete-season-"+json.id+"'>Delete</a></li>");
+            console.log("success"); // another sanity check
+        };
+
+        create(url, data, success);
+    });
+
+    $('#species-form').on('submit', function(event){
+        event.preventDefault();
+        console.log("form submitted!")  // sanity check
+        //create_celestial_body();
+        var url = "/api/worlds/"+world+"/species/";
+        var data = { name : $('#spcname').val()};
+        var success = function(json) {
+            $('#spcname').val(); // remove the value from the input
+            console.log(json); // log the returned json to the console
+            $("#species-form")[0].reset();
+            $("#species").prepend("<li id='species-"+json.id+"'><strong>"+json.name+"</strong> - <a href='/species/view/"+json.id+"'>View</a> | <a id='delete-species-"+json.id+"'>Delete</a></li>");
             console.log("success"); // another sanity check
         };
 

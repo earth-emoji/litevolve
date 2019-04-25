@@ -1,6 +1,6 @@
 from django.urls import path, include
 
-from worlds.views import worlds, rules, celestial_bodies, natural_phenomenas, seasons
+from worlds.views import worlds, rules, celestial_bodies, natural_phenomenas, seasons, natural_objects, species
 
 urlpatterns = [
     path('', include(([
@@ -11,6 +11,8 @@ urlpatterns = [
         path('celestial_bodies/view/<int:pk>/', celestial_bodies.cbody_edit, name='cbody-edit'),
         path('natural_phenomenas/view/<int:pk>/', natural_phenomenas.nphenom_edit, name='nphenom-edit'),
         path('seasons/view/<int:pk>/', seasons.season_edit, name='season-edit'),
+        path('natural_objects/view/<int:pk>/', natural_objects.nobject_edit, name='nobject-edit'),
+        path('species/view/<int:pk>/', species.species_edit, name='species-edit'),
 
         path('api/worlds/<int:pk>/histories/', worlds.world_history, name='world-history'),
 
@@ -31,6 +33,21 @@ urlpatterns = [
         path('api/worlds/<int:pk>/seasons/', seasons.season_collection, name='season-collection'),
         path('api/seasons/<int:pk>/', seasons.season_single, name='season-single'),
         path('api/seasons/<int:pk>/update-description/', seasons.update_desc, name='season-update-description'),
+
+        path('api/worlds/<int:pk>/natural_objects/', natural_objects.nobject_collection, name='nobject-collection'),
+        path('api/natural_objects/<int:pk>/', natural_objects.nobject_single, name='nobject-single'),
+        path('api/natural_objects/<int:pk>/update-appearance/', natural_objects.update_appearance, name='nobject-update-appearance'),
+        path('api/natural_objects/<int:pk>/update-history/', natural_objects.update_history, name='nobject-update-history'),
+        path('api/natural_objects/<int:pk>/update-value/', natural_objects.update_value, name='nobject-update-value'),
+
+        path('api/worlds/<int:pk>/species/', species.species_collection, name='species-collection'),
+        path('api/species/<int:pk>/', species.species_single, name='species-single'),
+        path('api/species/<int:pk>/update-appearance/', species.update_appearance, name='species-update-appearance'),
+        path('api/species/<int:pk>/update-abilities/', species.update_abilities, name='species-update-abilites'),
+        path('api/species/<int:pk>/update-intelligence/', species.update_intelligence, name='species-update-intelligence'),
+        path('api/species/<int:pk>/update-origins/', species.update_origins, name='species-update-origins'),
+        path('api/species/<int:pk>/update-habitat/', species.update_habitat, name='species-update-habitat'),
+        path('api/species/<int:pk>/update-ecosystem/', species.update_ecosystem, name='species-update-ecosystem'),
     ], 'worlds'), namespace='worlds'))
 ]
  
