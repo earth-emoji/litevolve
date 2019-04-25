@@ -166,6 +166,90 @@ def update_ecosystem(request, pk):
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(['GET', 'PATCH'])
+def update_diet(request, pk):
+    try:
+        species = Species.objects.get(pk=pk)
+    except Species.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    
+    if request.method == 'GET':
+        serializer = SpeciesSerializer(species)
+        return Response(serializer.data)
+
+    elif request.method == 'PATCH':
+        data = {
+            'diet': request.data.get('diet')
+        }
+        serializer = SpeciesSerializer(species, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET', 'PATCH'])
+def update_predators(request, pk):
+    try:
+        species = Species.objects.get(pk=pk)
+    except Species.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    
+    if request.method == 'GET':
+        serializer = SpeciesSerializer(species)
+        return Response(serializer.data)
+
+    elif request.method == 'PATCH':
+        data = {
+            'predators': request.data.get('predators')
+        }
+        serializer = SpeciesSerializer(species, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET', 'PATCH'])
+def update_defense(request, pk):
+    try:
+        species = Species.objects.get(pk=pk)
+    except Species.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    
+    if request.method == 'GET':
+        serializer = SpeciesSerializer(species)
+        return Response(serializer.data)
+
+    elif request.method == 'PATCH':
+        data = {
+            'defense': request.data.get('defense')
+        }
+        serializer = SpeciesSerializer(species, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET', 'PATCH'])
+def update_extra(request, pk):
+    try:
+        species = Species.objects.get(pk=pk)
+    except Species.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    
+    if request.method == 'GET':
+        serializer = SpeciesSerializer(species)
+        return Response(serializer.data)
+
+    elif request.method == 'PATCH':
+        data = {
+            'extra': request.data.get('extra')
+        }
+        serializer = SpeciesSerializer(species, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 def species_edit(request, pk, template_name='species/edit.html', data={}):
     try:

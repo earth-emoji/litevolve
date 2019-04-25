@@ -48,6 +48,10 @@ urlpatterns = [
         path('api/species/<int:pk>/update-origins/', species.update_origins, name='species-update-origins'),
         path('api/species/<int:pk>/update-habitat/', species.update_habitat, name='species-update-habitat'),
         path('api/species/<int:pk>/update-ecosystem/', species.update_ecosystem, name='species-update-ecosystem'),
+        path('api/species/<int:pk>/update-diet/', species.update_diet, name='species-update-diet'),
+        path('api/species/<int:pk>/update-predators/', species.update_predators, name='species-update-predators'),
+        path('api/species/<int:pk>/update-defense/', species.update_defense, name='species-update-defense'),
+        path('api/species/<int:pk>/update-extra/', species.update_extra, name='species-update-extra'),
     ], 'worlds'), namespace='worlds'))
 ]
  

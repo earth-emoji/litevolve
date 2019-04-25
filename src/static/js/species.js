@@ -108,4 +108,75 @@ $( document ).ready(function() {
             $("#ecosystem-content").html(json.ecosystem);
         });
     });
+
+    // Submit post on submit
+    $('#diet-form').on('submit', function(event){
+        event.preventDefault();
+        console.log("form submitted!")  // sanity check
+
+        var url = "/api/species/"+species+"/update-diet/";
+        var data = {
+            csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+            diet: $("#diet").val()
+        };
+
+        patch(url, data, function(json) {
+            var successful = "<div class='alert alert-success alert-dismissible fade show' role='alert'>"+ json.name + " has successfully been update <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+            $('#results').html(successful);
+            $("#diet-content").html(json.diet);
+        });
+    });
+
+    // Submit post on submit
+    $('#predators-form').on('submit', function(event){
+        event.preventDefault();
+        console.log("form submitted!")  // sanity check
+
+        var url = "/api/species/"+species+"/update-predators/";
+        var data = {
+            csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+            predators: $("#predators").val()
+        };
+
+        patch(url, data, function(json) {
+            var successful = "<div class='alert alert-success alert-dismissible fade show' role='alert'>"+ json.name + " has successfully been update <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+            $('#results').html(successful);
+            $("#predators-content").html(json.predators);
+        });
+    });
+
+    // Submit post on submit
+    $('#defense-form').on('submit', function(event){
+        event.preventDefault();
+        console.log("form submitted!")  // sanity check
+
+        var url = "/api/species/"+species+"/update-defense/";
+        var data = {
+            csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+            defense: $("#defense").val()
+        };
+
+        patch(url, data, function(json) {
+            var successful = "<div class='alert alert-success alert-dismissible fade show' role='alert'>"+ json.name + " has successfully been update <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+            $('#results').html(successful);
+            $("#defense-content").html(json.defense);
+        });
+    });
+    // Submit post on submit
+    $('#extra-form').on('submit', function(event){
+        event.preventDefault();
+        console.log("form submitted!")  // sanity check
+
+        var url = "/api/species/"+species+"/update-extra/";
+        var data = {
+            csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+            extra: $("#extra").val()
+        };
+
+        patch(url, data, function(json) {
+            var successful = "<div class='alert alert-success alert-dismissible fade show' role='alert'>"+ json.name + " has successfully been update <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+            $('#results').html(successful);
+            $("#extra-content").html(json.extra);
+        });
+    });
 });
