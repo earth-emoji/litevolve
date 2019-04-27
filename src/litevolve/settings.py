@@ -44,7 +44,10 @@ INSTALLED_APPS = [
     'accounts',
     'files',
     'photos',
+    'histories',
     'worlds',
+    'communities',
+    'iandt',
 ]
 
 MIDDLEWARE = [

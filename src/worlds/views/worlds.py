@@ -1,11 +1,13 @@
+from django.contrib.contenttypes.models import ContentType
 from django.shortcuts import render, redirect
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 
+from histories.models import History
+from histories.serializers import HistorySerializer
 from worlds.forms import WorldForm
-from worlds.models import World, History
-from worlds.serializers import HistorySerializer
+from worlds.models import World
 from accounts.models import UserProfile
 
 # Create your views here.
@@ -35,14 +37,14 @@ def world_history(request, pk):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
-        histories = History.objects.filter(world=world).order_by('-year')
+        histories = History.objects.all().order_by('-year')
         serializer = HistorySerializer(histories, many=True)
         return Response(serializer.data)
     elif request.method == 'POST':
         data = {
             'name': request.data.get('name'), 
             'year': request.data.get('year'),
-            'description': request.data.get('description'),
+            'description': request.data.get('description'),   
             'world': world.pk,
             'creator': request.user.profile.pk
         }
