@@ -58,7 +58,7 @@ class Place(models.Model):
     description = HTMLField(null=True, blank=True)
     world = models.ForeignKey(World, on_delete=models.CASCADE, related_name='places', blank=True)
     creator = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='places', blank=True)
-    seasons = models.ManyToManyField(Season, related_name='seasons', through='PlaceSeason')
+    seasons = models.ManyToManyField(Season, related_name='seasons', through='PlaceSeason', blank=True)
 
     def __str__(self):
         return self.name

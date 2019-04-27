@@ -41,11 +41,19 @@ $( document ).ready(function() {
         } 
     });
 
-    // load natural objects
+    // load species
     load_data( "/api/worlds/"+world+"/species/", function(json) {
         for (var i = 0; i < json.length; i++) {
             $("#species").prepend("<li id='nobject-"+json[i].id+"'><strong>"+json[i].name+
                 "</strong> - <a href='/species/view/"+json[i].id+"'>View</a> | <a id='delete-species-"+json[i].id+"'>delete me</a></li>");
+        } 
+    });
+
+    // load places
+    load_data( "/api/worlds/"+world+"/places/", function(json) {
+        for (var i = 0; i < json.length; i++) {
+            $("#places").prepend("<li id='place-"+json[i].id+"'><strong>"+json[i].name+
+                "</strong> - <a href='/places/view/"+json[i].id+"'>View</a> | <a id='delete-places-"+json[i].id+"'>delete me</a></li>");
         } 
     });
 
@@ -182,6 +190,22 @@ $( document ).ready(function() {
             console.log(json); // log the returned json to the console
             $("#species-form")[0].reset();
             $("#species").prepend("<li id='species-"+json.id+"'><strong>"+json.name+"</strong> - <a href='/species/view/"+json.id+"'>View</a> | <a id='delete-species-"+json.id+"'>Delete</a></li>");
+            console.log("success"); // another sanity check
+        };
+
+        create(url, data, success);
+    });
+
+    $('#place-form').on('submit', function(event){
+        event.preventDefault();
+        console.log("form submitted!")  // sanity check
+        //create_celestial_body();
+        var url = "/api/worlds/"+world+"/places/";
+        var data = { name : $('#plcname').val()};
+        var success = function(json) {
+            $("#place-form")[0].reset(); // remove the value from the input
+            console.log(json); // log the returned json to the console
+            $("#places").prepend("<li id='place-"+json.id+"'><strong>"+json.name+"</strong> - <a href='/places/view/"+json.id+"'>View</a> | <a id='delete-place-"+json.id+"'>Delete</a></li>");
             console.log("success"); // another sanity check
         };
 

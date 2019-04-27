@@ -108,7 +108,19 @@
                         <ul id="species">
                         </ul>
                     </div>
-                    <div class="tab-pane fade" id="v-pills-places" role="tabpanel" aria-labelledby="v-pills-places-tab">Places</div>
+                    <div class="tab-pane fade" id="v-pills-places" role="tabpanel" aria-labelledby="v-pills-places-tab">
+                        <form method="POST" id="place-form">
+                            {% csrf_token %}
+                            <div class="input-group mb-3">
+                                <input type="text" name="plcname" id="plcname" class="form-control" placeholder="Place name" aria-label="Place name" aria-describedby="button-plc">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" type="submit" id="button-plc">Create</button>
+                                </div>
+                            </div>
+                        </form>
+                        <ul id="places">
+                        </ul>
+                    </div>
                     <div class="tab-pane fade" id="v-pills-histories" role="tabpanel" aria-labelledby="v-pills-histories-tab">
                         <form method="POST" id="history-form">
                             {% csrf_token %}

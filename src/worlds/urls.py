@@ -1,6 +1,6 @@
 from django.urls import path, include
 
-from worlds.views import worlds, rules, celestial_bodies, natural_phenomenas, seasons, natural_objects, species
+from worlds.views import worlds, rules, celestial_bodies, natural_phenomenas, seasons, natural_objects, species, places
 
 urlpatterns = [
     path('', include(([
@@ -13,6 +13,7 @@ urlpatterns = [
         path('seasons/view/<int:pk>/', seasons.season_edit, name='season-edit'),
         path('natural_objects/view/<int:pk>/', natural_objects.nobject_edit, name='nobject-edit'),
         path('species/view/<int:pk>/', species.species_edit, name='species-edit'),
+        path('places/view/<int:pk>/', places.place_edit, name='place-edit'),
 
         path('api/worlds/<int:pk>/histories/', worlds.world_history, name='world-history'),
 
@@ -52,6 +53,11 @@ urlpatterns = [
         path('api/species/<int:pk>/update-predators/', species.update_predators, name='species-update-predators'),
         path('api/species/<int:pk>/update-defense/', species.update_defense, name='species-update-defense'),
         path('api/species/<int:pk>/update-extra/', species.update_extra, name='species-update-extra'),
+
+        path('api/worlds/<int:pk>/places/', places.place_collection, name='place-collection'),
+        path('api/places/<int:pk>/', places.place_single, name='place-single'),
+        path('api/places/<int:pk>/update-scenery/', places.update_scenery, name='places-update-scenery'),
+        path('api/places/<int:pk>/update-description/', places.update_description, name='places-update-description'),
     ], 'worlds'), namespace='worlds'))
 ]
  

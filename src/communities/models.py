@@ -33,7 +33,7 @@ class SocialGroup(models.Model):
     extra = HTMLField(null=True, blank=True)
     parent = models.ForeignKey('self', on_delete=models.CASCADE, related_name='sub_groups', null=True, blank=True)
     species = models.ManyToManyField(Species, related_name='social_groups', blank=True)
-    society = models.ForeignKey(Society, on_delete=models.CASCADE, related_name='social_groups', blank=True)
+    society = models.ManyToManyField(Society, related_name='social_groups', blank=True)
     creator = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='social_groups', blank=True)    
 
     def __str__(self):

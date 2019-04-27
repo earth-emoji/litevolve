@@ -1,0 +1,33 @@
+{% extends 'app.html' %}
+{% load static %}
+{% load js %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <span>{{creator.user.name }}'s Social Groups</span>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col">
+               <form method="POST" id="sg-form">
+                    {% csrf_token %}
+                    <div class="input-group mb-3">
+                        <input type="text" name="name" id="name" class="form-control" placeholder="Social Group's name" aria-label="Social Group's name" aria-describedby="button-addon2">
+                        
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Create</button>
+                        </div>
+                    </div>
+                </form>
+                <ul id="sgroups">
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block javascript %}
+<script src="{% static 'js/social_groups.js' %}"></script>
+{% endblock javascript %}
