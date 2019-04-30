@@ -15,6 +15,7 @@ class Society(models.Model):
     hierarchy = HTMLField(null=True, blank=True)
     origin = HTMLField(null=True, blank=True)
     economy = HTMLField(null=True, blank=True)
+    legal = HTMLField(null=True, blank=True)
     rivals = HTMLField(null=True, blank=True)
     extra = HTMLField(null=True, blank=True)
     species = models.ManyToManyField(Species, related_name='societies', blank=True)
@@ -34,7 +35,7 @@ class SocialGroup(models.Model):
     parent = models.ForeignKey('self', on_delete=models.CASCADE, related_name='sub_groups', null=True, blank=True)
     species = models.ManyToManyField(Species, related_name='social_groups', blank=True)
     society = models.ManyToManyField(Society, related_name='social_groups', blank=True)
-    creator = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='social_groups', blank=True)    
+    creator = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='social_groups', blank=True)
 
     def __str__(self):
         return self.name

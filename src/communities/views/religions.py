@@ -10,10 +10,12 @@ from histories.serializers import HistorySerializer
 from worlds.models import World, Species, Place
 from accounts.models import UserProfile
 
+
 # Create your views here.
 def index(request, pk, template_name='religions/index.html', data={}):
     data['creator'] = UserProfile.objects.get(pk=pk, user=request.user)
     return render(request, template_name, data)
+
 
 @api_view(['GET', 'POST'])
 def religion_collection(request):
@@ -31,6 +33,7 @@ def religion_collection(request):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 @api_view(['GET', 'DELETE'])
 def religion_single(request, pk):

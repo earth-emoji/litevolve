@@ -6,6 +6,7 @@ from rest_framework import status
 from worlds.models import Rule, World
 from worlds.serializers import RuleSerializer
 
+
 @api_view(['GET', 'POST'])
 def rule_collection(request, pk):
     world = World.objects.get(pk=pk)
@@ -15,7 +16,7 @@ def rule_collection(request, pk):
         return Response(serializer.data)
     elif request.method == 'POST':
         data = {
-            'name': request.data.get('name'), 
+            'name': request.data.get('name'),
             'world': world.pk,
             'creator': request.user.profile.pk
         }
@@ -24,6 +25,7 @@ def rule_collection(request, pk):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 @api_view(['GET', 'DELETE'])
 def rule_single(request, pk):
@@ -40,13 +42,14 @@ def rule_single(request, pk):
         rule.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+
 @api_view(['GET', 'PATCH'])
 def update_can(request, pk):
     try:
         rule = Rule.objects.get(pk=pk)
     except Rule.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
-    
+
     if request.method == 'GET':
         serializer = RuleSerializer(rule)
         return Response(serializer.data)
@@ -68,7 +71,7 @@ def update_cannot(request, pk):
         rule = Rule.objects.get(pk=pk)
     except Rule.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
-    
+
     if request.method == 'GET':
         serializer = RuleSerializer(rule)
         return Response(serializer.data)
@@ -83,13 +86,14 @@ def update_cannot(request, pk):
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 @api_view(['GET', 'PATCH'])
 def update_explanation(request, pk):
     try:
         rule = Rule.objects.get(pk=pk)
     except Rule.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
-    
+
     if request.method == 'GET':
         serializer = RuleSerializer(rule)
         return Response(serializer.data)
@@ -104,6 +108,7 @@ def update_explanation(request, pk):
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 def rule_edit(request, pk, template_name='rules/edit.html', data={}):
     try:
         rule = Rule.objects.get(pk=pk)
@@ -111,5 +116,3 @@ def rule_edit(request, pk, template_name='rules/edit.html', data={}):
         return Response(status=status.HTTP_404_NOT_FOUND)
     data['rule'] = rule
     return render(request, template_name, data)
-
-    

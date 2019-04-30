@@ -1,0 +1,126 @@
+{% extends 'app.html' %}
+{% load static %}
+{% load js %}
+
+{% block head_scripts %}
+
+{% endblock head_scripts %}
+
+{% block content %}
+
+<div class="card">
+    <div class="card-header">
+        <span>{{society.name }}</span>
+    </div>
+    <div class="card-body">
+
+        <div class="row">
+            <div class="col-3">
+                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Overview</a>
+                    <a class="nav-link" id="v-pills-type-tab" data-toggle="pill" href="#v-pills-type" role="tab" aria-controls="v-pills-type" aria-selected="false">Type</a>
+                    <a class="nav-link" id="v-pills-gov-tab" data-toggle="pill" href="#v-pills-gov" role="tab" aria-controls="v-pills-gov" aria-selected="false">Government</a>
+                    <a class="nav-link" id="v-pills-lead-tab" data-toggle="pill" href="#v-pills-lead" role="tab" aria-controls="v-pills-lead" aria-selected="true">Leadership</a>
+                    <a class="nav-link" id="v-pills-mil-tab" data-toggle="pill" href="#v-pills-mil" role="tab" aria-controls="v-pills-mil" aria-selected="false">Military</a>
+                    <a class="nav-link" id="v-pills-sc-tab" data-toggle="pill" href="#v-pills-sc" role="tab" aria-controls="v-pills-sc" aria-selected="false">Social Capital</a>
+                    <a class="nav-link" id="v-pills-hier-tab" data-toggle="pill" href="#v-pills-hier" role="tab" aria-controls="v-pills-hier" aria-selected="false">Hierarchy</a>
+                    <a class="nav-link" id="v-pills-origin-tab" data-toggle="pill" href="#v-pills-origin" role="tab" aria-controls="v-pills-origin" aria-selected="false">Origins</a>
+                    <a class="nav-link" id="v-pills-econ-tab" data-toggle="pill" href="#v-pills-econ" role="tab" aria-controls="v-pills-econ" aria-selected="true">Economy</a>
+                    <a class="nav-link" id="v-pills-legal-tab" data-toggle="pill" href="#v-pills-legal" role="tab" aria-controls="v-pills-legal" aria-selected="true">Legal</a>
+                    <a class="nav-link" id="v-pills-rivals-tab" data-toggle="pill" href="#v-pills-rivals" role="tab" aria-controls="v-pills-rivals" aria-selected="false">Rivals</a>
+                    <a class="nav-link" id="v-pills-extra-tab" data-toggle="pill" href="#v-pills-extra" role="tab" aria-controls="v-pills-extra" aria-selected="false">Extra</a>
+                </div>
+            </div>
+            <div class="col-9">
+                <div id="results"></div>
+                <div class="tab-content" id="v-pills-tabContent">
+                    <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                        <h2 class="card-title"><span id="society-{{society.id}}">{{ society.name }}</span></h2>
+                        <h3>Type</h3>
+                        <div id="type-content">
+                            {{ society.type|safe }}
+                        </div>
+                        <h3>Government</h3>
+                        <div id="gov-content">
+                            {{ society.government|safe }}
+                        </div>
+                        <h3>Leadership</h3>
+                        <div id="lead-content">
+                            {{ society.leadership|safe }}
+                        </div>
+                        <h3>Military</h3>
+                        <div id="mil-content">
+                            {{ society.military|safe }}
+                        </div>
+                        <h3>Social Capital</h3>
+                        <div id="sc-content">
+                            {{ society.social_capital|safe }}
+                        </div>
+                        <h3>Hierarchy</h3>
+                        <div id="hier-content">
+                            {{ society.hierarchy|safe }}
+                        </div>
+                        <h3>Origins</h3>
+                        <div id="origin-content">
+                            {{ society.origin|safe }}
+                        </div>
+                        <h3>Economy</h3>
+                        <div id="econ-content">
+                            {{ society.economy|safe }}
+                        </div>
+                        <h3>Legal</h3>
+                        <div id="legal-content">
+                            {{ society.legal|safe }}
+                        </div>
+                        <h3>Rivals</h3>
+                        <div id="rivals-content">
+                            {{ society.rivals|safe }}
+                        </div>
+                        <h3>Extra</h3>
+                        <div id="extra-content">
+                            {{ society.extra|safe }}
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-type" role="tabpanel" aria-labelledby="v-pills-type-tab">
+                      {% include "partials/text-editor.html" with form_id="type-form" label="What type of society is it?" field_selector="stype" data=society.type  %}
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-gov" role="tabpanel" aria-labelledby="v-pills-gov-tab">
+                      {% include "partials/text-editor.html" with form_id="gov-form" label="Provide a description for the government of your society" field_selector="gov" data=society.government  %}
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-lead" role="tabpanel" aria-labelledby="v-pills-lead-tab">
+                      {% include "partials/text-editor.html" with form_id="lead-form" label="Provide a description for the leadership of your society" field_selector="lead" data=society.leadership  %}
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-mil" role="tabpanel" aria-labelledby="v-pills-mil-tab">
+                      {% include "partials/text-editor.html" with form_id="mil-form" label="Provide a description for the military of your society" field_selector="mil" data=society.military  %}
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-sc" role="tabpanel" aria-labelledby="v-pills-sc-tab">
+                      {% include "partials/text-editor.html" with form_id="sc-form" label="Provide a description for the social capital of your society" field_selector="scap" data=society.social_capital  %}
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-hier" role="tabpanel" aria-labelledby="v-pills-hier-tab">
+                      {% include "partials/text-editor.html" with form_id="hier-form" label="Provide a description for the hierarchy of your society" field_selector="hier" data=society.hierarchy  %}
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-origin" role="tabpanel" aria-labelledby="v-pills-origin-tab">
+                      {% include "partials/text-editor.html" with form_id="origin-form" label="Provide a description for the origin of your society" field_selector="origin" data=society.origin  %}
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-econ" role="tabpanel" aria-labelledby="v-pills-econ-tab">
+                      {% include "partials/text-editor.html" with form_id="econ-form" label="Provide a description for the economy of your society" field_selector="econ" data=society.economy  %}
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-legal" role="tabpanel" aria-labelledby="v-pills-legal-tab">
+                      {% include "partials/text-editor.html" with form_id="legal-form" label="Provide a description for the legal system of your society" field_selector="gov" data=society.legal  %}
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-rivals" role="tabpanel" aria-labelledby="v-pills-rivals-tab">
+                      {% include "partials/text-editor.html" with form_id="rivals-form" label="Provide a description for the rivals of your society" field_selector="rivals" data=society.rivals  %}
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-extra" role="tabpanel" aria-labelledby="v-pills-extra-tab">
+                      {% include "partials/text-editor.html" with form_id="extra-form" label="Provide any extra details about your society" field_selector="gov" data=society.extra  %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block javascript %}
+<script src="{% static 'js/societies.js' %}"></script>
+{% endblock javascript %}
