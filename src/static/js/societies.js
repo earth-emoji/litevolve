@@ -25,6 +25,7 @@ $( document ).ready(function() {
   });
 
   var society = $("span[id^=society-]").attr('id').split('-')[1];
+
   $('#type-form').on('submit', function(event){
       event.preventDefault();
       console.log("form submitted!")  // sanity check
@@ -110,20 +111,105 @@ $( document ).ready(function() {
       });
   });
 
-  $('#sc-form').on('submit', function(event){
+  $('#hier-form').on('submit', function(event){
       event.preventDefault();
       console.log("form submitted!")  // sanity check
 
-      var url = "/api/societies/"+society+"/update-social-capital/";
+      var url = "/api/societies/"+society+"/update-hierarchy/";
       var data = {
           csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
-          social_capital: $("#scap").val()
+          hierarchy: $("#hier").val()
       };
 
       patch(url, data, function(json) {
           var successful = "<div class='alert alert-success alert-dismissible fade show' role='alert'>"+ json.name + " has successfully been update <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
           $('#results').html(successful);
-          $("#sc-content").html(json.social_capital);
+          $("#hier-content").html(json.hierarchy);
+      });
+  });
+
+  $('#origin-form').on('submit', function(event){
+      event.preventDefault();
+      console.log("form submitted!")  // sanity check
+
+      var url = "/api/societies/"+society+"/update-origin/";
+      var data = {
+          csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+          origin: $("#origin").val()
+      };
+
+      patch(url, data, function(json) {
+          var successful = "<div class='alert alert-success alert-dismissible fade show' role='alert'>"+ json.name + " has successfully been update <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+          $('#results').html(successful);
+          $("#origin-content").html(json.origin);
+      });
+  });
+
+  $('#econ-form').on('submit', function(event){
+      event.preventDefault();
+      console.log("form submitted!")  // sanity check
+
+      var url = "/api/societies/"+society+"/update-economy/";
+      var data = {
+          csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+          economy: $("#econ").val()
+      };
+
+      patch(url, data, function(json) {
+          var successful = "<div class='alert alert-success alert-dismissible fade show' role='alert'>"+ json.name + " has successfully been update <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+          $('#results').html(successful);
+          $("#econ-content").html(json.economy);
+      });
+  });
+
+  $('#legal-form').on('submit', function(event){
+      event.preventDefault();
+      console.log("form submitted!")  // sanity check
+
+      var url = "/api/societies/"+society+"/update-legal/";
+      var data = {
+          csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+          legal: $("#legal").val()
+      };
+
+      patch(url, data, function(json) {
+          var successful = "<div class='alert alert-success alert-dismissible fade show' role='alert'>"+ json.name + " has successfully been update <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+          $('#results').html(successful);
+          $("#legal-content").html(json.legal);
+      });
+  });
+
+  $('#rivals-form').on('submit', function(event){
+      event.preventDefault();
+      console.log("form submitted!")  // sanity check
+
+      var url = "/api/societies/"+society+"/update-rivals/";
+      var data = {
+          csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+          rivals: $("#rivals").val()
+      };
+
+      patch(url, data, function(json) {
+          var successful = "<div class='alert alert-success alert-dismissible fade show' role='alert'>"+ json.name + " has successfully been update <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+          $('#results').html(successful);
+          $("#rivals-content").html(json.rivals);
+      });
+  });
+
+  $('#extra-form').on('submit', function(event){
+      event.preventDefault();
+      console.log("form submitted!")  // sanity check
+
+      var url = "/api/societies/"+society+"/update-extra/";
+      var data = {
+          csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+          extra: $("#extra").val()
+      };
+
+      patch(url, data, function(json) {
+          var successful = "<div class='alert alert-success alert-dismissible fade show' role='alert'>"+ json.name + " has successfully been update <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+          $('#results').html(successful);
+          $("#extra-content").html(json.extra);
       });
   });
 

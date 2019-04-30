@@ -161,6 +161,138 @@ def update_social_capital(request, pk):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+@api_view(['GET', 'PATCH'])
+def update_hierarchy(request, pk):
+    try:
+        society = Society.objects.get(pk=pk)
+    except Society.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = SocietySerializer(society)
+        return Response(serializer.data)
+
+    elif request.method == 'PATCH':
+        data = {
+            'hierarchy': request.data.get('hierarchy')
+        }
+        serializer = SocietySerializer(society, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET', 'PATCH'])
+def update_origin(request, pk):
+    try:
+        society = Society.objects.get(pk=pk)
+    except Society.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = SocietySerializer(society)
+        return Response(serializer.data)
+
+    elif request.method == 'PATCH':
+        data = {
+            'origin': request.data.get('origin')
+        }
+        serializer = SocietySerializer(society, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET', 'PATCH'])
+def update_economy(request, pk):
+    try:
+        society = Society.objects.get(pk=pk)
+    except Society.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = SocietySerializer(society)
+        return Response(serializer.data)
+
+    elif request.method == 'PATCH':
+        data = {
+            'economy': request.data.get('economy')
+        }
+        serializer = SocietySerializer(society, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET', 'PATCH'])
+def update_legal(request, pk):
+    try:
+        society = Society.objects.get(pk=pk)
+    except Society.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = SocietySerializer(society)
+        return Response(serializer.data)
+
+    elif request.method == 'PATCH':
+        data = {
+            'legal': request.data.get('legal')
+        }
+        serializer = SocietySerializer(society, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET', 'PATCH'])
+def update_rivals(request, pk):
+    try:
+        society = Society.objects.get(pk=pk)
+    except Society.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = SocietySerializer(society)
+        return Response(serializer.data)
+
+    elif request.method == 'PATCH':
+        data = {
+            'rivals': request.data.get('rivals')
+        }
+        serializer = SocietySerializer(society, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET', 'PATCH'])
+def update_extra(request, pk):
+    try:
+        society = Society.objects.get(pk=pk)
+    except Society.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = SocietySerializer(society)
+        return Response(serializer.data)
+
+    elif request.method == 'PATCH':
+        data = {
+            'extra': request.data.get('extra')
+        }
+        serializer = SocietySerializer(society, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 def society_edit(request, pk, template_name='societies/edit.html', data={}):
     try:
         society = Society.objects.get(pk=pk)
