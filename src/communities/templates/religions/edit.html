@@ -1,0 +1,110 @@
+{% extends 'app.html' %}
+{% load static %}
+{% load js %}
+
+{% block head_scripts %}
+
+{% endblock head_scripts %}
+
+{% block content %}
+
+<div class="card">
+    <div class="card-header">
+        <span>{{society.name }}</span>
+    </div>
+    <div class="card-body">
+
+        <div class="row">
+            <div class="col-3">
+                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Overview</a>
+                    <a class="nav-link" id="v-pills-deities-tab" data-toggle="pill" href="#v-pills-deities" role="tab" aria-controls="v-pills-deities" aria-selected="false">Deities</a>
+                    <a class="nav-link" id="v-pills-beliefs-tab" data-toggle="pill" href="#v-pills-beliefs" role="tab" aria-controls="v-pills-beliefs" aria-selected="false">Beliefs</a>
+                    <a class="nav-link" id="v-pills-prac-tab" data-toggle="pill" href="#v-pills-prac" role="tab" aria-controls="v-pills-prac" aria-selected="true">Practices</a>
+                    <a class="nav-link" id="v-pills-origins-tab" data-toggle="pill" href="#v-pills-origins" role="tab" aria-controls="v-pills-origins" aria-selected="false">Origins</a>
+                    <a class="nav-link" id="v-pills-org-tab" data-toggle="pill" href="#v-pills-org" role="tab" aria-controls="v-pills-org" aria-selected="false">Organization</a>
+                    <a class="nav-link" id="v-pills-hobj-tab" data-toggle="pill" href="#v-pills-hobj" role="tab" aria-controls="v-pills-hobj" aria-selected="false">Holy Objects</a>
+                    <a class="nav-link" id="v-pills-hdays-tab" data-toggle="pill" href="#v-pills-hdays" role="tab" aria-controls="v-pills-hdays" aria-selected="false">Holidays</a>
+                    <a class="nav-link" id="v-pills-rfigs-tab" data-toggle="pill" href="#v-pills-rfigs" role="tab" aria-controls="v-pills-rfigs" aria-selected="true">Revered Figures</a>
+                    <a class="nav-link" id="v-pills-extra-tab" data-toggle="pill" href="#v-pills-extra" role="tab" aria-controls="v-pills-extra" aria-selected="false">Extra</a>
+                </div>
+            </div>
+            <div class="col-9">
+                <div id="results"></div>
+                <div class="tab-content" id="v-pills-tabContent">
+                    <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                        <h2 class="card-title"><span id="religion-{{religion.id}}">{{ religion.name }}</span></h2>
+                        <h3>Deities</h3>
+                        <div id="deities-content">
+                            {{ religion.deities|safe }}
+                        </div>
+                        <h3>Beliefs</h3>
+                        <div id="beliefs-content">
+                            {{ religion.beliefs|safe }}
+                        </div>
+                        <h3>Practices</h3>
+                        <div id="prac-content">
+                            {{ religion.practices|safe }}
+                        </div>
+                        <h3>Origins</h3>
+                        <div id="origins-content">
+                            {{ religion.origins|safe }}
+                        </div>
+                        <h3>Organization</h3>
+                        <div id="org-content">
+                            {{ religion.organization|safe }}
+                        </div>
+                        <h3>Holy Objects</h3>
+                        <div id="hobj-content">
+                            {{ religion.holy_objects|safe }}
+                        </div>
+                        <h3>Holidays</h3>
+                        <div id="hdays-content">
+                            {{ religion.holidays|safe }}
+                        </div>
+                        <h3>Revered Figures</h3>
+                        <div id="rfigs-content">
+                            {{ religion.revered_figures|safe }}
+                        </div>
+                        <h3>Extra</h3>
+                        <div id="extra-content">
+                            {{ religion.extra|safe }}
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-deities" role="tabpanel" aria-labelledby="v-pills-deities-tab">
+                      {% include "partials/text-editor.html" with form_id="deities-form" label="Describe the deity or deities of your religion" field_selector="deities" data=religion.deities  %}
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-beliefs" role="tabpanel" aria-labelledby="v-pills-beliefs-tab">
+                      {% include "partials/text-editor.html" with form_id="beliefs-form" label="What are beliefs does this religion hold?" field_selector="beliefs" data=religion.beliefs  %}
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-prac" role="tabpanel" aria-labelledby="v-pills-prac-tab">
+                      {% include "partials/text-editor.html" with form_id="prac-form" label="Describe the practices of your religion" field_selector="prac" data=religion.practices %}
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-origins" role="tabpanel" aria-labelledby="v-pills-origins-tab">
+                      {% include "partials/text-editor.html" with form_id="origins-form" label="Describe the origins of your religion" field_selector="origins" data=religion.origins  %}
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-org" role="tabpanel" aria-labelledby="v-pills-org-tab">
+                      {% include "partials/text-editor.html" with form_id="org-form" label="Describe the organization of your religion" field_selector="org" data=religion.organization %}
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-hobj" role="tabpanel" aria-labelledby="v-pills-hobj-tab">
+                      {% include "partials/text-editor.html" with form_id="hobj-form" label="Describe the holy objects of your religion" field_selector="hobj" data=religion.holy_objects %}
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-hdays" role="tabpanel" aria-labelledby="v-pills-hdays-tab">
+                      {% include "partials/text-editor.html" with form_id="hdays-form" label="Describe the holidays of your religion" field_selector="hdays" data=religion.holidays  %}
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-rfigs" role="tabpanel" aria-labelledby="v-pills-rfigs-tab">
+                      {% include "partials/text-editor.html" with form_id="rfigs-form" label="Describe the revered figures in your religion" field_selector="rfigs" data=religion.revered_figures %}
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-extra" role="tabpanel" aria-labelledby="v-pills-extra-tab">
+                      {% include "partials/text-editor.html" with form_id="extra-form" label="Provide any extra details about your religion" field_selector="extra" data=religion.extra  %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block javascript %}
+<script src="{% static 'js/religions.js' %}"></script>
+{% endblock javascript %}

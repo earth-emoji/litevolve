@@ -49,3 +49,211 @@ def religion_single(request, pk):
     elif request.method == 'DELETE':
         religion.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+@api_view(['GET', 'PATCH'])
+def update_deities(request, pk):
+    try:
+        religion = Religion.objects.get(pk=pk)
+    except Religion.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = ReligionSerializer(religion)
+        return Response(serializer.data)
+
+    elif request.method == 'PATCH':
+        data = {
+            'deities': request.data.get('deities')
+        }
+        serializer = ReligionSerializer(religion, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET', 'PATCH'])
+def update_beliefs(request, pk):
+    try:
+        religion = Religion.objects.get(pk=pk)
+    except Religion.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = ReligionSerializer(religion)
+        return Response(serializer.data)
+
+    elif request.method == 'PATCH':
+        data = {
+            'beliefs': request.data.get('beliefs')
+        }
+        serializer = ReligionSerializer(religion, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET', 'PATCH'])
+def update_practices(request, pk):
+    try:
+        religion = Religion.objects.get(pk=pk)
+    except Religion.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = ReligionSerializer(religion)
+        return Response(serializer.data)
+
+    elif request.method == 'PATCH':
+        data = {
+            'practices': request.data.get('practices')
+        }
+        serializer = ReligionSerializer(religion, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET', 'PATCH'])
+def update_origins(request, pk):
+    try:
+        religion = Religion.objects.get(pk=pk)
+    except Religion.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = ReligionSerializer(religion)
+        return Response(serializer.data)
+
+    elif request.method == 'PATCH':
+        data = {
+            'origins': request.data.get('origins')
+        }
+        serializer = ReligionSerializer(religion, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET', 'PATCH'])
+def update_org(request, pk):
+    try:
+        religion = Religion.objects.get(pk=pk)
+    except Religion.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = ReligionSerializer(religion)
+        return Response(serializer.data)
+
+    elif request.method == 'PATCH':
+        data = {
+            'organization': request.data.get('organization')
+        }
+        serializer = ReligionSerializer(religion, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET', 'PATCH'])
+def update_hobj(request, pk):
+    try:
+        religion = Religion.objects.get(pk=pk)
+    except Religion.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = ReligionSerializer(religion)
+        return Response(serializer.data)
+
+    elif request.method == 'PATCH':
+        data = {
+            'holy_objects': request.data.get('holy_objects')
+        }
+        serializer = ReligionSerializer(religion, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET', 'PATCH'])
+def update_holidays(request, pk):
+    try:
+        religion = Religion.objects.get(pk=pk)
+    except Religion.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = ReligionSerializer(religion)
+        return Response(serializer.data)
+
+    elif request.method == 'PATCH':
+        data = {
+            'holidays': request.data.get('holidays')
+        }
+        serializer = ReligionSerializer(religion, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+@api_view(['GET', 'PATCH'])
+def update_rfigs(request, pk):
+    try:
+        religion = Religion.objects.get(pk=pk)
+    except Religion.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = ReligionSerializer(religion)
+        return Response(serializer.data)
+
+    elif request.method == 'PATCH':
+        data = {
+            'revered_figures': request.data.get('revered_figures')
+        }
+        serializer = ReligionSerializer(religion, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET', 'PATCH'])
+def update_extra(request, pk):
+    try:
+        religion = Religion.objects.get(pk=pk)
+    except Religion.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = ReligionSerializer(religion)
+        return Response(serializer.data)
+
+    elif request.method == 'PATCH':
+        data = {
+            'extra': request.data.get('extra')
+        }
+        serializer = ReligionSerializer(religion, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+def religion_edit(request, pk, template_name='religions/edit.html', data={}):
+    try:
+        religion = Religion.objects.get(pk=pk)
+    except Religion.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    data['religion'] = religion
+    return render(request, template_name, data)

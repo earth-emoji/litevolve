@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'worlds',
     'communities',
     'iandt',
+    'characters',
 ]
 
 MIDDLEWARE = [
