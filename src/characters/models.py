@@ -1,3 +1,4 @@
+import uuid
 from django.db import models
 from tinymce.models import HTMLField
 
@@ -9,7 +10,7 @@ from worlds.models import Species
 
 # Create your models here.
 class Character(models.Model):
-
+    slug = models.SlugField(unique=True, default=uuid.uuid1, blank=True)
     name = models.CharField(max_length=255, blank=True)
     sex = models.CharField(max_length=30, null=True, blank=True)
     age = models.CharField(max_length=9, null=True, blank=True)
@@ -40,6 +41,7 @@ class Character(models.Model):
 
 
 class CharacterAppearance(models.Model):
+    slug = models.SlugField(unique=True, default=uuid.uuid1, blank=True)
     height = models.CharField(max_length=10, null=True, blank=True)
     weight = models.CharField(max_length=10, null=True, blank=True)
     eye_color = models.CharField(max_length=20, null=True, blank=True)
@@ -61,7 +63,7 @@ class CharacterPsychology(models.Model):
         ('Extravert', 'Extravert'),
         ('Introvert', 'Introvert')
     )
-
+    slug = models.SlugField(unique=True, default=uuid.uuid1, blank=True)
     intelligence = HTMLField(max_length=255, null=True, blank=True)
     mental_illnesses = HTMLField(null=True, blank=True)
     learning_experiences = HTMLField(null=True, blank=True)
@@ -91,6 +93,7 @@ class CharacterPsychology(models.Model):
 
 
 class CharacterRelationship(models.Model):
+    slug = models.SlugField(unique=True, default=uuid.uuid1, blank=True)
     character = models.ForeignKey(
         Character, on_delete=models.CASCADE, related_name='relationships', blank=True)
     relation = models.ForeignKey(
