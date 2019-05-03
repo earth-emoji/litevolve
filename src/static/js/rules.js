@@ -6,7 +6,7 @@ $( document ).ready(function() {
         event.preventDefault();
         console.log("form submitted!")  // sanity check
 
-        var url = "/api/rules/"+rule+"/update-can/";
+        var url = "/api/natural_laws/"+rule+"/update-can/";
         var data = {
             csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
             can: $("#can").val()
@@ -23,7 +23,7 @@ $( document ).ready(function() {
         event.preventDefault();
         console.log("form submitted!")  // sanity check
 
-        var url = "/api/rules/"+rule+"/update-cannot/";
+        var url = "/api/natural_laws/"+rule+"/update-cannot/";
         var data = {
             csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
             cannot: $("#cannot").val()
@@ -39,7 +39,7 @@ $( document ).ready(function() {
     $('#rule-explanation-form').on('submit', function(event){
         event.preventDefault();
         console.log("form submitted!")  // sanity check
-        var url = "/api/rules/"+rule+"/update-explanation/";
+        var url = "/api/natural_laws/"+rule+"/update-explanation/";
         var data = {
             csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
             explanation: $("#explanation").val()
@@ -50,5 +50,5 @@ $( document ).ready(function() {
             $("#explanation-content").html(json.explanation);
         });
     });
-    
+
 });

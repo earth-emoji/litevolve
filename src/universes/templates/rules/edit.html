@@ -1,0 +1,83 @@
+{% extends 'app.html' %}
+{% load static %}
+{% load js %}
+
+{% block head_scripts %}
+
+{% endblock head_scripts %}
+
+{% block content %}
+
+<div class="card">
+    <div class="card-header">
+        <span id="world-{{rule.world.slug}}">{{rule.world.name }}'s Natural Laws</span>
+    </div>
+    <div class="card-body">
+
+        <div class="row">
+            <div class="col-3">
+                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Overview</a>
+                <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Can</a>
+                <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Can't</a>
+                <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Explanation</a>
+                </div>
+            </div>
+            <div class="col-9">
+                <div id="results"></div>
+                <div class="tab-content" id="v-pills-tabContent">
+                    <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                        <h2 class="card-title"><span id="rule-{{rule.slug}}">{{ rule.name }}</span></h2>
+                        <h3>Can</h3>
+                        <div id="can-content">
+                            {{ rule.can|safe }}
+                        </div>
+                        <h3>Cannot</h3>
+                        <div id="cannot-content">
+                            {{ rule.cannot|safe }}
+                        </div>
+                        <h3>Explanation</h3>
+                        <div id="explanation-content">
+                            {{ rule.explanation|safe }}
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                        <form method="POST" id="rule-can-form">
+                            {% csrf_token %}
+                            <div class="form-group">
+                              <label for="can">What can you do with this natural law?</label>
+                              <textarea class="description" name="can" id="can" rows="3">{{rule.can}}</textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </form>
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                        <form method="POST" id="rule-cannot-form">
+                            {% csrf_token %}
+                            <div class="form-group">
+                              <label for="cannot">What can't you do with this natural law?</label>
+                              <textarea class="description" name="cannot" id="cannot" rows="3">{{rule.cannot}}</textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </form>
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+                        <form method="POST" id="rule-explanation-form">
+                            {% csrf_token %}
+                            <div class="form-group">
+                              <label for="explanation">Provide a detailed explanation of your natural law.</label>
+                              <textarea class="description" name="explanation" id="explanation" rows="3">{{rule.explanation}}</textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block javascript %}
+<script src="{% static 'js/rules.js' %}"></script>
+{% endblock javascript %}

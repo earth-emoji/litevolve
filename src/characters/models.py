@@ -5,7 +5,7 @@ from tinymce.models import HTMLField
 from accounts.models import UserProfile
 from communities.models import Society, SocialGroup, Religion
 from photos.models import Album
-from worlds.models import Species
+from universes.models import Species
 
 
 # Create your models here.

@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'files',
     'photos',
     'histories',
-    'worlds',
+    'universes',
     'communities',
     'iandt',
     'characters',

@@ -4,7 +4,7 @@ from tinymce.models import HTMLField
 from accounts.models import UserProfile
 from characters.models import Character
 from communities.models import Society, Religion, SocialGroup
-from worlds.models import World, Place, Species, CelestialBody
+from universes.models import Universe, Place, Species, CelestialBody
 
 
 # Create your models here.
@@ -19,7 +19,7 @@ class History(models.Model):
     society = models.ForeignKey(Society, on_delete=models.CASCADE, related_name='histories', null=True, blank=True)
     social_group = models.ForeignKey(SocialGroup, on_delete=models.CASCADE, related_name='histories', null=True, blank=True)
     species = models.ForeignKey(Species, on_delete=models.CASCADE, related_name='histories', null=True, blank=True)
-    world = models.ForeignKey(World, on_delete=models.CASCADE, related_name='histories', null=True, blank=True)
+    universe = models.ForeignKey(Universe, on_delete=models.CASCADE, related_name='histories', null=True, blank=True)
     creator = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='histories', blank=True)
 
     def __str__(self):

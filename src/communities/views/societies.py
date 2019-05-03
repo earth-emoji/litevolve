@@ -7,7 +7,6 @@ from communities.models import Society, SocialGroup, Religion
 from communities.serializers import SocietySerializer
 from histories.models import History
 from histories.serializers import HistorySerializer
-from worlds.models import World, Species, Place
 from accounts.models import UserProfile
 
 

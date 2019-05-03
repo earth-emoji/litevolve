@@ -2,9 +2,11 @@ from django.db import models
 from tinymce.models import HTMLField
 
 from accounts.models import UserProfile
-from worlds.models import Place, Species
+from universes.models import Place, Species
 
 # Create your models here.
+
+
 class Society(models.Model):
     name = models.CharField(max_length=255, blank=True)
     type = HTMLField(null=True, blank=True)
@@ -18,12 +20,16 @@ class Society(models.Model):
     legal = HTMLField(null=True, blank=True)
     rivals = HTMLField(null=True, blank=True)
     extra = HTMLField(null=True, blank=True)
-    species = models.ManyToManyField(Species, related_name='societies', blank=True)
-    places = models.ManyToManyField(Place, related_name='societies', blank=True)
-    creator = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='societies', blank=True)
+    species = models.ManyToManyField(
+        Species, related_name='societies', blank=True)
+    places = models.ManyToManyField(
+        Place, related_name='societies', blank=True)
+    creator = models.ForeignKey(
+        UserProfile, on_delete=models.CASCADE, related_name='societies', blank=True)
 
     def __str__(self):
         return self.name
+
 
 class SocialGroup(models.Model):
     name = models.CharField(max_length=255, blank=True)
@@ -32,13 +38,18 @@ class SocialGroup(models.Model):
     structure = HTMLField(null=True, blank=True)
     cohesiveness = HTMLField(null=True, blank=True)
     extra = HTMLField(null=True, blank=True)
-    parent = models.ForeignKey('self', on_delete=models.CASCADE, related_name='sub_groups', null=True, blank=True)
-    species = models.ManyToManyField(Species, related_name='social_groups', blank=True)
-    society = models.ManyToManyField(Society, related_name='social_groups', blank=True)
-    creator = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='social_groups', blank=True)
+    parent = models.ForeignKey(
+        'self', on_delete=models.CASCADE, related_name='sub_groups', null=True, blank=True)
+    species = models.ManyToManyField(
+        Species, related_name='social_groups', blank=True)
+    society = models.ManyToManyField(
+        Society, related_name='social_groups', blank=True)
+    creator = models.ForeignKey(
+        UserProfile, on_delete=models.CASCADE, related_name='social_groups', blank=True)
 
     def __str__(self):
         return self.name
+
 
 class Religion(models.Model):
     name = models.CharField(max_length=255, blank=True)
@@ -51,10 +62,14 @@ class Religion(models.Model):
     holidays = HTMLField(null=True, blank=True)
     revered_figures = HTMLField(null=True, blank=True)
     extra = HTMLField(null=True, blank=True)
-    species = models.ManyToManyField(Species, related_name='religions', blank=True)
-    places = models.ManyToManyField(Place, related_name='religions', blank=True)
-    societies = models.ManyToManyField(Society, related_name='religions', blank=True)
-    creator = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='religions', blank=True)
+    species = models.ManyToManyField(
+        Species, related_name='religions', blank=True)
+    places = models.ManyToManyField(
+        Place, related_name='religions', blank=True)
+    societies = models.ManyToManyField(
+        Society, related_name='religions', blank=True)
+    creator = models.ForeignKey(
+        UserProfile, on_delete=models.CASCADE, related_name='religions', blank=True)
 
     def __str__(self):
         return self.name
