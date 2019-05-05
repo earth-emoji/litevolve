@@ -8,6 +8,6 @@ urlpatterns = [
     path('accounts/signup/', accounts.UserSignUpView.as_view(), name='user_signup'),
     path('accounts/signup/success/', accounts.signup_success, name='success'),
     path('workspace/', include(([
-        path('<int:pk>/', profile.user_profile, name='index'),
+        path('<uuid:slug>/', profile.user_profile, name='index'),
     ], 'accounts'), namespace='profile')),
 ]

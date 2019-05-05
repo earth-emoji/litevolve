@@ -19,7 +19,7 @@ class UserSignUpView(CreateView):
     def form_valid(self, form):
         user = form.save()
         login(self.request, user)
-        return redirect('profile:index', user.profile.id)
+        return redirect('profile:index', user.profile.slug)
 
 
 def signup_success(request, template_name='auth/success.html'):

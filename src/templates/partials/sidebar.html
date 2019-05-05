@@ -6,8 +6,49 @@
     </div>
 
     <ul class="list-unstyled components">
-        <li class="active">
-            <a href="{% url 'worlds:index' request.user.profile.id %}"><i class="fas fa-globe"></i> Worlds</a>
+        <li>
+            <a href="#uniSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                <i class="fas fa-atom"></i>
+                Universe Builder
+            </a>
+            <ul class="collapse list-unstyled" id="uniSubmenu">
+                <li>
+                    <a href="{% url 'universes:index' request.user.profile.slug %}">Universes</a>
+                </li>
+                <li>
+                    <a href="#">Natrual Laws</a>
+                </li>
+                <li>
+                    <a href="#">Particles</a>
+                </li>
+                <li>
+                    <a href="#">Atoms</a>
+                </li>
+                <li>
+                    <a href="#">Elements</a>
+                </li>
+                <li>
+                    <a href="#">Compounds</a>
+                </li>
+                <li>
+                    <a href="#">Celestial Body</a>
+                </li>
+                <li>
+                    <a href="#">Natural Phenomena</a>
+                </li>
+                <li>
+                    <a href="#">Seasons</a>
+                </li>
+                <li>
+                    <a href="#">Places</a>
+                </li>
+                <li>
+                    <a href="#">Natural Objects</a>
+                </li>
+                <li>
+                    <a href="#">Species</a>
+                </li>
+            </ul>
         </li>
         <li>
             <a href="#"><i class="fas fa-user-astronaut"></i> Characters</a>
@@ -22,13 +63,13 @@
             </a>
             <ul class="collapse list-unstyled" id="worldSubmenu">
                 <li>
-                    <a href="{% url 'communities:society-index' request.user.profile.id %}">Societies</a>
+                    <a href="{% url 'communities:society-index' request.user.profile.slug %}">Societies</a>
                 </li>
                 <li>
-                    <a href="{% url 'communities:religion-index' request.user.profile.id %}">Religions</a>
+                    <a href="{% url 'communities:religion-index' request.user.profile.slug %}">Religions</a>
                 </li>
                 <li>
-                    <a href="{% url 'communities:social-group-index' request.user.profile.id %}">Social Groups</a>
+                    <a href="{% url 'communities:social-group-index' request.user.profile.slug %}">Social Groups</a>
                 </li>
             </ul>
         </li>

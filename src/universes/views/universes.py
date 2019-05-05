@@ -11,12 +11,16 @@ from accounts.models import UserProfile
 
 
 # Create your views here.
-def index(request, slug, template_name='universe/index.html', data={}):
+def index(request, slug, template_name='universes/index.html', data={}):
     data['creator'] = UserProfile.objects.get(slug=slug, user=request.user)
     return render(request, template_name, data)
 
 
 def view_universe(request, slug, template_name='universes/edit.html', data={}):
+    try:
+        universe = Universe.objects.get(slug=slug)
+    except Universe.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
     data['universe'] = Universe.objects.get(slug=slug, creator=request.user.profile)
     return render(request, template_name, data)
 
@@ -53,6 +57,28 @@ def universe_single(request, slug):
     elif request.method == 'DELETE':
         universe.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+@api_view(['GET', 'PATCH'])
+def update_overview(request, slug):
+    try:
+        universe = Universe.objects.get(slug=slug)
+    except Universe.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = UniverseSerializer(universe)
+        return Response(serializer.data)
+
+    elif request.method == 'PATCH':
+        data = {
+            'overview': request.data.get('overview')
+        }
+        serializer = UniverseSerializer(universe, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['GET', 'POST'])

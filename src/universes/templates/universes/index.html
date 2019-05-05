@@ -1,33 +1,33 @@
 {% extends 'app.html' %}
+{% load static %}
+{% load js %}
 
 {% block content %}
-    <div class="row">
-        <div class="col">
-            <div class="card">
-                <div class="card-header">
-                    {{ creator.user.name }}'s Worlds
-                </div>
-                <div class="card-body">
-                    <h4 class="card-title">{{ creator.user.name }}'s Worlds</h4>
-                    <small><a class="btn btn-primary" href="{% url 'worlds:create-world' %}">Create</a></small>
-                    <table class="table table-responsive my-3">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Action</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                                {% for world in creator.worlds.all %}
-                                <tr>
-                                    <td>{{ world.name }}</td>
-                                    <td><a href="{% url 'worlds:view-world' world.id %}">View</a></td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                    </table>
+<div class="card">
+    <div class="card-header">
+        <span>{{creator.user.name }}'s Universes</span>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col">
+               <form method="POST" id="universe-form">
+                    {% csrf_token %}
+                    <div class="input-group mb-3">
+                        <input type="text" name="name" id="name" class="form-control" placeholder="Universe's name" aria-label="Universe's name" aria-describedby="button-addon2">
+                        
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Create</button>
+                        </div>
+                    </div>
+                </form>
+                <div id="universes">
                 </div>
             </div>
         </div>
     </div>
+</div>
 {% endblock content %}
+
+{% block javascript %}
+<script src="{% static 'js/universes.js' %}"></script>
+{% endblock javascript %}

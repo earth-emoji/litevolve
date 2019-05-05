@@ -10,8 +10,8 @@ from histories.serializers import HistorySerializer
 from accounts.models import UserProfile
 
 # Create your views here.
-def index(request, pk, template_name='social_groups/index.html', data={}):
-    data['creator'] = UserProfile.objects.get(pk=pk, user=request.user)
+def index(request, slug, template_name='social_groups/index.html', data={}):
+    data['creator'] = UserProfile.objects.get(slug=slug, user=request.user)
     return render(request, template_name, data)
 
 
@@ -34,9 +34,9 @@ def sg_collection(request):
 
 
 @api_view(['GET', 'DELETE'])
-def sg_single(request, pk):
+def sg_single(request, slug):
     try:
-        social_group = SocialGroup.objects.get(pk=pk)
+        social_group = SocialGroup.objects.get(slug=slug)
     except SocialGroup.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -50,9 +50,9 @@ def sg_single(request, pk):
 
 
 @api_view(['GET', 'PATCH'])
-def update_type(request, pk):
+def update_type(request, slug):
     try:
-        social_group = SocialGroup.objects.get(pk=pk)
+        social_group = SocialGroup.objects.get(slug=slug)
     except SocialGroup.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -72,9 +72,9 @@ def update_type(request, pk):
 
 
 @api_view(['GET', 'PATCH'])
-def update_goals(request, pk):
+def update_goals(request, slug):
     try:
-        social_group = SocialGroup.objects.get(pk=pk)
+        social_group = SocialGroup.objects.get(slug=slug)
     except SocialGroup.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -94,9 +94,9 @@ def update_goals(request, pk):
 
 
 @api_view(['GET', 'PATCH'])
-def update_structure(request, pk):
+def update_structure(request, slug):
     try:
-        social_group = SocialGroup.objects.get(pk=pk)
+        social_group = SocialGroup.objects.get(slug=slug)
     except SocialGroup.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -116,9 +116,9 @@ def update_structure(request, pk):
 
 
 @api_view(['GET', 'PATCH'])
-def update_cohes(request, pk):
+def update_cohes(request, slug):
     try:
-        social_group = SocialGroup.objects.get(pk=pk)
+        social_group = SocialGroup.objects.get(slug=slug)
     except SocialGroup.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -138,9 +138,9 @@ def update_cohes(request, pk):
 
 
 @api_view(['GET', 'PATCH'])
-def update_extra(request, pk):
+def update_extra(request, slug):
     try:
-        social_group = SocialGroup.objects.get(pk=pk)
+        social_group = SocialGroup.objects.get(slug=slug)
     except SocialGroup.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -159,9 +159,9 @@ def update_extra(request, pk):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-def sgroup_edit(request, pk, template_name='social_groups/edit.html', data={}):
+def sgroup_edit(request, slug, template_name='social_groups/edit.html', data={}):
     try:
-        social_group = SocialGroup.objects.get(pk=pk)
+        social_group = SocialGroup.objects.get(slug=slug)
     except SocialGroup.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     data['sgroup'] = social_group

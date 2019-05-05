@@ -11,8 +11,8 @@ from accounts.models import UserProfile
 
 
 # Create your views here.
-def index(request, pk, template_name='religions/index.html', data={}):
-    data['creator'] = UserProfile.objects.get(pk=pk, user=request.user)
+def index(request, slug, template_name='religions/index.html', data={}):
+    data['creator'] = UserProfile.objects.get(slug=slug, user=request.user)
     return render(request, template_name, data)
 
 
@@ -35,9 +35,9 @@ def religion_collection(request):
 
 
 @api_view(['GET', 'DELETE'])
-def religion_single(request, pk):
+def religion_single(request, slug):
     try:
-        religion = Religion.objects.get(pk=pk)
+        religion = Religion.objects.get(slug=slug)
     except Religion.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -51,9 +51,9 @@ def religion_single(request, pk):
 
 
 @api_view(['GET', 'PATCH'])
-def update_deities(request, pk):
+def update_deities(request, slug):
     try:
-        religion = Religion.objects.get(pk=pk)
+        religion = Religion.objects.get(slug=slug)
     except Religion.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -73,9 +73,9 @@ def update_deities(request, pk):
 
 
 @api_view(['GET', 'PATCH'])
-def update_beliefs(request, pk):
+def update_beliefs(request, slug):
     try:
-        religion = Religion.objects.get(pk=pk)
+        religion = Religion.objects.get(slug=slug)
     except Religion.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -95,9 +95,9 @@ def update_beliefs(request, pk):
 
 
 @api_view(['GET', 'PATCH'])
-def update_practices(request, pk):
+def update_practices(request, slug):
     try:
-        religion = Religion.objects.get(pk=pk)
+        religion = Religion.objects.get(slug=slug)
     except Religion.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -117,9 +117,9 @@ def update_practices(request, pk):
 
 
 @api_view(['GET', 'PATCH'])
-def update_origins(request, pk):
+def update_origins(request, slug):
     try:
-        religion = Religion.objects.get(pk=pk)
+        religion = Religion.objects.get(slug=slug)
     except Religion.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -139,9 +139,9 @@ def update_origins(request, pk):
 
 
 @api_view(['GET', 'PATCH'])
-def update_org(request, pk):
+def update_org(request, slug):
     try:
-        religion = Religion.objects.get(pk=pk)
+        religion = Religion.objects.get(slug=slug)
     except Religion.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -161,9 +161,9 @@ def update_org(request, pk):
 
 
 @api_view(['GET', 'PATCH'])
-def update_hobj(request, pk):
+def update_hobj(request, slug):
     try:
-        religion = Religion.objects.get(pk=pk)
+        religion = Religion.objects.get(slug=slug)
     except Religion.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -183,9 +183,9 @@ def update_hobj(request, pk):
 
 
 @api_view(['GET', 'PATCH'])
-def update_holidays(request, pk):
+def update_holidays(request, slug):
     try:
-        religion = Religion.objects.get(pk=pk)
+        religion = Religion.objects.get(slug=slug)
     except Religion.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -206,9 +206,9 @@ def update_holidays(request, pk):
 
 
 @api_view(['GET', 'PATCH'])
-def update_rfigs(request, pk):
+def update_rfigs(request, slug):
     try:
-        religion = Religion.objects.get(pk=pk)
+        religion = Religion.objects.get(slug=slug)
     except Religion.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -228,9 +228,9 @@ def update_rfigs(request, pk):
 
 
 @api_view(['GET', 'PATCH'])
-def update_extra(request, pk):
+def update_extra(request, slug):
     try:
-        religion = Religion.objects.get(pk=pk)
+        religion = Religion.objects.get(slug=slug)
     except Religion.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -249,9 +249,9 @@ def update_extra(request, pk):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-def religion_edit(request, pk, template_name='religions/edit.html', data={}):
+def religion_edit(request, slug, template_name='religions/edit.html', data={}):
     try:
-        religion = Religion.objects.get(pk=pk)
+        religion = Religion.objects.get(slug=slug)
     except Religion.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     data['religion'] = religion

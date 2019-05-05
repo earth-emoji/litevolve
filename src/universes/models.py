@@ -21,7 +21,7 @@ class Universe(models.Model):
     visibility = models.CharField(
         default='Private', max_length=13, choices=VISIBILITY_CHOICES, blank=True)
     creator = models.ForeignKey(
-        UserProfile, on_delete=models.CASCADE, related_name='universes')
+        UserProfile, on_delete=models.CASCADE, related_name='universes', blank=True)
 
     def __str__(self):
         return self.name
@@ -44,15 +44,31 @@ class NaturalLaw(models.Model):
         return self.name
 
 
+class Particle(models.Model):
+    slug = models.SlugField(unique=True, default=uuid.uuid1, blank=True)
+    name = models.CharField(max_length=255, blank=True)
+    overview = HTMLField(null=True, blank=True)
+    visibility = models.CharField(
+        default='Private', max_length=13, choices=VISIBILITY_CHOICES, blank=True)
+    universes = models.ManyToManyField(
+        Universe, related_name='particles', blank=True)
+    creator = models.ForeignKey(
+        UserProfile, on_delete=models.CASCADE, related_name='particles', blank=True)
+
+    def __str__(self):
+        return self.name
+
+
 class Atom(models.Model):
     slug = models.SlugField(unique=True, default=uuid.uuid1, blank=True)
     name = models.CharField(max_length=255, blank=True)
-    atomic_number = models.IntegerField(null=True, blank=True)
     description = HTMLField(null=True, blank=True)
     visibility = models.CharField(
         default='Private', max_length=13, choices=VISIBILITY_CHOICES, blank=True)
     universes = models.ManyToManyField(
         Universe, related_name='atoms', blank=True)
+    particles = models.ManyToManyField(
+        Particle, related_name='atoms', blank=True)
     creator = models.ForeignKey(
         UserProfile, on_delete=models.CASCADE, related_name='atoms', blank=True)
 
