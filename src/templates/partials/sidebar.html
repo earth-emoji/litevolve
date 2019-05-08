@@ -16,7 +16,7 @@
                     <a href="{% url 'universes:index' request.user.profile.slug %}">Universes</a>
                 </li>
                 <li>
-                    <a href="#">Natrual Laws</a>
+                    <a href="{% url 'universes:rule-index' request.user.profile.slug %}">Natrual Laws</a>
                 </li>
                 <li>
                     <a href="#">Particles</a>

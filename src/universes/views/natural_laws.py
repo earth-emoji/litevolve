@@ -3,9 +3,13 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 
+from accounts.models import UserProfile
 from universes.models import NaturalLaw
 from universes.serializers import NaturalLawSerializer
 
+def index(request, slug, template_name='rules/index.html', data={}):
+    data['creator'] = UserProfile.objects.get(slug=slug, user=request.user)
+    return render(request, template_name, data)
 
 @api_view(['GET', 'POST'])
 def rule_collection(request):

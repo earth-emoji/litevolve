@@ -15,6 +15,7 @@ urlpatterns = [
         path('universes/creator/<uuid:slug>/', universes.index, name='index'),
         path('universes/view/<uuid:slug>/',
              universes.view_universe, name='view-world'),
+        path('natural_laws/creator/<uuid:slug>/', natural_laws.index, name='rule-index'),
         path('natural_laws/view/<uuid:slug>/',
              natural_laws.rule_edit, name='rule-edit'),
         path('celestial_bodies/view/<uuid:slug>/',

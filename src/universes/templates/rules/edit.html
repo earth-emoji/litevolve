@@ -2,16 +2,10 @@
 {% load static %}
 {% load js %}
 
-{% block head_scripts %}
-
-{% endblock head_scripts %}
-
 {% block content %}
 
 <div class="card">
-    <div class="card-header">
-        <span id="world-{{rule.world.slug}}">{{rule.world.name }}'s Natural Laws</span>
-    </div>
+    
     <div class="card-body">
 
         <div class="row">
@@ -27,7 +21,7 @@
                 <div id="results"></div>
                 <div class="tab-content" id="v-pills-tabContent">
                     <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-                        <h2 class="card-title"><span id="rule-{{rule.slug}}">{{ rule.name }}</span></h2>
+                        <h2 class="card-title"><span id="slug_{{rule.slug}}">{{ rule.name }}</span></h2>
                         <h3>Can</h3>
                         <div id="can-content">
                             {{ rule.can|safe }}
@@ -42,34 +36,13 @@
                         </div>
                     </div>
                     <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-                        <form method="POST" id="rule-can-form">
-                            {% csrf_token %}
-                            <div class="form-group">
-                              <label for="can">What can you do with this natural law?</label>
-                              <textarea class="description" name="can" id="can" rows="3">{{rule.can}}</textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Save</button>
-                        </form>
+                        {% include "partials/text-editor.html" with form_id="can-form" label="What can you do with this natural law?" slug=rule.slug field_selector="can" data=rule.can  %}
                     </div>
                     <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
-                        <form method="POST" id="rule-cannot-form">
-                            {% csrf_token %}
-                            <div class="form-group">
-                              <label for="cannot">What can't you do with this natural law?</label>
-                              <textarea class="description" name="cannot" id="cannot" rows="3">{{rule.cannot}}</textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Save</button>
-                        </form>
+                        {% include "partials/text-editor.html" with form_id="cannot-form" label="What can't you do with this natural law?" slug=rule.slug field_selector="cannot" data=rule.cannot %}
                     </div>
                     <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
-                        <form method="POST" id="rule-explanation-form">
-                            {% csrf_token %}
-                            <div class="form-group">
-                              <label for="explanation">Provide a detailed explanation of your natural law.</label>
-                              <textarea class="description" name="explanation" id="explanation" rows="3">{{rule.explanation}}</textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Save</button>
-                        </form>
+                        {% include "partials/text-editor.html" with form_id="explanation-form" label="Provide a detailed explanation of your natural law." slug=rule.slug field_selector="explanation" data=rule.explanation %}
                     </div>
                 </div>
             </div>

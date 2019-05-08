@@ -1,0 +1,33 @@
+{% extends 'app.html' %}
+{% load static %}
+{% load js %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <span>{{creator.user.name }}'s Natural laws</span>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col">
+               <form method="POST" id="rule-form">
+                    {% csrf_token %}
+                    <div class="input-group mb-3">
+                        <input type="text" name="name" id="name" class="form-control" placeholder="Natural law's name" aria-label="Natural law's name" aria-describedby="button-addon2">
+                        
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Create</button>
+                        </div>
+                    </div>
+                </form>
+                <div id="rules">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block javascript %}
+<script src="{% static 'js/rules.js' %}"></script>
+{% endblock javascript %}
