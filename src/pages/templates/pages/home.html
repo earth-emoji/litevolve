@@ -1,28 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="parallax text-center parallax-mt">
-        <div class="mid">
-            <h2>Lit Evolve</h2>
-            <p class="tagline">Writers &amp; Readers Welcome</p>
-        </div>
-        <div class="color-overlay"></div>
-    </div>
-
-    <div style="color: #FFF;background: linear-gradient(141deg, #FFAE42 0%, #DC4E76 51%, #A946BE 75%);opacity:0.8;text-align:center;padding:50px 80px;text-align: justify;">
-        <div class="container">
-            <div class="row">
-                <div class="col text-center">
-                    <h1><a href="{% url 'login' %}">Login</a></h1>
-                </div>
-                <div class="col text-center">
-                    <h1><a class="nav-link" href="{% url 'user_signup' %}">Signup</a></h1>
-                </div>
-                <div class="col text-center">
-                    <h1>Just here</h1>
-                </div>
-            </div>
+    <div class="row">
+        <div class="col">
+            <a class="btn btn-primary" href="{% url 'user_signup' %}">Register</a> | 
+            <a class="btn btn-primary" href="{% url 'login' %}">Login</a> 
         </div>
     </div>
-
 {% endblock %}

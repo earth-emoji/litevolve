@@ -16,62 +16,27 @@
     <link rel="stylesheet" href="{% static 'libs\fontawesome\css\all.min.css' %}">
 
     <!-- Styles -->
-    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{% static 'libs\bootstrap\dist\css\bootstrap.min.css' %}">
-    <link href="{% static 'css/app.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'libs\animate\animate.css' %}">
+    <link rel="stylesheet" href="{% static 'css/app.css' %}">
   </head>
   <body>
-    <div id="app" class="wrapper">
-        {% include 'partials/sidebar.html' %}
-
-        <!-- Page Content  -->
-        <div id="content">
-
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="container-fluid">
-
-                    <button type="button" id="sidebarCollapse" class="btn btn-info">
-                        <i class="fas fa-align-left"></i>
-                        <span>Toggle Sidebar</span>
-                    </button>
-                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <i class="fas fa-align-justify"></i>
-                    </button>
-
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="nav navbar-nav ml-auto">
-                            <li class="nav-item active">
-                                <a class="nav-link" href="#">User</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-
-            <main class="py-4">
-                <div class="container-fluid">
-                    {% block content %}{% endblock content %}
-                </div>
-            </main>
-
-        </div>
+    <div class="container-fluid">
+        {% block content %}
+        {% endblock content %}
     </div>
+    {% include 'partials/menu.html' %}
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="{% static 'libs\bootstrap\dist\js\jquery.min.js' %}"></script>
     <script src="{% static 'libs\bootstrap\dist\js\popper.min.js' %}"></script>
     <script src="{% static 'libs\bootstrap\dist\js\bootstrap.min.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
+		<script src="{% static 'js/menu.js' %}"></script>
     <script src="{% static 'libs\tinymce\js\tinymce\tinymce.min.js' %}"></script>
     <script src="{% static 'libs\tinymce\js\tinymce\custom.js' %}"></script>
     <script src="{% static 'js\ajaxCRUD.js' %}"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            
-            $('#sidebarCollapse').on('click', function () {
-                $('#sidebar').toggleClass('active');
-            });
-        });
-    </script>
+    <script src="{% static 'js\links.js' %}"></script>
     {% block javascript %}
     {% endblock javascript %}
   </body>

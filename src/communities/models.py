@@ -1,3 +1,4 @@
+import uuid
 from django.db import models
 from tinymce.models import HTMLField
 
@@ -8,6 +9,7 @@ from universes.models import Place, Species
 
 
 class Society(models.Model):
+    slug = models.SlugField(unique=True, default=uuid.uuid1, blank=True)
     name = models.CharField(max_length=255, blank=True)
     type = HTMLField(null=True, blank=True)
     government = HTMLField(null=True, blank=True)
@@ -32,6 +34,7 @@ class Society(models.Model):
 
 
 class SocialGroup(models.Model):
+    slug = models.SlugField(unique=True, default=uuid.uuid1, blank=True)
     name = models.CharField(max_length=255, blank=True)
     type = HTMLField(null=True, blank=True)
     goals = HTMLField(null=True, blank=True)
@@ -52,6 +55,7 @@ class SocialGroup(models.Model):
 
 
 class Religion(models.Model):
+    slug = models.SlugField(unique=True, default=uuid.uuid1, blank=True)
     name = models.CharField(max_length=255, blank=True)
     deities = HTMLField(null=True, blank=True)
     beliefs = HTMLField(null=True, blank=True)

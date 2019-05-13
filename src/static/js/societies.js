@@ -3,8 +3,8 @@ $( document ).ready(function() {
   //load data
   load_data("/api/societies/", function(json) {
       for (var i = 0; i < json.length; i++) {
-          $("#societies").prepend("<li id='society-"+json[i].id+"'><strong>"+json[i].name+
-              "</strong> - <a href='/societies/view/"+json[i].id+"'>View</a> | <a id='delete-society-"+json[i].id+"'>delete me</a></li>");
+          $("#societies").prepend("<li id='society-"+json[i].slug+"'><strong>"+json[i].name+
+              "</strong> - <a href='/societies/view/"+json[i].slug+"'>View</a> | <a id='delete-society-"+json[i].slug+"'>delete me</a></li>");
       }
   });
 
@@ -18,19 +18,19 @@ $( document ).ready(function() {
       var success = function(json) {
           console.log(json); // log the returned json to the console
           $("#society-form")[0].reset();
-          $("#societies").prepend("<li id='society-"+json.id+"'><strong>"+json.name+"</strong> - <a href='/societies/view/"+json.id+"'>View</a> | <a id='delete-society-"+json.id+"'>Delete</a></li>");
+          $("#societies").prepend("<li id='society-"+json.slug+"'><strong>"+json.name+"</strong> - <a href='/societies/view/"+json.slug+"'>View</a> | <a id='delete-society-"+json.slug+"'>Delete</a></li>");
           console.log("success"); // another sanity check
       };
       create(url, data, success);
   });
 
-  var society = $("span[id^=society-]").attr('id').split('-')[1];
+  var slug = $("span[id^=slug_]").attr('id').split('_')[1];
 
   $('#type-form').on('submit', function(event){
       event.preventDefault();
       console.log("form submitted!")  // sanity check
 
-      var url = "/api/societies/"+society+"/update-type/";
+      var url = "/api/societies/"+slug+"/update-type/";
       var data = {
           csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
           type: $("#stype").val()
@@ -47,7 +47,7 @@ $( document ).ready(function() {
       event.preventDefault();
       console.log("form submitted!")  // sanity check
 
-      var url = "/api/societies/"+society+"/update-gov/";
+      var url = "/api/societies/"+slug+"/update-gov/";
       var data = {
           csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
           government: $("#gov").val()
@@ -64,7 +64,7 @@ $( document ).ready(function() {
       event.preventDefault();
       console.log("form submitted!")  // sanity check
 
-      var url = "/api/societies/"+society+"/update-leadership/";
+      var url = "/api/societies/"+slug+"/update-leadership/";
       var data = {
           csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
           leadership: $("#lead").val()
@@ -81,7 +81,7 @@ $( document ).ready(function() {
       event.preventDefault();
       console.log("form submitted!")  // sanity check
 
-      var url = "/api/societies/"+society+"/update-military/";
+      var url = "/api/societies/"+slug+"/update-military/";
       var data = {
           csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
           military: $("#mil").val()
@@ -98,7 +98,7 @@ $( document ).ready(function() {
       event.preventDefault();
       console.log("form submitted!")  // sanity check
 
-      var url = "/api/societies/"+society+"/update-social-capital/";
+      var url = "/api/societies/"+slug+"/update-social-capital/";
       var data = {
           csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
           social_capital: $("#scap").val()
@@ -115,7 +115,7 @@ $( document ).ready(function() {
       event.preventDefault();
       console.log("form submitted!")  // sanity check
 
-      var url = "/api/societies/"+society+"/update-hierarchy/";
+      var url = "/api/societies/"+slug+"/update-hierarchy/";
       var data = {
           csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
           hierarchy: $("#hier").val()
@@ -132,7 +132,7 @@ $( document ).ready(function() {
       event.preventDefault();
       console.log("form submitted!")  // sanity check
 
-      var url = "/api/societies/"+society+"/update-origin/";
+      var url = "/api/societies/"+slug+"/update-origin/";
       var data = {
           csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
           origin: $("#origin").val()
@@ -149,7 +149,7 @@ $( document ).ready(function() {
       event.preventDefault();
       console.log("form submitted!")  // sanity check
 
-      var url = "/api/societies/"+society+"/update-economy/";
+      var url = "/api/societies/"+slug+"/update-economy/";
       var data = {
           csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
           economy: $("#econ").val()
@@ -166,7 +166,7 @@ $( document ).ready(function() {
       event.preventDefault();
       console.log("form submitted!")  // sanity check
 
-      var url = "/api/societies/"+society+"/update-legal/";
+      var url = "/api/societies/"+slug+"/update-legal/";
       var data = {
           csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
           legal: $("#legal").val()
@@ -183,7 +183,7 @@ $( document ).ready(function() {
       event.preventDefault();
       console.log("form submitted!")  // sanity check
 
-      var url = "/api/societies/"+society+"/update-rivals/";
+      var url = "/api/societies/"+slug+"/update-rivals/";
       var data = {
           csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
           rivals: $("#rivals").val()
@@ -200,7 +200,7 @@ $( document ).ready(function() {
       event.preventDefault();
       console.log("form submitted!")  // sanity check
 
-      var url = "/api/societies/"+society+"/update-extra/";
+      var url = "/api/societies/"+slug+"/update-extra/";
       var data = {
           csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
           extra: $("#extra").val()
@@ -212,20 +212,4 @@ $( document ).ready(function() {
           $("#extra-content").html(json.extra);
       });
   });
-
-  // Delete post on click
-  $("#rule").on('click', 'a[id^=delete-rule-]', function(){
-        var primary_key = $(this).attr('id').split('-')[2];
-        console.log(primary_key) // sanity check
-
-        var url = "/api/rules/"+primary_key+"/";
-        var data = { pk : primary_key };
-        var success =  function(json) {
-            // hide the rule
-          $('#rule-'+primary_key).hide(); // hide the post on success
-          console.log("rule deletion successful");
-        };
-
-        remove(url, data, success);
-    });
 });

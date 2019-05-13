@@ -104,16 +104,19 @@ class Plot(models.Model):
 
 
 class Act(models.Model):
+    slug = models.SlugField(unique=True, default=uuid.uuid1, blank=True)
     act_number = models.PositiveIntegerField(blank=True)
     title = models.CharField(max_length=255)
     overview = HTMLField(null=True, blank=True)
     story = models.ForeignKey(Story, on_delete=models.CASCADE, related_name='acts', blank=True)
     author = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='acts', blank=True)
+    
     def __str__(self):
         return self.title
 
 
 class Chapter(models.Model):
+    slug = models.SlugField(unique=True, default=uuid.uuid1, blank=True)
     chap_number = models.PositiveIntegerField(blank=True)
     title = models.CharField(max_length=255, blank=True)
     overview = HTMLField(null=True, blank=True)
@@ -125,6 +128,7 @@ class Chapter(models.Model):
 
 
 class Scene(models.Model):
+    slug = models.SlugField(unique=True, default=uuid.uuid1, blank=True)
     title = models.CharField(max_length=255, blank=True)
     goal = HTMLField(null=True, blank=True)
     emotion = HTMLField(null=True, blank=True)
@@ -139,6 +143,7 @@ class Scene(models.Model):
         return self.title
 
 class Dialogue(models.Model):
+    slug = models.SlugField(unique=True, default=uuid.uuid1, blank=True)
     scene = models.ForeignKey(Scene, on_delete=models.CASCADE, related_name='dialogues', blank=True)
     character = models.ForeignKey(Character, on_delete=models.CASCADE, related_name='dialogues', blank=True)
     content = HTMLField(blank=True)

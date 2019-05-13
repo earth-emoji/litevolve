@@ -1,0 +1,42 @@
+<nav class="menu">
+    <div class="menu__item menu__item--1" data-direction="bt">
+        <div class="menu__item-inner">
+            {% include 'partials/universe_menu.html' %}
+            {% include 'partials/group_menu.html' %}
+            <p class="label label--topleft label--vert-mirror">the important stuff</p>
+            <p class="label label--bottomright label--vert">made in bannockburn</p>
+        </div>
+    </div>
+    <div class="menu__item menu__item--2" data-direction="lr">
+        <div class="menu__item-inner">
+            <div class="menu__item-map"></div>
+            <a href="#" class="menu__item-hoverlink">The location</a>
+        </div>
+    </div>
+    <div class="menu__item menu__item--3" data-direction="bt">
+        <div class="menu__item-inner">
+            <div class="sidemenu">
+                <a href="#" class="sidemenu__item"><span class="sidemenu__item-inner" id="uni-link">Universes</span></a>
+                <a href="#" class="sidemenu__item"><span class="sidemenu__item-inner" id="comm-link">Communities</span></a>
+                <a href="#" class="sidemenu__item"><span class="sidemenu__item-inner" id="char-link">Characters</span></a>
+                <a href="#" class="sidemenu__item"><span class="sidemenu__item-inner" id="struct-link">Constructions</span></a>
+                <a href="#" class="sidemenu__item"><span class="sidemenu__item-inner" id="story-link">Stories</span></a>
+                <a href="#" class="sidemenu__item"><span class="sidemenu__item-inner" id="files-link">Files</span></a>
+                <a href="#" class="sidemenu__item"><span class="sidemenu__item-inner">...</span></a>
+            </div>
+        </div>
+    </div>
+    <div class="menu__item menu__item--4" data-direction="rl">
+        <div class="menu__item-inner">
+            <p style="color:#c96d1c;" class="label label--topleft label--line">Join us now</p>
+            <a href="#" style="color: #024449;" class="menu__item-link">Learn how to <br> participate</a>
+        </div>
+    </div>
+    <div class="menu__item menu__item--5" data-direction="tb">
+        <div class="menu__item-inner">
+            <p class="quote">Hail to thee, our infantry, still brave, beyond the grave</p>
+        </div>
+    </div>
+    <button class="action action--menu"><span class="icon icon--menu" id="icon-menu"><i class="fas fa-bars"></i></span></button>
+    <button class="action action--close"><span class="icon icon--close" id="icon-close"><i class="fas fa-times"></i></span></button>
+</nav>

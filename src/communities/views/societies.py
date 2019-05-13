@@ -11,8 +11,8 @@ from accounts.models import UserProfile
 
 
 # Create your views here.
-def index(request, pk, template_name='societies/index.html', data={}):
-    data['creator'] = UserProfile.objects.get(pk=pk, user=request.user)
+def index(request, slug, template_name='societies/index.html', data={}):
+    data['creator'] = UserProfile.objects.get(slug=slug, user=request.user)
     return render(request, template_name, data)
 
 
@@ -35,9 +35,9 @@ def society_collection(request):
 
 
 @api_view(['GET', 'DELETE'])
-def society_single(request, pk):
+def society_single(request, slug):
     try:
-        society = Society.objects.get(pk=pk)
+        society = Society.objects.get(slug=slug)
     except Society.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -51,9 +51,9 @@ def society_single(request, pk):
 
 
 @api_view(['GET', 'PATCH'])
-def update_type(request, pk):
+def update_type(request, slug):
     try:
-        society = Society.objects.get(pk=pk)
+        society = Society.objects.get(slug=slug)
     except Society.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -73,9 +73,9 @@ def update_type(request, pk):
 
 
 @api_view(['GET', 'PATCH'])
-def update_gov(request, pk):
+def update_gov(request, slug):
     try:
-        society = Society.objects.get(pk=pk)
+        society = Society.objects.get(slug=slug)
     except Society.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -95,9 +95,9 @@ def update_gov(request, pk):
 
 
 @api_view(['GET', 'PATCH'])
-def update_lead(request, pk):
+def update_lead(request, slug):
     try:
-        society = Society.objects.get(pk=pk)
+        society = Society.objects.get(slug=slug)
     except Society.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -117,9 +117,9 @@ def update_lead(request, pk):
 
 
 @api_view(['GET', 'PATCH'])
-def update_military(request, pk):
+def update_military(request, slug):
     try:
-        society = Society.objects.get(pk=pk)
+        society = Society.objects.get(slug=slug)
     except Society.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -139,9 +139,9 @@ def update_military(request, pk):
 
 
 @api_view(['GET', 'PATCH'])
-def update_social_capital(request, pk):
+def update_social_capital(request, slug):
     try:
-        society = Society.objects.get(pk=pk)
+        society = Society.objects.get(slug=slug)
     except Society.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -161,9 +161,9 @@ def update_social_capital(request, pk):
 
 
 @api_view(['GET', 'PATCH'])
-def update_hierarchy(request, pk):
+def update_hierarchy(request, slug):
     try:
-        society = Society.objects.get(pk=pk)
+        society = Society.objects.get(slug=slug)
     except Society.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -183,9 +183,9 @@ def update_hierarchy(request, pk):
 
 
 @api_view(['GET', 'PATCH'])
-def update_origin(request, pk):
+def update_origin(request, slug):
     try:
-        society = Society.objects.get(pk=pk)
+        society = Society.objects.get(slug=slug)
     except Society.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -205,9 +205,9 @@ def update_origin(request, pk):
 
 
 @api_view(['GET', 'PATCH'])
-def update_economy(request, pk):
+def update_economy(request, slug):
     try:
-        society = Society.objects.get(pk=pk)
+        society = Society.objects.get(slug=slug)
     except Society.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -227,9 +227,9 @@ def update_economy(request, pk):
 
 
 @api_view(['GET', 'PATCH'])
-def update_legal(request, pk):
+def update_legal(request, slug):
     try:
-        society = Society.objects.get(pk=pk)
+        society = Society.objects.get(slug=slug)
     except Society.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -249,9 +249,9 @@ def update_legal(request, pk):
 
 
 @api_view(['GET', 'PATCH'])
-def update_rivals(request, pk):
+def update_rivals(request, slug):
     try:
-        society = Society.objects.get(pk=pk)
+        society = Society.objects.get(slug=slug)
     except Society.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -271,9 +271,9 @@ def update_rivals(request, pk):
 
 
 @api_view(['GET', 'PATCH'])
-def update_extra(request, pk):
+def update_extra(request, slug):
     try:
-        society = Society.objects.get(pk=pk)
+        society = Society.objects.get(slug=slug)
     except Society.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -292,9 +292,9 @@ def update_extra(request, pk):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-def society_edit(request, pk, template_name='societies/edit.html', data={}):
+def society_edit(request, slug, template_name='societies/edit.html', data={}):
     try:
-        society = Society.objects.get(pk=pk)
+        society = Society.objects.get(slug=slug)
     except Society.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     data['society'] = society

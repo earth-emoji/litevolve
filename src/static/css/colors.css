@@ -1,47 +1,24 @@
-.cranberry {
-    background-color: #DC4E76;
-    /* background-color: rgb(220,78,118); */
+.surfi-green {
+    color: #097275;
+    background-color: rgb(9,114,117);
 }
 
-.mulberry {
-    background-color: #CC4B93;
-    /* background-color: rgb(204,75,147); */
+.sherpa-blue {
+    color: #024449;
+    background-color: rgb(2,68,73);
 }
 
-.deep-lilac {
-    background-color: #A946BE;
-    /* background-color: rgb(169,70,190); */
+.gin-fizz {
+    color: #f4e9cd;
+    background-color: rgb(244,233,205);
 }
 
-.emerald {
-    background-color: #46BE6D;
-    /* background-color: rgb(70,190,109); */
+.chocolate {
+    color: #c96d1c;
+    background-color: rgb(201,109,28);
 }
 
-.yellow-orange {
-    background-color: #FFAE42;
-    /* background-color: rgb(255,174,66); */
-}
-
-.ghost-white {
-    background-color: #F8F9FD;
-    /* background-color: rgb(248,249,253); */
-}
-
-.deep-lilac-border {
-    border-color: #A946BE;
-}
-
-.slate-blue {
-    background-color: #5C4AE4;
-    /* background-color: rgb(92,74,228); */
-}
-
-.slate-grey {
-    background-color: #E9E7FB;
-}
-
-.deep-koamaru {
-    background-color: #35375A;
-    /* background-color: rgb(53,55,90); */
+.tulip-tree {
+    color: #e2ad38;
+    background-color: rgb(226,173,56);
 }

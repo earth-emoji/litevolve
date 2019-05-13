@@ -1,0 +1,7 @@
+<div id="menu-group" class="mainmenu d-none">
+    <a href="{% url 'communities:society-index' request.user.profile.slug %}" class="mainmenu__item">Societies</a>
+    <a href="{% url 'communities:religion-index' request.user.profile.slug %}" class="mainmenu__item">Religions</a>
+    <a href="{% url 'communities:social-group-index' request.user.profile.slug %}" class="mainmenu__item">Social Groups</a>
+</div>
+
+<!--$( "div.tumble" ).toggleClass( "bounce" )-->

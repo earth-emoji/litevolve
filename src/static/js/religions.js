@@ -2,8 +2,9 @@ $( document ).ready(function() {
     //load rules
     load_data("/api/religions/", function(json) {
         for (var i = 0; i < json.length; i++) {
-            $("#religions").prepend("<li id='religion-"+json[i].id+"'><strong>"+json[i].name+
-                "</strong> - <a href='/religions/view/"+json[i].id+"'>View</a> | <a id='delete-religion-"+json[i].id+"'>delete me</a></li>");
+    var slug = $("span[id^=slug_]").attr('id').split('_')[1];
+            $("#religions").prepend("<li id='religion-"+json[i].slug+"'><strong>"+json[i].name+
+                "</strong> - <a href='/religions/view/"+json[i].slug+"'>View</a> | <a id='delete-religion-"+json[i].slug+"'>delete me</a></li>");
         }
     });
 
@@ -17,19 +18,19 @@ $( document ).ready(function() {
         var success = function(json) {
             console.log(json); // log the returned json to the console
             $("#religion-form")[0].reset();
-            $("#religions").prepend("<li id='religion-"+json.id+"'><strong>"+json.name+"</strong> - <a href='/religions/view/"+json.id+"'>View</a> | <a id='delete-religion-"+json.id+"'>Delete</a></li>");
+            $("#religions").prepend("<li id='religion-"+json.slug+"'><strong>"+json.name+"</strong> - <a href='/religions/view/"+json.slug+"'>View</a> | <a id='delete-religion-"+json.id+"'>Delete</a></li>");
             console.log("success"); // another sanity check
         };
         create(url, data, success);
     });
 
-    var religion = $("span[id^=religion-]").attr('id').split('-')[1];
+    var slug = $("span[id^=slug_]").attr('id').split('_')[1];
 
     $('#deities-form').on('submit', function(event){
         event.preventDefault();
         console.log("form submitted!")  // sanity check
 
-        var url = "/api/religions/"+religion+"/update-deities/";
+        var url = "/api/religions/"+slug+"/update-deities/";
         var data = {
             csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
             deities: $("#deities").val()
@@ -46,7 +47,7 @@ $( document ).ready(function() {
         event.preventDefault();
         console.log("form submitted!")  // sanity check
 
-        var url = "/api/religions/"+religion+"/update-beliefs/";
+        var url = "/api/religions/"+slug+"/update-beliefs/";
         var data = {
             csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
             beliefs: $("#beliefs").val()
@@ -63,7 +64,7 @@ $( document ).ready(function() {
         event.preventDefault();
         console.log("form submitted!")  // sanity check
 
-        var url = "/api/religions/"+religion+"/update-practices/";
+        var url = "/api/religions/"+slug+"/update-practices/";
         var data = {
             csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
             practices: $("#prac").val()
@@ -80,7 +81,7 @@ $( document ).ready(function() {
         event.preventDefault();
         console.log("form submitted!")  // sanity check
 
-        var url = "/api/religions/"+religion+"/update-origins/";
+        var url = "/api/religions/"+slug+"/update-origins/";
         var data = {
             csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
             origins: $("#origins").val()
@@ -97,7 +98,7 @@ $( document ).ready(function() {
         event.preventDefault();
         console.log("form submitted!")  // sanity check
 
-        var url = "/api/religions/"+religion+"/update-organization/";
+        var url = "/api/religions/"+slug+"/update-organization/";
         var data = {
             csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
             organization: $("#org").val()
@@ -114,7 +115,7 @@ $( document ).ready(function() {
         event.preventDefault();
         console.log("form submitted!")  // sanity check
 
-        var url = "/api/religions/"+religion+"/update-holy-objects/";
+        var url = "/api/religions/"+slug+"/update-holy-objects/";
         var data = {
             csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
             holy_objects: $("#hobj").val()
@@ -131,7 +132,7 @@ $( document ).ready(function() {
         event.preventDefault();
         console.log("form submitted!")  // sanity check
 
-        var url = "/api/religions/"+religion+"/update-holidays/";
+        var url = "/api/religions/"+slug+"/update-holidays/";
         var data = {
             csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
             holidays: $("#hdays").val()
@@ -148,7 +149,7 @@ $( document ).ready(function() {
         event.preventDefault();
         console.log("form submitted!")  // sanity check
 
-        var url = "/api/religions/"+religion+"/update-figures/";
+        var url = "/api/religions/"+slug+"/update-figures/";
         var data = {
             csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
             revered_figures: $("#rfigs").val()
@@ -165,7 +166,7 @@ $( document ).ready(function() {
         event.preventDefault();
         console.log("form submitted!")  // sanity check
 
-        var url = "/api/religions/"+religion+"/update-extra/";
+        var url = "/api/religions/"+slug+"/update-extra/";
         var data = {
             csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
             extra: $("#extra").val()
@@ -176,21 +177,5 @@ $( document ).ready(function() {
             $('#results').html(successful);
             $("#extra-content").html(json.extra);
         });
-    });
-
-    // Delete post on click
-    $("#rule").on('click', 'a[id^=delete-rule-]', function(){
-        var primary_key = $(this).attr('id').split('-')[2];
-        console.log(primary_key) // sanity check
-
-        var url = "/api/rules/"+primary_key+"/";
-        var data = { pk : primary_key };
-        var success =  function(json) {
-            // hide the rule
-          $('#rule-'+primary_key).hide(); // hide the post on success
-          console.log("rule deletion successful");
-        };
-
-        remove(url, data, success);
     });
 });
