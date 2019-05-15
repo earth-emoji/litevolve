@@ -39,6 +39,8 @@ urlpatterns = [
              universes.universe_single, name='universe-single'),
         path('api/universes/<uuid:slug>/update-overview/',
              universes.update_overview, name='universe-update-overview'),
+        path('api/universes/<uuid:slug>/natural_laws/',
+             universes.universe_law, name='universe-law'),
 
         path('api/natural_laws/',
              natural_laws.rule_collection, name='rule-collection'),

@@ -7,6 +7,8 @@ from .models import (NaturalLaw,
                      NaturalObject,
                      Species,
                      Place,
+                     Particle,
+                     Element,
                      Universe)
 
 
@@ -21,7 +23,15 @@ class NaturalLawSerializer(serializers.ModelSerializer):
         model = NaturalLaw
         fields = '__all__'
 
+class ParticleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Particle
+        fields = '__all__'
 
+class ElementSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Element
+        fields = '__all__'
 
 class CelestialBodySerializer(serializers.ModelSerializer):
     class Meta:
@@ -58,12 +68,3 @@ class PlaceSerializer(serializers.ModelSerializer):
         model = Place
         fields = '__all__'
 
-# many to many serializers
-class UniverseLawSerializer(serializers.Serializer):
-    natural_law = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
-
-    def create(self, instance, validated_data):
-        # .save() will update the existing `comment` instance.
-        # serializer = UniverseLawSerializer(universe, data=data)
-        instance.natural_laws.add(validated_data.get('natural_law'))
-        return instance

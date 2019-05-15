@@ -90,6 +90,33 @@ $( document ).ready(function() {
         create(url, data, success);
     });
 
+    $('form.natural_laws').each(function() {
+        $(this).on("submit", function(event) {
+            event.preventDefault();
+            console.log("form submitted!")  // sanity check
+            var url = "/api/universes/"+slug+"/natural_laws/";
+            var data = {
+                natural_law: $(this).children("input[id^=law_]").val(),
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+            };
+            var success = function(json) {
+                $("#laws").prepend("<li id='law_"+json.slug+"'><strong>"+json.name+"</strong> - <a href='/natural_laws/view/"+json.slug+"'>View</a></li>");
+                var successful = "<div class='alert alert-success alert-dismissible fade show' role='alert'>"+ json.name + " has successfully added <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+                $("#slug_"+json.slug).fadeOut();
+                $("#slug_"+json.slug).remove();
+                $('#results').html(successful); 
+            };
+            create(url, data, success);
+    
+        });
+    });
+
+    load_data("/api/universes/"+slug+"/natural_laws/", function(json) {
+        for (var i = 0; i < json.length; i++) {
+            $("#laws").prepend("<li id='law_"+json[i].slug+"'><strong>"+json[i].name+"</strong> - <a href='/natural_laws/view/"+json[i].slug+"'>View</a>");
+        }
+    });
+
     $("#universes").on('click', 'a[id^=delete-universe-]', function(){
         var primary_key = $(this).attr('id').split('-')[2];
         console.log(primary_key) // sanity check
@@ -104,4 +131,6 @@ $( document ).ready(function() {
 
         remove(url, data, success);
     });
+
+
 });

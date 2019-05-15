@@ -69,7 +69,7 @@ class Particle(models.Model):
 
 
 class Element(models.Model):
-    MATTER_STATE_CHOICE = (
+    MATTER_STATE_CHOICES = (
         ('Gas', 'Gas'),
         ('Liquid', 'Liquid'),
         ('Solid', 'Solid'),
@@ -79,7 +79,7 @@ class Element(models.Model):
     name = models.CharField(max_length=255, blank=True)
     description = HTMLField(null=True, blank=True)
     matter_state = models.CharField(
-        max_length=25, choices=MATTER_STATE_CHOICE, null=True, blank=True)
+        max_length=25, choices=MATTER_STATE_CHOICES, null=True, blank=True)
     is_metal = models.BooleanField(default=False)
     visibility = models.CharField(
         default='Private', max_length=13, choices=VISIBILITY_CHOICES, blank=True)
@@ -87,22 +87,6 @@ class Element(models.Model):
         Universe, related_name='elements', blank=True)
     creator = models.ForeignKey(
         UserProfile, on_delete=models.CASCADE, related_name='elements', blank=True)
-
-    def __str__(self):
-        return self.name
-
-
-class Compound(models.Model):
-    slug = models.SlugField(unique=True, default=uuid.uuid1, blank=True)
-    name = models.CharField(max_length=255, blank=True)
-    description = HTMLField(null=True, blank=True)
-    visibility = models.CharField(
-        default='Private', max_length=13, choices=VISIBILITY_CHOICES, blank=True)
-    elements = models.ManyToManyField(Element, related_name='compounds')
-    universes = models.ManyToManyField(
-        Universe, related_name='compounds', blank=True)
-    creator = models.ForeignKey(
-        UserProfile, on_delete=models.CASCADE, related_name='compounds', blank=True)
 
     def __str__(self):
         return self.name
