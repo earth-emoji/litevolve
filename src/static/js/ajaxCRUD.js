@@ -50,6 +50,7 @@ function remove(url, data, success) {
 };
 
 function patch (url, data, success) {
+    console.log(data);
     $.ajax({
         url: url,
         type: "PATCH",

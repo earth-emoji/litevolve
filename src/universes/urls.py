@@ -7,7 +7,8 @@ from universes.views import (universes,
                              seasons,
                              natural_objects,
                              species,
-                             places)
+                             places,
+                             particles)
 
 urlpatterns = [
     path('', include(([
@@ -18,6 +19,9 @@ urlpatterns = [
         path('natural_laws/creator/<uuid:slug>/', natural_laws.index, name='rule-index'),
         path('natural_laws/view/<uuid:slug>/',
              natural_laws.rule_edit, name='rule-edit'),
+        path('particles/creator/<uuid:slug>/', particles.index, name='particle-index'),
+        path('particles/view/<uuid:slug>/',
+             particles.edit, name='particle-edit'),
         path('celestial_bodies/view/<uuid:slug>/',
              celestial_bodies.cbody_edit, name='cbody-edit'),
         path('natural_phenomenas/view/<uuid:slug>/',
@@ -41,6 +45,8 @@ urlpatterns = [
              universes.update_overview, name='universe-update-overview'),
         path('api/universes/<uuid:slug>/natural_laws/',
              universes.universe_law, name='universe-law'),
+        path('api/universes/<uuid:slug>/particles/',
+             universes.universe_particle, name='universe-particle'),
 
         path('api/natural_laws/',
              natural_laws.rule_collection, name='rule-collection'),
@@ -52,6 +58,13 @@ urlpatterns = [
              natural_laws.update_cannot, name='rule-update-cannot'),
         path('api/natural_laws/<uuid:slug>/update-explanation/',
              natural_laws.update_explanation, name='rule-update-explanation'),
+
+        path('api/particles/',
+             particles.particle_collection, name='particle-collection'),
+        path('api/particles/<uuid:slug>/',
+             particles.particle_single, name='particle-single'),
+        path('api/particles/<uuid:slug>/update-description/',
+             particles.update_description, name='particle-update-description'),
 
         path('api/celestial_bodies/',
              celestial_bodies.cbody_collection, name='cbody-collection'),

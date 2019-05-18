@@ -14,7 +14,12 @@
                     {% csrf_token %}
                     <div class="input-group mb-3">
                         <input type="text" name="name" id="name" class="form-control" placeholder="Particle's name" aria-label="Particle's name" aria-describedby="button-addon2">
-                        
+                        <select class="custom-select" name="size" id="size"  aria-describedby="button-addon2">
+                            <option selected>Choose...</option>
+                            <option value="Subatomic">Subatomic</option>
+                            <option value="Microscopic">Microscopic</option>
+                            <option value="Macroscopic">Macroscopic</option>
+                        </select>
                         <div class="input-group-append">
                             <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Create</button>
                         </div>

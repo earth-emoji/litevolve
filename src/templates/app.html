@@ -19,11 +19,14 @@
     <link rel="stylesheet" href="{% static 'libs\bootstrap\dist\css\bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'libs\animate\animate.css' %}">
     <link rel="stylesheet" href="{% static 'css/app.css' %}">
+    <link rel="stylesheet" href="{% static 'css/override.css' %}">
   </head>
   <body>
     <div class="container-fluid">
+        {% include 'partials/topbar.html' %}
         {% block content %}
         {% endblock content %}
+        {% include 'modals/search.html' %}
     </div>
     {% include 'partials/menu.html' %}
     <!-- Optional JavaScript -->

@@ -1,3 +1,13 @@
+@font-face {
+	font-family: lato;
+	src: url(../fonts/Lato/Lato-Light.ttf)
+}
+
+@font-face {
+	font-family: raleway;
+	src: url(../fonts/Raleway/Raleway-Regular.ttf)
+}
+
 body {
 	--color-text: #fff;
 	--color-bg: #252525;
@@ -13,14 +23,36 @@ body {
 	--color-info: #097275;
 	--color-title: #e23434;
 	--color-tagline: #e2e2e2;
-	font-family: "europa", Futura, Arial, sans-serif;
+	font-family: raleway;
 	background: #ffffff;
 	padding: 6rem 0 0 0;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: lato;
+}
+
+.bg-main {
+	background-color: #e2ad38;
+}
+
+.bg-second  {
+	background-color: #024449;
+}
+
+
+.navbar-light .navbar-nav .nav-link, .bg-second i {
+	color: #ffffff;
+}
+
 .menu a {
 	color: #e2ad38;
+}
+
+.navbar-light .navbar-nav .show>.nav-link, .navbar-light .navbar-nav .nav-link:hover {
+	color: #c96d1c;
 }
 
 /* Icons */
@@ -181,7 +213,7 @@ body {
 	text-align: center;
 	max-width: 70%;
 	color: var(--color-quote);
-	font-family: "sabbath-black",serif;
+	font-family: lato;
 }
 
 .menu__item-link {

@@ -7,8 +7,8 @@ from rest_framework import status
 
 from histories.models import History
 from histories.serializers import HistorySerializer
-from universes.models import Universe, NaturalLaw
-from universes.serializers import UniverseSerializer, NaturalLawSerializer
+from universes.models import Universe, NaturalLaw, Particle
+from universes.serializers import UniverseSerializer, NaturalLawSerializer, ParticleSerializer
 from accounts.models import UserProfile
 
 
@@ -23,9 +23,9 @@ def view_universe(request, slug, template_name='universes/edit.html', data={}):
         universe = Universe.objects.get(slug=slug)
     except Universe.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
-    laws = NaturalLaw.objects.filter(creator=request.user.profile).exclude(universes__id=universe.id)
+    data['laws'] = NaturalLaw.objects.filter(creator=request.user.profile).exclude(universes__id=universe.id)
+    data['particles'] = Particle.objects.filter(creator=request.user.profile).exclude(universes__id=universe.id)
     data['universe'] = Universe.objects.get(slug=slug, creator=request.user.profile)
-    data['laws'] = laws
     return render(request, template_name, data)
 
 
@@ -133,6 +133,27 @@ def universe_law(request, slug):
         }
         return JsonResponse(data, safe=False)
 
+@api_view(['GET', 'POST'])
+def universe_particle(request, slug):
+    try:
+        universe = Universe.objects.get(slug=slug)
+    except Universe.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        particles = Particle.objects.filter(universes__id=universe.id)
+        serializer = ParticleSerializer(particles, many=True)
+        return Response(serializer.data)
+
+    if request.method == 'POST':
+        slug = request.POST['particle']
+        particle = Particle.objects.get(slug=slug)
+        universe.particles.add(particle)
+        data = {
+            'slug': particle.slug,
+            'name': particle.name, 
+        }
+        return JsonResponse(data)
     
 
     

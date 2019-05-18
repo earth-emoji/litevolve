@@ -1,10 +1,8 @@
 <div id="menu-universe" class="mainmenu">
     <a href="{% url 'universes:index' request.user.profile.slug %}" class="mainmenu__item">Universes</a>
     <a href="{% url 'universes:rule-index' request.user.profile.slug %}" class="mainmenu__item">Natural Laws</a>
-    <a href="#" class="mainmenu__item">Particles</a>
-    <a href="#" class="mainmenu__item">Atoms</a>
+    <a href="{% url 'universes:particle-index' request.user.profile.slug %}" class="mainmenu__item">Particles</a>
     <a href="#" class="mainmenu__item">Elements</a>
-    <a href="#" class="mainmenu__item">Compounds</a>
     <a href="#" class="mainmenu__item">Celestial Body</a>
     <a href="#" class="mainmenu__item">Natural Phenomena</a>
     <a href="#" class="mainmenu__item">Seasons</a>

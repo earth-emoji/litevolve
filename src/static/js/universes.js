@@ -96,11 +96,32 @@ $( document ).ready(function() {
             console.log("form submitted!")  // sanity check
             var url = "/api/universes/"+slug+"/natural_laws/";
             var data = {
-                natural_law: $(this).children("input[id^=law_]").val(),
+                natural_law: $(this).children("input[id^=rule_]").val(),
                 csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
             };
             var success = function(json) {
                 $("#laws").prepend("<li id='law_"+json.slug+"'><strong>"+json.name+"</strong> - <a href='/natural_laws/view/"+json.slug+"'>View</a></li>");
+                var successful = "<div class='alert alert-success alert-dismissible fade show' role='alert'>"+ json.name + " has successfully added <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+                $("#slug_"+json.slug).fadeOut();
+                $("#slug_"+json.slug).remove();
+                $('#results').html(successful); 
+            };
+            create(url, data, success);
+    
+        });
+    });
+
+    $('form.particle-form').each(function() {
+        $(this).on("submit", function(event) {
+            event.preventDefault();
+            console.log("form submitted!")  // sanity check
+            var url = "/api/universes/"+slug+"/particles/";
+            var data = {
+                particle: $(this).children("input[id^=par_]").val(),
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+            };
+            var success = function(json) {
+                $("#particles").prepend("<li id='particle_"+json.slug+"'><strong>"+json.name+"</strong> - <a href='/particles/view/"+json.slug+"'>View</a></li>");
                 var successful = "<div class='alert alert-success alert-dismissible fade show' role='alert'>"+ json.name + " has successfully added <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
                 $("#slug_"+json.slug).fadeOut();
                 $("#slug_"+json.slug).remove();

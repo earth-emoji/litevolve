@@ -3,8 +3,8 @@
 {% load js %}
 
 {% block content %}
-<div class="card">
-    <div class="card-body">
+<div class="">
+    <div class="">
         
         <div class="row">
             <div class="col-3">
@@ -18,10 +18,14 @@
                 <div class="tab-content" id="v-pills-tabContent">
                     <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
                         <h2 class="card-title"><span id="slug_{{particle.slug}}">{{ particle.name }}</span></h2>
-                        <div id="desc-content">{{ particle.description|safe }}</div>
+                        <p class="lead"><strong>Size:</strong> {{ particle.size }}</p>
+                        <h3>Description</h3>
+                        <div id="desc-content">
+                            {{ particle.description|safe }}
+                        </div>
                     </div>
                     <div class="tab-pane fade" id="v-pills-details" role="tabpanel" aria-labelledby="v-pills-details-tab">
-                        {% include "partials/text-editor.html" with form_id="desc-form" label="Describe your particle." slug=particle.slug field_selector="desc" data=particle.description  %}
+                        {% include "partials/text-editor.html" with form_id="desc-form" label="Describe your particle." field_selector="desc" data=particle.description  %}
                     </div>
                 </div>
             </div>
@@ -31,5 +35,5 @@
 {% endblock content %}
 
 {% block javascript %}
-<script src="{% static 'js/universes.js' %}"></script>
+<script src="{% static 'js/particles.js' %}"></script>
 {% endblock javascript %}

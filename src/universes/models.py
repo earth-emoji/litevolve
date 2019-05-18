@@ -91,6 +91,9 @@ class Element(models.Model):
     def __str__(self):
         return self.name
 
+    def add(num, num2):
+        return num + num2
+
 
 class CelestialBody(models.Model):
     slug = models.SlugField(unique=True, default=uuid.uuid1, blank=True)
