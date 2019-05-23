@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'accounts',
     'files',
     'photos',
+    'projects',
     'histories',
     'universes',
     'communities',

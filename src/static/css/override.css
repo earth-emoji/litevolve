@@ -1,5 +1,5 @@
 .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
-    color: #c96d1c;
+    color: #ffffff;
     background-color: #e2ad38;
 }
 
@@ -7,7 +7,7 @@
     border-radius: 0;
 }
 
-.nav-pills a.nav-link {
+.nav-pills a.nav-link, .list-inline-item a {
     color: #024449;
 }
 
@@ -56,18 +56,15 @@
     box-shadow: none;
   }
   
-  .modal-body {
-    text-align: center;
-  }
 
-  .modal-body  h1 {
+  .modal-body h1,
+  .modal-body label {
       color: #e2ad38;
   }
   
   .modal-body form {
     margin: 0 auto;
     float: none;
-    width: 300px;
   }
   .close:not(:disabled):not(.disabled):hover {
     color: #e2ad38;
@@ -83,3 +80,70 @@
   .navbar-default .navbar-form {
     border: none;
   }
+
+.card {
+  position: relative;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid #e2ad38;
+  border-radius: 0;
+}
+
+.card-header {
+  padding: .75rem 1.25rem;
+  margin-bottom: 0;
+  background-color: #024449;
+  border-bottom: 1px solid rgba(0,0,0,.125);
+}
+
+.card-header span {
+  color: #e2ad38;
+}
+
+.card-header:first-child {
+  border-radius: 0;
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  height: calc(2.25rem + 2px);
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0;
+  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.btn {
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border: 1px solid transparent;
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: 0;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.breadcrumb {
+  background-color: #e9ecef;
+  border-radius: 0;
+}

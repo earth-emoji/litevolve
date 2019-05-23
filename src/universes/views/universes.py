@@ -23,9 +23,9 @@ def view_universe(request, slug, template_name='universes/edit.html', data={}):
         universe = Universe.objects.get(slug=slug)
     except Universe.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
+    data['universe'] = universe
     data['laws'] = NaturalLaw.objects.filter(creator=request.user.profile).exclude(universes__id=universe.id)
     data['particles'] = Particle.objects.filter(creator=request.user.profile).exclude(universes__id=universe.id)
-    data['universe'] = Universe.objects.get(slug=slug, creator=request.user.profile)
     return render(request, template_name, data)
 
 

@@ -1,0 +1,62 @@
+{% extends 'app.html' %}
+{% load static %}
+
+{% block breadcrumbs %}
+    <li class="breadcrumb-item"><a href="{% url 'profile:index' request.user.profile.slug %}">Workspace</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'projects:index' request.user.profile.slug %}">Projects</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'projects:view' task.project.slug %}"><span id="slug_{{task.project.slug}}">{{ task.project.name }}</span></a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{ task.name }}</li>
+{% endblock breadcrumbs %}
+
+{% block content %}
+<div class="row">
+    <div class="col-3">
+        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Overview</a>
+            <a class="nav-link" id="v-pills-edit-tab" data-toggle="pill" href="#v-pills-edit" role="tab" aria-controls="v-pills-edit" aria-selected="true">Edit</a>
+        </div>
+    </div>
+    <div class="col-9">
+        <div id="results"></div>
+        <div class="tab-content" id="v-pills-tabContent">
+            <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                
+                <header class="row">
+                    <div class="col">
+                        <span class="card-title h2" id="tslug_{{task.slug}}">{{ task.name }}</span>
+                    </div>
+                </header>
+                <hr />
+                {% if task.content_object == None %}
+                    <button type="button" id="ctype-btn" class="btn btn-primary" data-toggle="modal" data-target="#ctypeModal">
+                        Add content type
+                    </button>
+                {% endif %}
+                <div class="{% if task.content_object == None %}d-none{% endif %}" id="ctype-content">
+                    <a href="{{ task.content_object.url }}">{{ task.content_object }}</a>
+                </div>
+                <form method="POST" id="complete-form">
+                    {% csrf_token %}
+                    <input type="hidden" name="complete" id="complete" value="1" />
+                    <button id="ic-btn" type="submit" {% if task.is_complete == True %}disabled{% endif %} class="btn btn-primary">
+                        {% if task.is_complete == False %}
+                            Complete
+                        {% else %}
+                            Completed
+                        {% endif %}
+                    </button>
+                </form>
+            </div>
+            <div class="tab-pane fade show" id="v-pills-edit" role="tabpanel" aria-labelledby="v-pills-edit-tab">
+                <h2 class="card-title">Edit</h2>
+            </div>
+        </div>
+    </div>
+    {% include 'modals/create_ctype.html' %}
+</div>
+
+{% endblock content %}
+
+{% block javascript %}
+<script src="{% static 'js/projects.js' %}"></script>
+{% endblock javascript %}

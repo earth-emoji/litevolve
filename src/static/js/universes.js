@@ -138,6 +138,13 @@ $( document ).ready(function() {
         }
     });
 
+    load_data("/api/universes/"+slug+"/particles/", function(json) {
+        for (var i = 0; i < json.length; i++) {
+            $("#particles").prepend("<li id='particle_"+json[i].slug+"'><strong>"+json[i].name+"</strong> - <a href='/particles/view/"+json[i].slug+"'>View</a>");
+        }
+    });
+
+
     $("#universes").on('click', 'a[id^=delete-universe-]', function(){
         var primary_key = $(this).attr('id').split('-')[2];
         console.log(primary_key) // sanity check

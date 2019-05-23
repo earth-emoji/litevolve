@@ -1,8 +1,10 @@
 import uuid
+from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from tinymce.models import HTMLField
 
 from accounts.models import UserProfile
+from projects.models import Task
 
 
 # Create your models here.
@@ -20,11 +22,16 @@ class Universe(models.Model):
     overview = HTMLField(null=True, blank=True)
     visibility = models.CharField(
         default='Private', max_length=13, choices=VISIBILITY_CHOICES, blank=True)
+    tasks = GenericRelation(Task)
     creator = models.ForeignKey(
         UserProfile, on_delete=models.CASCADE, related_name='universes', blank=True)
 
     def __str__(self):
         return self.name
+
+    @property
+    def url(self):
+        return "/universes/view/%s/" %(self.slug)
 
 
 class NaturalLaw(models.Model):
@@ -42,6 +49,10 @@ class NaturalLaw(models.Model):
 
     def __str__(self):
         return self.name
+
+    @property
+    def url(self):
+        return "/natural_laws/view/%s/" %(self.slug)
 
 
 class Particle(models.Model):
