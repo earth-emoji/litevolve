@@ -1,6 +1,12 @@
 {% extends 'app.html' %}
 {% load static %}
-{% load js %}
+
+
+{% block breadcrumbs %}
+    <li class="breadcrumb-item"><a href="{% url 'profile:index' request.user.profile.slug %}">Workspace</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'universes:particle-index' request.user.profile.slug %}">Natural Laws</a></li>
+    <li class="breadcrumb-item active" aria-current="page"><span id="slug_{{rule.slug}}">{{ rule.name }}</span></li>
+{% endblock breadcrumbs %}
 
 {% block content %}
 
@@ -21,7 +27,7 @@
                 <div id="results"></div>
                 <div class="tab-content" id="v-pills-tabContent">
                     <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-                        <h2 class="card-title"><span id="slug_{{rule.slug}}">{{ rule.name }}</span></h2>
+                        <h2 class="card-title">{{ rule.name }}</h2>
                         <h3>Can</h3>
                         <div id="can-content">
                             {{ rule.can|safe }}

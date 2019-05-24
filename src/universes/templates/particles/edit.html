@@ -1,33 +1,33 @@
 {% extends 'app.html' %}
 {% load static %}
-{% load js %}
+
+{% block breadcrumbs %}
+    <li class="breadcrumb-item"><a href="{% url 'profile:index' request.user.profile.slug %}">Workspace</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'universes:particle-index' request.user.profile.slug %}">Particles</a></li>
+    <li class="breadcrumb-item active" aria-current="page"><span id="slug_{{particle.slug}}">{{ particle.name }}</span></li>
+{% endblock breadcrumbs %}
 
 {% block content %}
-<div class="">
-    <div class="">
-        
-        <div class="row">
-            <div class="col-3">
-                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                    <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Overview</a>
-                    <a class="nav-link" id="v-pills-rules-tab" data-toggle="pill" href="#v-pills-details" role="tab" aria-controls="v-pills-details" aria-selected="false">Details</a>
+<div class="row">
+    <div class="col-3">
+        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Overview</a>
+            <a class="nav-link" id="v-pills-rules-tab" data-toggle="pill" href="#v-pills-details" role="tab" aria-controls="v-pills-details" aria-selected="false">Details</a>
+        </div>
+    </div>
+    <div class="col-9">
+        <div id="results"></div>
+        <div class="tab-content" id="v-pills-tabContent">
+            <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                <h2 class="card-title">{{ particle.name }}</h2>
+                <p class="lead"><strong>Size:</strong> {{ particle.size }}</p>
+                <h3>Description</h3>
+                <div id="desc-content">
+                    {{ particle.description|safe }}
                 </div>
             </div>
-            <div class="col-9">
-                <div id="results"></div>
-                <div class="tab-content" id="v-pills-tabContent">
-                    <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-                        <h2 class="card-title"><span id="slug_{{particle.slug}}">{{ particle.name }}</span></h2>
-                        <p class="lead"><strong>Size:</strong> {{ particle.size }}</p>
-                        <h3>Description</h3>
-                        <div id="desc-content">
-                            {{ particle.description|safe }}
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="v-pills-details" role="tabpanel" aria-labelledby="v-pills-details-tab">
-                        {% include "partials/text-editor.html" with form_id="desc-form" label="Describe your particle." field_selector="desc" data=particle.description  %}
-                    </div>
-                </div>
+            <div class="tab-pane fade" id="v-pills-details" role="tabpanel" aria-labelledby="v-pills-details-tab">
+                {% include "partials/text-editor.html" with form_id="desc-form" label="Describe your particle." field_selector="desc" data=particle.description  %}
             </div>
         </div>
     </div>

@@ -1,6 +1,10 @@
 {% extends 'app.html' %}
 {% load static %}
-{% load js %}
+
+{% block breadcrumbs %}
+    <li class="breadcrumb-item"><a href="{% url 'profile:index' request.user.profile.slug %}">Workspace</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Natural Laws</li>
+{% endblock breadcrumbs %}
 
 {% block content %}
 <div class="card">
