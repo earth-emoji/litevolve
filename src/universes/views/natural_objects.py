@@ -3,8 +3,23 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 
+from accounts.models import UserProfile
 from universes.models import NaturalObject
 from universes.serializers import NaturalObjectSerializer
+
+
+def nobject_index(request, slug, template_name='nobjects/index.html', data={}):
+    data['creator'] = UserProfile.objects.get(slug=slug, user=request.user)
+    return render(request, template_name, data)
+
+
+def nobject_edit(request, slug, template_name='nobjects/edit.html', data={}):
+    try:
+        natural_object = NaturalObject.objects.get(slug=slug)
+    except NaturalObject.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    data['nobject'] = natural_object
+    return render(request, template_name, data)
 
 
 @api_view(['GET', 'POST'])
@@ -107,11 +122,3 @@ def update_value(request, slug):
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
-def nobject_edit(request, slug, template_name='nobjects/edit.html', data={}):
-    try:
-        natural_object = NaturalObject.objects.get(slug=slug)
-    except NaturalObject.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
-    data['nobject'] = natural_object
-    return render(request, template_name, data)

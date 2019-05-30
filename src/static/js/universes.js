@@ -1,6 +1,6 @@
 $( document ).ready(function() {
 
-    //load rules
+    //load data
     load_data("/api/universes/", function(json) {
         for (var i = 0; i < json.length; i++) {
             $("#universes").prepend("<div id='universe-"+json[i].slug+"' class='media'>\

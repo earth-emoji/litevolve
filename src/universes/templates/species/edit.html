@@ -1,182 +1,176 @@
 {% extends 'app.html' %}
 {% load static %}
-{% load js %}
 
-{% block head_scripts %}
-
-{% endblock head_scripts %}
+{% block breadcrumbs %}
+    <li class="breadcrumb-item"><a href="{% url 'profile:index' request.user.profile.slug %}">Workspace</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'species:index' request.user.profile.slug %}">Species</a></li>
+    <li class="breadcrumb-item active" aria-current="page"><span id="slug_{{species.slug}}">{{ species.name }}</span></li>
+{% endblock breadcrumbs %}
 
 {% block content %}
 
-<div class="card">
-    <div class="card-header">
-        <span id="world-{{species.world.id}}">{{species.world.name }}'s Species</span>
+<div class="row">
+    <div class="col-3">
+        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Overview</a>
+            <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Appearance</a>
+            <a class="nav-link" id="v-pills-ua-tab" data-toggle="pill" href="#v-pills-ua" role="tab" aria-controls="v-pills-ua" aria-selected="false">Unique Abilities</a>
+            <a class="nav-link" id="v-pills-intell-tab" data-toggle="pill" href="#v-pills-intell" role="tab" aria-controls="v-pills-intell" aria-selected="false">Intelligence</a>
+            <a class="nav-link" id="v-pills-origins-tab" data-toggle="pill" href="#v-pills-origins" role="tab" aria-controls="v-pills-origins" aria-selected="false">Origins</a>
+            <a class="nav-link" id="v-pills-ecosystem-tab" data-toggle="pill" href="#v-pills-ecosystem" role="tab" aria-controls="v-pills-ecosystem" aria-selected="false">Ecosystem</a>
+            <a class="nav-link" id="v-pills-habitat-tab" data-toggle="pill" href="#v-pills-habitat" role="tab" aria-controls="v-pills-habitat" aria-selected="false">Habitat</a>
+            <a class="nav-link" id="v-pills-diet-tab" data-toggle="pill" href="#v-pills-diet" role="tab" aria-controls="v-pills-diet" aria-selected="false">Diet</a>
+            <a class="nav-link" id="v-pills-predators-tab" data-toggle="pill" href="#v-pills-predators" role="tab" aria-controls="v-pills-predators" aria-selected="false">Predators</a>
+            <a class="nav-link" id="v-pills-defense-tab" data-toggle="pill" href="#v-pills-defense" role="tab" aria-controls="v-pills-defense" aria-selected="false">Defenses</a>
+            <a class="nav-link" id="v-pills-extra-tab" data-toggle="pill" href="#v-pills-extra" role="tab" aria-controls="v-pills-extra" aria-selected="false">Extra</a>
+        </div>
     </div>
-    <div class="card-body">
-        
-        <div class="row">
-            <div class="col-3">
-                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                    <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Overview</a>
-                    <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Appearance</a>
-                    <a class="nav-link" id="v-pills-ua-tab" data-toggle="pill" href="#v-pills-ua" role="tab" aria-controls="v-pills-ua" aria-selected="false">Unique Abilities</a>
-                    <a class="nav-link" id="v-pills-intell-tab" data-toggle="pill" href="#v-pills-intell" role="tab" aria-controls="v-pills-intell" aria-selected="false">Intelligence</a>
-                    <a class="nav-link" id="v-pills-origins-tab" data-toggle="pill" href="#v-pills-origins" role="tab" aria-controls="v-pills-origins" aria-selected="false">Origins</a>
-                    <a class="nav-link" id="v-pills-ecosystem-tab" data-toggle="pill" href="#v-pills-ecosystem" role="tab" aria-controls="v-pills-ecosystem" aria-selected="false">Ecosystem</a>
-                    <a class="nav-link" id="v-pills-habitat-tab" data-toggle="pill" href="#v-pills-habitat" role="tab" aria-controls="v-pills-habitat" aria-selected="false">Habitat</a>
-                    <a class="nav-link" id="v-pills-diet-tab" data-toggle="pill" href="#v-pills-diet" role="tab" aria-controls="v-pills-diet" aria-selected="false">Diet</a>
-                    <a class="nav-link" id="v-pills-predators-tab" data-toggle="pill" href="#v-pills-predators" role="tab" aria-controls="v-pills-predators" aria-selected="false">Predators</a>
-                    <a class="nav-link" id="v-pills-defense-tab" data-toggle="pill" href="#v-pills-defense" role="tab" aria-controls="v-pills-defense" aria-selected="false">Defenses</a>
-                    <a class="nav-link" id="v-pills-extra-tab" data-toggle="pill" href="#v-pills-extra" role="tab" aria-controls="v-pills-extra" aria-selected="false">Extra</a>
+    <div class="col-9">
+        <div id="results"></div>
+        <div class="tab-content" id="v-pills-tabContent">
+            <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                <h2 class="card-title">{{ species.name }}</h2> 
+                <hr />
+                <h3>Appearance</h3>
+                <div id="ap-content">
+                    {{ species.appearance|safe }}
+                </div>
+                <h3>Unique Abilities</h3>
+                <div id="ua-content">
+                    {{ species.unique_abilities|safe }}
+                </div>
+                <h3>Intelligence</h3>
+                <div id="intell-content">
+                    {{ species.intelligence|safe }}
+                </div>
+                <h3>Origins</h3>
+                <div id="origins-content">
+                    {{ species.origins|safe }}
+                </div>
+                <h3>Ecosystem</h3>
+                <div id="ecosystem-content">
+                    {{ species.ecosystem|safe }}
+                </div>
+                <h3>Habitat</h3>
+                <div id="habitat-content">
+                    {{ species.habitat|safe }}
+                </div>
+                <h3>Diet</h3>
+                <div id="diet-content">
+                    {{ species.diet|safe }}
+                </div>
+                <h3>Predators</h3>
+                <div id="predators-content">
+                    {{ species.predators|safe }}
+                </div>
+                <h3>Defenses</h3>
+                <div id="defense-content">
+                    {{ species.defense|safe }}
+                </div>
+                <h3>Extra</h3>
+                <div id="extra-content">
+                    {{ species.extra|safe }}
                 </div>
             </div>
-            <div class="col-9">
-                <div id="results"></div>
-                <div class="tab-content" id="v-pills-tabContent">
-                    <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-                        <h2 class="card-title"><span id="species-{{species.id}}">{{ species.name }}</span></h2> 
-                        <h3>Appearance</h3>
-                        <div id="ap-content">
-                            {{ species.appearance|safe }}
-                        </div>
-                        <h3>Unique Abilities</h3>
-                        <div id="ua-content">
-                            {{ species.unique_abilities|safe }}
-                        </div>
-                        <h3>Intelligence</h3>
-                        <div id="intell-content">
-                            {{ species.intelligence|safe }}
-                        </div>
-                        <h3>Origins</h3>
-                        <div id="origins-content">
-                            {{ species.origins|safe }}
-                        </div>
-                        <h3>Ecosystem</h3>
-                        <div id="ecosystem-content">
-                            {{ species.ecosystem|safe }}
-                        </div>
-                        <h3>Habitat</h3>
-                        <div id="habitat-content">
-                            {{ species.habitat|safe }}
-                        </div>
-                        <h3>Diet</h3>
-                        <div id="diet-content">
-                            {{ species.diet|safe }}
-                        </div>
-                        <h3>Predators</h3>
-                        <div id="predators-content">
-                            {{ species.predators|safe }}
-                        </div>
-                        <h3>Defenses</h3>
-                        <div id="defense-content">
-                            {{ species.defense|safe }}
-                        </div>
-                        <h3>Extra</h3>
-                        <div id="extra-content">
-                            {{ species.extra|safe }}
-                        </div>
+            <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                <form method="POST" id="ap-form">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="appearance">Provide a description of your species appearance?</label>
+                        <textarea class="description" name="appearance" id="appearance" rows="3">{{species.appearance}}</textarea>
                     </div>
-                    <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-                        <form method="POST" id="ap-form">
-                            {% csrf_token %}
-                            <div class="form-group">
-                              <label for="appearance">Provide a description of your species appearance?</label>
-                              <textarea class="description" name="appearance" id="appearance" rows="3">{{species.appearance}}</textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Save</button>
-                        </form>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </form>
+            </div>
+            <div class="tab-pane fade" id="v-pills-ua" role="tabpanel" aria-labelledby="v-pills-ua-tab">
+                <form method="POST" id="ua-form">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="ua">Provide a description of your species unique abilities?</label>
+                        <textarea class="description" name="ua" id="ua" rows="3">{{species.unique_abilities}}</textarea>
                     </div>
-                    <div class="tab-pane fade" id="v-pills-ua" role="tabpanel" aria-labelledby="v-pills-ua-tab">
-                        <form method="POST" id="ua-form">
-                            {% csrf_token %}
-                            <div class="form-group">
-                              <label for="ua">Provide a description of your species unique abilities?</label>
-                              <textarea class="description" name="ua" id="ua" rows="3">{{species.unique_abilities}}</textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Save</button>
-                        </form>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </form>
+            </div>
+            <div class="tab-pane fade" id="v-pills-intell" role="tabpanel" aria-labelledby="v-pills-intell-tab">
+                <form method="POST" id="intell-form">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="intell">Provide a description of your species intelligence?</label>
+                        <textarea class="description" name="intell" id="intell" rows="3">{{species.intelligence}}</textarea>
                     </div>
-                    <div class="tab-pane fade" id="v-pills-intell" role="tabpanel" aria-labelledby="v-pills-intell-tab">
-                        <form method="POST" id="intell-form">
-                            {% csrf_token %}
-                            <div class="form-group">
-                              <label for="intell">Provide a description of your species intelligence?</label>
-                              <textarea class="description" name="intell" id="intell" rows="3">{{species.intelligence}}</textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Save</button>
-                        </form>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </form>
+            </div>
+            <div class="tab-pane fade" id="v-pills-origins" role="tabpanel" aria-labelledby="v-pills-origins-tab">
+                <form method="POST" id="origins-form">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="origins">Provide a description of your species origins?</label>
+                        <textarea class="description" name="origins" id="origins" rows="3">{{species.origins}}</textarea>
                     </div>
-                    <div class="tab-pane fade" id="v-pills-origins" role="tabpanel" aria-labelledby="v-pills-origins-tab">
-                        <form method="POST" id="origins-form">
-                            {% csrf_token %}
-                            <div class="form-group">
-                              <label for="origins">Provide a description of your species origins?</label>
-                              <textarea class="description" name="origins" id="origins" rows="3">{{species.origins}}</textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Save</button>
-                        </form>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </form>
+            </div>
+            <div class="tab-pane fade" id="v-pills-ecosystem" role="tabpanel" aria-labelledby="v-pills-ecosystem-tab">
+                <form method="POST" id="ecosystem-form">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="ecosystem">Provide a description of your species ecosystem?</label>
+                        <textarea class="description" name="ecosystem" id="ecosystem" rows="3">{{species.ecosystem}}</textarea>
                     </div>
-                    <div class="tab-pane fade" id="v-pills-ecosystem" role="tabpanel" aria-labelledby="v-pills-ecosystem-tab">
-                        <form method="POST" id="ecosystem-form">
-                            {% csrf_token %}
-                            <div class="form-group">
-                              <label for="ecosystem">Provide a description of your species ecosystem?</label>
-                              <textarea class="description" name="ecosystem" id="ecosystem" rows="3">{{species.ecosystem}}</textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Save</button>
-                        </form>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </form>
+            </div>
+            <div class="tab-pane fade" id="v-pills-habitat" role="tabpanel" aria-labelledby="v-pills-habitat-tab">
+                <form method="POST" id="habitat-form">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="habitat">Provide a description of your species habitat.</label>
+                        <textarea class="description" name="habitat" id="habitat" rows="3">{{species.habitat}}</textarea>
                     </div>
-                    <div class="tab-pane fade" id="v-pills-habitat" role="tabpanel" aria-labelledby="v-pills-habitat-tab">
-                        <form method="POST" id="habitat-form">
-                            {% csrf_token %}
-                            <div class="form-group">
-                              <label for="habitat">Provide a description of your species habitat.</label>
-                              <textarea class="description" name="habitat" id="habitat" rows="3">{{species.habitat}}</textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Save</button>
-                        </form>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </form>
+            </div>
+            <div class="tab-pane fade" id="v-pills-diet" role="tabpanel" aria-labelledby="v-pills-diet-tab">
+                <form method="POST" id="diet-form">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="diet">Provide a description of your species diet.</label>
+                        <textarea class="description" name="diet" id="diet" rows="3">{{species.diet}}</textarea>
                     </div>
-                    <div class="tab-pane fade" id="v-pills-diet" role="tabpanel" aria-labelledby="v-pills-diet-tab">
-                        <form method="POST" id="diet-form">
-                            {% csrf_token %}
-                            <div class="form-group">
-                              <label for="diet">Provide a description of your species diet.</label>
-                              <textarea class="description" name="diet" id="diet" rows="3">{{species.diet}}</textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Save</button>
-                        </form>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </form>
+            </div>
+            <div class="tab-pane fade" id="v-pills-predators" role="tabpanel" aria-labelledby="v-pills-predators-tab">
+                <form method="POST" id="predators-form">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="predators">Provide a description of your species predators.</label>
+                        <textarea class="description" name="predators" id="predators" rows="3">{{species.predators}}</textarea>
                     </div>
-                    <div class="tab-pane fade" id="v-pills-predators" role="tabpanel" aria-labelledby="v-pills-predators-tab">
-                        <form method="POST" id="predators-form">
-                            {% csrf_token %}
-                            <div class="form-group">
-                              <label for="predators">Provide a description of your species predators.</label>
-                              <textarea class="description" name="predators" id="predators" rows="3">{{species.predators}}</textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Save</button>
-                        </form>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </form>
+            </div>
+            <div class="tab-pane fade" id="v-pills-defense" role="tabpanel" aria-labelledby="v-pills-defense-tab">
+                <form method="POST" id="defense-form">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="defense">Provide a description of your species defense mechanism.</label>
+                        <textarea class="description" name="defense" id="defense" rows="3">{{species.defense}}</textarea>
                     </div>
-                    <div class="tab-pane fade" id="v-pills-defense" role="tabpanel" aria-labelledby="v-pills-defense-tab">
-                        <form method="POST" id="defense-form">
-                            {% csrf_token %}
-                            <div class="form-group">
-                              <label for="defense">Provide a description of your species defense mechanism.</label>
-                              <textarea class="description" name="defense" id="defense" rows="3">{{species.defense}}</textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Save</button>
-                        </form>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </form>
+            </div>
+            <div class="tab-pane fade" id="v-pills-extra" role="tabpanel" aria-labelledby="v-pills-extra-tab">
+                <form method="POST" id="extra-form">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="extra">Provide any extra details about your species.</label>
+                        <textarea class="description" name="extra" id="extra" rows="3">{{species.extra}}</textarea>
                     </div>
-                    <div class="tab-pane fade" id="v-pills-extra" role="tabpanel" aria-labelledby="v-pills-extra-tab">
-                        <form method="POST" id="extra-form">
-                            {% csrf_token %}
-                            <div class="form-group">
-                              <label for="extra">Provide any extra details about your species.</label>
-                              <textarea class="description" name="extra" id="extra" rows="3">{{species.extra}}</textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Save</button>
-                        </form>
-                    </div>
-                </div>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </form>
             </div>
         </div>
     </div>

@@ -7,7 +7,7 @@ from rest_framework import status
 
 from histories.models import History
 from histories.serializers import HistorySerializer
-from universes.models import Universe, NaturalLaw, Particle
+from universes.models import Universe, NaturalLaw, Particle, Element
 from universes.serializers import UniverseSerializer, NaturalLawSerializer, ParticleSerializer
 from accounts.models import UserProfile
 
@@ -18,7 +18,7 @@ def index(request, slug, template_name='universes/index.html', data={}):
     return render(request, template_name, data)
 
 
-def view_universe(request, slug, template_name='universes/edit.html', data={}):
+def edit(request, slug, template_name='universes/edit.html', data={}):
     try:
         universe = Universe.objects.get(slug=slug)
     except Universe.DoesNotExist:

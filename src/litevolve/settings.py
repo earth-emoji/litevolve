@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'histories',
     'universes',
     'communities',
-    'iandt',
+    # 'constructions',
     'characters',
     'stories',
 ]

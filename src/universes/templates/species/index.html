@@ -1,0 +1,37 @@
+{% extends 'app.html' %}
+{% load static %}
+
+{% block breadcrumbs %}
+    <li class="breadcrumb-item"><a href="{% url 'profile:index' request.user.profile.slug %}">Workspace</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Species</li>
+{% endblock breadcrumbs %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <span>{{creator.user.name }}'s Species</span>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col">
+               <form method="POST" id="species-form">
+                    {% csrf_token %}
+                    <div class="input-group mb-3">
+                        <input type="text" name="name" id="name" class="form-control" placeholder="Species' name" aria-label="Species' name" aria-describedby="button-addon2">
+                        
+                        <div class="input-group-append">
+                            <button class="btn btn-second" type="submit" id="button-addon2"><i class="fas fa-plus"></i></button>
+                        </div>
+                    </div>
+                </form>
+                <div id="species">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block javascript %}
+<script src="{% static 'js/species.js' %}"></script>
+{% endblock javascript %}

@@ -1,0 +1,35 @@
+{% extends 'app.html' %}
+{% load static %}
+
+{% block breadcrumbs %}
+    <li class="breadcrumb-item"><a href="{% url 'profile:index' request.user.profile.slug %}">Workspace</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'elements:index' request.user.profile.slug %}">Element</a></li>
+    <li class="breadcrumb-item active" aria-current="page"><span id="slug_{{element.slug}}">{{ element.name }}</span></li>
+{% endblock breadcrumbs %}
+
+{% block content %}
+<div class="row">
+    <div class="col-3">
+        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Overview</a>
+            <a class="nav-link" id="v-pills-desc-tab" data-toggle="pill" href="#v-pills-desc" role="tab" aria-controls="v-pills-desc" aria-selected="false">Description</a>
+        </div>
+    </div>
+    <div class="col-9">
+        <div id="results"></div>
+        <div class="tab-content" id="v-pills-tabContent">
+            <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                <h2 class="card-title">{{ element.name }}</h2>
+                <div id="desc-content">{{ element.description|safe }}</div>
+            </div>
+            <div class="tab-pane fade" id="v-pills-desc" role="tabpanel" aria-labelledby="v-pills-desc-tab">
+                {% include "partials/text-editor.html" with form_id="desc-form" label="Describe your element." field_selector="desc" data=element.description  %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block javascript %}
+<script src="{% static 'js/elements.js' %}"></script>
+{% endblock javascript %}

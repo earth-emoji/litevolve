@@ -3,8 +3,23 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 
+from accounts.models import UserProfile
 from universes.models import Species
 from universes.serializers import SpeciesSerializer
+
+
+def species_index(request, slug, template_name='species/index.html', data={}):
+    data['creator'] = UserProfile.objects.get(slug=slug, user=request.user)
+    return render(request, template_name, data)
+
+
+def species_edit(request, slug, template_name='species/edit.html', data={}):
+    try:
+        species = Species.objects.get(slug=slug)
+    except Species.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    data['species'] = species
+    return render(request, template_name, data)
 
 
 @api_view(['GET', 'POST'])
@@ -260,11 +275,3 @@ def update_extra(request, slug):
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
-def species_edit(request, slug, template_name='species/edit.html', data={}):
-    try:
-        species = Species.objects.get(slug=slug)
-    except Species.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
-    data['species'] = species
-    return render(request, template_name, data)

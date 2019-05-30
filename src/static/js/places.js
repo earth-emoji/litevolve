@@ -1,12 +1,54 @@
 $( document ).ready(function() {
-    var place = $("span[id^=place-]").attr('id').split('-')[1];
+    load_data("/api/places/", function(json) {
+        for (var i = 0; i < json.length; i++) {
+            $("#places").prepend("<div id='place_"+json[i].slug+"' class='media'>\
+                <img class='align-self-center mr-3' src='' alt=''>\
+                <div class='media-body'>\
+                <h5 class='mt-0'>"+ json[i].name +"</h5>\
+                <ul class='list-inline'>\
+                    <li class='list-inline-item'><a href='/places/view/"+json[i].slug+"'><i class='far fa-eye'></i> View</a></li>\
+                    <li class='list-inline-item'><a id='delete_place_"+json[i].slug+"'><i class='far fa-trash-alt'></i> Delete</a></li>\
+                </ul>\
+            </div></div>");
+        }
+    });
+  
+    $('#place-form').on('submit', function(event){
+        event.preventDefault();
+        console.log("form submitted!")  // sanity check
+        //create_rule();
+  
+        var url = "/api/places/";
+        var data = {
+            name : $('#name').val()
+        };
+        var success = function(json) {
+            console.log(json); // log the returned json to the console
+            $("#place-form")[0].reset();
+            var content = "<div id='place_"+json.slug+"' class='media'>\
+                                <img class='align-self-center mr-3' src='' alt=''>\
+                                <div class='media-body'>\
+                                <h5 class='mt-0'>"+ json.name +"</h5>\
+                                <ul class='list-inline'>\
+                                    <li class='list-inline-item'><a href='/places/view/"+json.slug+"'><i class='far fa-eye'></i> View</a></li>\
+                                    <li class='list-inline-item'><a id='delete_place_"+json.slug+"'><i class='far fa-trash-alt'></i> Delete</a></li>\
+                                </ul>\
+                            </div></div>";
+  
+            $("#places").prepend(content);
+            console.log("success"); // another sanity check
+        };
+        create(url, data, success);
+    });
+  
+    var slug = $("span[id^=slug_]").attr('id').split('_')[1];
 
     // Submit post on submit
     $('#scenery-form').on('submit', function(event){
         event.preventDefault();
         console.log("form submitted!")  // sanity check
 
-        var url = "/api/places/"+place+"/update-scenery/";
+        var url = "/api/places/"+slug+"/update-scenery/";
         //"/api/rules/"+cbody+"/update-can/";
         var data = {
             csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
@@ -25,7 +67,7 @@ $( document ).ready(function() {
         event.preventDefault();
         console.log("form submitted!")  // sanity check
 
-        var url = "/api/places/"+place+"/update-description/";
+        var url = "/api/places/"+slug+"/update-description/";
         //"/api/rules/"+cbody+"/update-can/";
         var data = {
             csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),

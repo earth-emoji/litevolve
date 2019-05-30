@@ -1,16 +1,17 @@
 {% extends 'app.html' %}
 {% load static %}
-{% load js %}
 
-{% block head_scripts %}
-
-{% endblock head_scripts %}
+{% block breadcrumbs %}
+    <li class="breadcrumb-item"><a href="{% url 'profile:index' request.user.profile.slug %}">Workspace</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'communities:social-group-index' request.user.profile.slug %}">Social Groups</a></li>
+    <li class="breadcrumb-item active" aria-current="page"><span id="slug_{{sgroup.slug}}">{{ sgroup.name }}</span></li>
+{% endblock breadcrumbs %}
 
 {% block content %}
 
 <div class="card">
     <div class="card-header">
-        <span>{{society.name }}</span>
+        <span>{{sgroup.name }}</span>
     </div>
     <div class="card-body">
 
@@ -29,7 +30,7 @@
                 <div id="results"></div>
                 <div class="tab-content" id="v-pills-tabContent">
                     <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-                        <h2 class="card-title"><span id="sgroup-{{sgroup.id}}">{{ sgroup.name }}</span></h2>
+                        <h2 class="card-title"><span id="sgroup_{{sgroup.slug}}">{{ sgroup.name }}</span></h2>
                         <h3>Type</h3>
                         <div id="type-content">
                             {{ sgroup.type|safe }}

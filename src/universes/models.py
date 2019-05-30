@@ -31,7 +31,45 @@ class Universe(models.Model):
 
     @property
     def url(self):
-        return "/universes/view/%s/" %(self.slug)
+        return "/universes/view/%s/" % (self.slug)
+
+
+class Force(models.Model):
+    """docstring for Force."""
+    slug = models.SlugField(unique=True, default=uuid.uuid1, blank=True)
+    name = models.CharField(max_length=255, blank=True)
+    description = HTMLField(null=True, blank=True)
+    visibility = models.CharField(
+        default='Private', max_length=13, choices=VISIBILITY_CHOICES, blank=True)
+    tasks = GenericRelation(Task)
+    creator = models.ForeignKey(
+        UserProfile, on_delete=models.CASCADE, related_name='forces', blank=True)
+
+    def __str__(self):
+        return self.name
+
+    @property
+    def url(self):
+        return "/forces/view/%s/" % (self.slug)
+
+
+class Field(models.Model):
+    """docstring for Force."""
+    slug = models.SlugField(unique=True, default=uuid.uuid1, blank=True)
+    name = models.CharField(max_length=255, blank=True)
+    description = HTMLField(null=True, blank=True)
+    visibility = models.CharField(
+        default='Private', max_length=13, choices=VISIBILITY_CHOICES, blank=True)
+    tasks = GenericRelation(Task)
+    creator = models.ForeignKey(
+        UserProfile, on_delete=models.CASCADE, related_name='fields', blank=True)
+
+    def __str__(self):
+        return self.name
+
+    @property
+    def url(self):
+        return "/fields/view/%s/" % (self.slug)
 
 
 class NaturalLaw(models.Model):
@@ -42,6 +80,7 @@ class NaturalLaw(models.Model):
     explanation = HTMLField(null=True, blank=True)
     visibility = models.CharField(
         default='Private', max_length=13, choices=VISIBILITY_CHOICES, blank=True)
+    tasks = GenericRelation(Task)
     universes = models.ManyToManyField(
         Universe, related_name='natural_laws', blank=True)
     creator = models.ForeignKey(
@@ -52,7 +91,27 @@ class NaturalLaw(models.Model):
 
     @property
     def url(self):
-        return "/natural_laws/view/%s/" %(self.slug)
+        return "/natural_laws/view/%s/" % (self.slug)
+
+
+class Dimension(models.Model):
+    slug = models.SlugField(unique=True, default=uuid.uuid1, blank=True)
+    name = models.CharField(max_length=255, blank=True)
+    description = HTMLField(null=True, blank=True)
+    visibility = models.CharField(
+        default='Private', max_length=13, choices=VISIBILITY_CHOICES, blank=True)
+    tasks = GenericRelation(Task)
+    universes = models.ManyToManyField(
+        Universe, related_name='dimensions', blank=True)
+    creator = models.ForeignKey(
+        UserProfile, on_delete=models.CASCADE, related_name='dimensions', blank=True)
+
+    def __str__(self):
+        return self.name
+
+    @property
+    def url(self):
+        return "/dimensions/view/%s/" % (self.slug)
 
 
 class Particle(models.Model):
@@ -70,6 +129,7 @@ class Particle(models.Model):
         default='Private', max_length=13, choices=VISIBILITY_CHOICES, blank=True)
     is_stable = models.BooleanField(default=True)
     composition = models.ManyToManyField('self', blank=True)
+    tasks = GenericRelation(Task)
     universes = models.ManyToManyField(
         Universe, related_name='particles', blank=True)
     creator = models.ForeignKey(
@@ -77,6 +137,10 @@ class Particle(models.Model):
 
     def __str__(self):
         return self.name
+
+    @property
+    def url(self):
+        return "/particles/view/%s/" % (self.slug)
 
 
 class Element(models.Model):
@@ -94,6 +158,7 @@ class Element(models.Model):
     is_metal = models.BooleanField(default=False)
     visibility = models.CharField(
         default='Private', max_length=13, choices=VISIBILITY_CHOICES, blank=True)
+    tasks = GenericRelation(Task)
     universes = models.ManyToManyField(
         Universe, related_name='elements', blank=True)
     creator = models.ForeignKey(
@@ -102,8 +167,9 @@ class Element(models.Model):
     def __str__(self):
         return self.name
 
-    def add(num, num2):
-        return num + num2
+    @property
+    def url(self):
+        return "/elements/view/%s/" % (self.slug)
 
 
 class CelestialBody(models.Model):
@@ -112,6 +178,7 @@ class CelestialBody(models.Model):
     description = HTMLField(null=True, blank=True)
     visibility = models.CharField(
         default='Private', max_length=13, choices=VISIBILITY_CHOICES, blank=True)
+    tasks = GenericRelation(Task)
     universes = models.ManyToManyField(
         Universe, related_name='celestial_bodies', blank=True)
     creator = models.ForeignKey(
@@ -120,6 +187,10 @@ class CelestialBody(models.Model):
     def __str__(self):
         return self.name
 
+    @property
+    def url(self):
+        return "/celestial_bodies/view/%s/" % (self.slug)
+
 
 class NaturalPhenomena(models.Model):
     slug = models.SlugField(unique=True, default=uuid.uuid1, blank=True)
@@ -127,6 +198,7 @@ class NaturalPhenomena(models.Model):
     description = HTMLField(null=True, blank=True)
     visibility = models.CharField(
         default='Private', max_length=13, choices=VISIBILITY_CHOICES, blank=True)
+    tasks = GenericRelation(Task)
     celestial_bodies = models.ManyToManyField(
         CelestialBody, related_name='natural_phenomenas', blank=True)
     creator = models.ForeignKey(
@@ -134,6 +206,10 @@ class NaturalPhenomena(models.Model):
 
     def __str__(self):
         return self.name
+
+    @property
+    def url(self):
+        return "/natural_phenomenon/view/%s/" % (self.slug)
 
 
 class Season(models.Model):
@@ -143,6 +219,7 @@ class Season(models.Model):
     description = HTMLField(null=True, blank=True)
     visibility = models.CharField(
         default='Private', max_length=13, choices=VISIBILITY_CHOICES, blank=True)
+    tasks = GenericRelation(Task)
     celestial_bodies = models.ManyToManyField(
         CelestialBody, related_name='seasons', blank=True)
     creator = models.ForeignKey(
@@ -150,6 +227,10 @@ class Season(models.Model):
 
     def __str__(self):
         return self.name
+
+    @property
+    def url(self):
+        return "/seasons/view/%s/" % (self.slug)
 
 
 class Place(models.Model):
@@ -159,6 +240,7 @@ class Place(models.Model):
     description = HTMLField(null=True, blank=True)
     visibility = models.CharField(
         default='Private', max_length=13, choices=VISIBILITY_CHOICES, blank=True)
+    tasks = GenericRelation(Task)
     celestial_bodies = models.ManyToManyField(
         CelestialBody, related_name='places', blank=True)
     creator = models.ForeignKey(
@@ -168,6 +250,10 @@ class Place(models.Model):
 
     def __str__(self):
         return self.name
+
+    @property
+    def url(self):
+        return "/places/view/%s/" % (self.slug)
 
 
 class PlaceSeason(models.Model):
@@ -193,6 +279,7 @@ class NaturalObject(models.Model):
     value_description = HTMLField(null=True, blank=True)
     visibility = models.CharField(
         default='Private', max_length=13, choices=VISIBILITY_CHOICES, blank=True)
+    tasks = GenericRelation(Task)
     places = models.ManyToManyField(
         Place, related_name='natural_objects', blank=True)
     celestial_bodies = models.ManyToManyField(
@@ -202,6 +289,10 @@ class NaturalObject(models.Model):
 
     def __str__(self):
         return self.name
+
+    @property
+    def url(self):
+        return "/natural_objects/view/%s/" % (self.slug)
 
 
 class Species(models.Model):
@@ -219,6 +310,8 @@ class Species(models.Model):
     extra = HTMLField(null=True, blank=True)
     visibility = models.CharField(
         default='Private', max_length=13, choices=VISIBILITY_CHOICES, blank=True)
+    is_rational = models.BooleanField(default=False)
+    tasks = GenericRelation(Task)
     places = models.ManyToManyField(Place, related_name='species', blank=True)
     celestial_bodies = models.ManyToManyField(
         CelestialBody, related_name='species', blank=True)
@@ -227,3 +320,7 @@ class Species(models.Model):
 
     def __str__(self):
         return self.name
+
+    @property
+    def url(self):
+        return "/species/view/%s/" % (self.slug)

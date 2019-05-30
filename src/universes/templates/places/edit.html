@@ -1,62 +1,42 @@
 {% extends 'app.html' %}
 {% load static %}
-{% load js %}
 
-{% block head_scripts %}
+{% block breadcrumbs %}
+    <li class="breadcrumb-item"><a href="{% url 'profile:index' request.user.profile.slug %}">Workspace</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'places:index' request.user.profile.slug %}">Places</a></li>
+    <li class="breadcrumb-item active" aria-current="page"><span id="slug_{{place.slug}}">{{ place.name }}</span></li>
+{% endblock breadcrumbs %}
 
-{% endblock head_scripts %}
 
 {% block content %}
 
-<div class="card">
-    <div class="card-header">
-        <span id="world-{{place.world.id}}">{{place.world.name }}'s Places</span>
+<div class="row">
+    <div class="col-3">
+        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Overview</a>
+            <a class="nav-link" id="v-pills-scenery-tab" data-toggle="pill" href="#v-pills-scenery" role="tab" aria-controls="v-pills-scenery" aria-selected="false">Scenery</a>
+            <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Description</a>
+        </div>
     </div>
-    <div class="card-body">
-
-        <div class="row">
-            <div class="col-3">
-                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                    <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Overview</a>
-                    <a class="nav-link" id="v-pills-scenery-tab" data-toggle="pill" href="#v-pills-scenery" role="tab" aria-controls="v-pills-scenery" aria-selected="false">Scenery</a>
-                    <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Description</a>
+    <div class="col-9">
+        <div id="results"></div>
+        <div class="tab-content" id="v-pills-tabContent">
+            <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                <h2 class="card-title">{{ place.name }}</h2>
+                <h3>Scenery</h3>
+                <div id="scenery-content">
+                    {{ place.scenery|safe }}
+                </div>
+                <h3>Description</h3>
+                <div id="desc-content">
+                    {{ place.description|safe }}
                 </div>
             </div>
-            <div class="col-9">
-                <div id="results"></div>
-                <div class="tab-content" id="v-pills-tabContent">
-                    <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-                        <h2 class="card-title"><span id="place-{{place.id}}">{{ place.name }}</span></h2>
-                        <h3>Scenery</h3>
-                        <div id="scenery-content">
-                            {{ place.scenery|safe }}
-                        </div>
-                        <h3>Description</h3>
-                        <div id="desc-content">
-                            {{ place.description|safe }}
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="v-pills-scenery" role="tabpanel" aria-labelledby="v-pills-scenery-tab">
-                        <form method="POST" id="scenery-form">
-                            {% csrf_token %}
-                            <div class="form-group">
-                              <label for="desc">Provide a description for your place's scenery.</label>
-                              <textarea class="description" name="scenery" id="scenery" rows="3">{{place.scenery}}</textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Save</button>
-                        </form>
-                    </div>
-                    <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-                        <form method="POST" id="desc-form">
-                            {% csrf_token %}
-                            <div class="form-group">
-                              <label for="desc">Provide a description for your place.</label>
-                              <textarea class="description" name="desc" id="desc" rows="3">{{place.description}}</textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Save</button>
-                        </form>
-                    </div>
-                </div>
+            <div class="tab-pane fade" id="v-pills-scenery" role="tabpanel" aria-labelledby="v-pills-scenery-tab">
+                {% include "partials/text-editor.html" with form_id="scenery-form" label="Provide a description for your place's scenery." field_selector="scenery" data=place.scenery %}
+            </div>
+            <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                {% include "partials/text-editor.html" with form_id="desc-form" label="Describe your places." field_selector="desc" data=place.description  %}
             </div>
         </div>
     </div>

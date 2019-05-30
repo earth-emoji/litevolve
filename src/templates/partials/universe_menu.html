@@ -1,12 +1,15 @@
 <div id="menu-universe" class="mainmenu">
     <a href="{% url 'universes:index' request.user.profile.slug %}" class="mainmenu__item">Universes</a>
-    <a href="{% url 'universes:rule-index' request.user.profile.slug %}" class="mainmenu__item">Natural Laws</a>
-    <a href="{% url 'universes:particle-index' request.user.profile.slug %}" class="mainmenu__item">Particles</a>
-    <a href="#" class="mainmenu__item">Elements</a>
-    <a href="#" class="mainmenu__item">Celestial Body</a>
-    <a href="#" class="mainmenu__item">Natural Phenomena</a>
-    <a href="#" class="mainmenu__item">Seasons</a>
-    <a href="#" class="mainmenu__item">Places</a>
-    <a href="#" class="mainmenu__item">Natural Objects</a>
-    <a href="#" class="mainmenu__item">Species</a>
+    <a href="#" class="mainmenu__item">Fundamental Forces</a>
+    <a href="#" class="mainmenu__item">Fields</a>
+    <a href="{% url 'dimensions:index' request.user.profile.slug %}" class="mainmenu__item">Dimensions</a>
+    <a href="{% url 'rules:index' request.user.profile.slug %}" class="mainmenu__item">Natural Laws</a>
+    <a href="{% url 'particles:particle-index' request.user.profile.slug %}" class="mainmenu__item">Particles</a>
+    <a href="{% url 'elements:index' request.user.profile.slug %}" class="mainmenu__item">Elements</a>
+    <a href="{% url 'celestial_bodies:index' request.user.profile.slug %}" class="mainmenu__item">Celestial Bodies</a>
+    <a href="{% url 'natural_phenomenon:index' request.user.profile.slug %}" class="mainmenu__item">Natural Phenomenon</a>
+    <a href="{% url 'seasons:index' request.user.profile.slug %}" class="mainmenu__item">Seasons</a>
+    <a href="{% url 'places:index' request.user.profile.slug %}" class="mainmenu__item">Places</a>
+    <a href="{% url 'natural_objects:index' request.user.profile.slug %}" class="mainmenu__item">Natural Objects</a>
+    <a href="{% url 'species:index' request.user.profile.slug %}" class="mainmenu__item">Species</a>
 </div>

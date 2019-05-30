@@ -3,7 +3,7 @@
 
 {% block breadcrumbs %}
     <li class="breadcrumb-item"><a href="{% url 'profile:index' request.user.profile.slug %}">Workspace</a></li>
-    <li class="breadcrumb-item"><a href="{% url 'universes:particle-index' request.user.profile.slug %}">Particles</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'particles:particle-index' request.user.profile.slug %}">Particles</a></li>
     <li class="breadcrumb-item active" aria-current="page"><span id="slug_{{particle.slug}}">{{ particle.name }}</span></li>
 {% endblock breadcrumbs %}
 

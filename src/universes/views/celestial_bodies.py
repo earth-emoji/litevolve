@@ -3,8 +3,23 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 
+from accounts.models import UserProfile
 from universes.models import CelestialBody
 from universes.serializers import CelestialBodySerializer
+
+
+def cbody_index(request, slug, template_name='cbodies/index.html', data={}):
+    data['creator'] = UserProfile.objects.get(slug=slug)
+    return render(request, template_name, data)
+
+
+def cbody_edit(request, slug, template_name='cbodies/edit.html', data={}):
+    try:
+        data['cbody'] = CelestialBody.objects.get(slug=slug)
+    except CelestialBody.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    return render(request, template_name, data)
 
 
 @api_view(['GET', 'POST'])
@@ -62,12 +77,3 @@ def update_desc(request, slug):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-def cbody_edit(request, slug, template_name='cbodies/edit.html', data={}):
-    try:
-        celestial_body = CelestialBody.objects.get(slug=slug)
-    except CelestialBody.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
-    data['cbody'] = celestial_body
-    return render(request, template_name, data)

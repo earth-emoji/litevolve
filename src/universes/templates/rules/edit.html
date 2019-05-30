@@ -4,7 +4,7 @@
 
 {% block breadcrumbs %}
     <li class="breadcrumb-item"><a href="{% url 'profile:index' request.user.profile.slug %}">Workspace</a></li>
-    <li class="breadcrumb-item"><a href="{% url 'universes:particle-index' request.user.profile.slug %}">Natural Laws</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'rules:index' request.user.profile.slug %}">Natural Laws</a></li>
     <li class="breadcrumb-item active" aria-current="page"><span id="slug_{{rule.slug}}">{{ rule.name }}</span></li>
 {% endblock breadcrumbs %}
 

@@ -1,51 +1,44 @@
 {% extends 'app.html' %}
 {% load static %}
-{% load js %}
 
-{% block head_scripts %}
-
-{% endblock head_scripts %}
+{% block breadcrumbs %}
+    <li class="breadcrumb-item"><a href="{% url 'profile:index' request.user.profile.slug %}">Workspace</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'celestial_bodies:index' request.user.profile.slug %}">Celestial Bodies</a></li>
+    <li class="breadcrumb-item active" aria-current="page"><span id="slug_{{cbody.slug}}">{{ cbody.name }}</span></li>
+{% endblock breadcrumbs %}
 
 {% block content %}
-
-<div class="card">
-    <div class="card-header">
-        <span id="world-{{cbody.world.id}}">{{cbody.world.name }}'s Celestial Bodies</span>
-    </div>
-    <div class="card-body">
-        
-        <div class="row">
-            <div class="col-3">
-                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Overview</a>
-                <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Description</a>
-                </div>
+    <div class="row">
+        <div class="col-3">
+            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Overview</a>
+            <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Description</a>
             </div>
-            <div class="col-9">
-                <div id="results"></div>
-                <div class="tab-content" id="v-pills-tabContent">
-                    <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-                        <h2 class="card-title"><span id="cbody-{{cbody.id}}">{{ cbody.name }}</span></h2>
-                        <h3>Description</h3>
-                        <div id="desc-content">
-                            {{ cbody.description|safe }}
+        </div>
+        <div class="col-9">
+            <div id="results"></div>
+            <div class="tab-content" id="v-pills-tabContent">
+                <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                    <h2 class="card-title">{{ cbody.name }}</h2>
+                    <hr />
+                    <h3>Description</h3>
+                    <div id="desc-content">
+                        {{ cbody.description|safe }}
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                    <form method="POST" id="cbody-desc-form">
+                        {% csrf_token %}
+                        <div class="form-group">
+                          <label for="desc">Provide a description for your Celestial Body?</label>
+                          <textarea class="description" name="desc" id="desc" rows="3">{{cbody.description}}</textarea>
                         </div>
-                    </div>
-                    <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-                        <form method="POST" id="cbody-desc-form">
-                            {% csrf_token %}
-                            <div class="form-group">
-                              <label for="desc">Provide a description for your Celestial Body?</label>
-                              <textarea class="description" name="desc" id="desc" rows="3">{{cbody.description}}</textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Save</button>
-                        </form>
-                    </div>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-</div>
 {% endblock content %}
 
 {% block javascript %}

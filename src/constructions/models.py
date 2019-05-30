@@ -6,6 +6,7 @@ from communities.models import Society
 from universes.models import Place
 
 # Create your models here.
+# art, attire
 
 
 class Technology(models.Model):

@@ -7,8 +7,16 @@ from accounts.models import UserProfile
 from universes.models import NaturalLaw
 from universes.serializers import NaturalLawSerializer
 
-def index(request, slug, template_name='rules/index.html', data={}):
+def rule_index(request, slug, template_name='rules/index.html', data={}):
     data['creator'] = UserProfile.objects.get(slug=slug, user=request.user)
+    return render(request, template_name, data)
+
+def rule_edit(request, slug, template_name='rules/edit.html', data={}):
+    try:
+        rule = NaturalLaw.objects.get(slug=slug)
+    except NaturalLaw.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    data['rule'] = rule
     return render(request, template_name, data)
 
 @api_view(['GET', 'POST'])
@@ -110,11 +118,3 @@ def update_explanation(request, slug):
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
-def rule_edit(request, slug, template_name='rules/edit.html', data={}):
-    try:
-        rule = NaturalLaw.objects.get(slug=slug)
-    except NaturalLaw.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
-    data['rule'] = rule
-    return render(request, template_name, data)

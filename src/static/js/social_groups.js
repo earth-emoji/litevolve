@@ -2,7 +2,7 @@ $( document ).ready(function() {
     //load rules
     load_data("/api/social_groups/", function(json) {
         for (var i = 0; i < json.length; i++) {
-            $("#sgroups").prepend("<li id='sgroup-"+json[i].slug+"'><strong>"+json[i].name+
+            $("#sgroups").prepend("<li id='sgroup_"+json[i].slug+"'><strong>"+json[i].name+
                 "</strong> - <a href='/social_groups/view/"+json[i].slug+"'>View</a> | <a id='delete-sgroup-"+json[i].slug+"'>delete me</a></li>");
         }
     });
@@ -17,7 +17,7 @@ $( document ).ready(function() {
         var success = function(json) {
             console.log(json); // log the returned json to the console
             $("#sg-form")[0].reset();
-            $("#sgroups").prepend("<li id='sg-"+json.slug+"'><strong>"+json.name+"</strong> - <a href='/social_groups/view/"+json.slug+"'>View</a> | <a id='delete-sg-"+json.id+"'>Delete</a></li>");
+            $("#sgroups").prepend("<li id='sg_"+json.slug+"'><strong>"+json.name+"</strong> - <a href='/social_groups/view/"+json.slug+"'>View</a> | <a id='delete-sg_"+json.id+"'>Delete</a></li>");
             console.log("success"); // another sanity check
         };
         create(url, data, success);
