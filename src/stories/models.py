@@ -1,4 +1,6 @@
 import uuid
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.db import models
 from tinymce.models import HTMLField
 
@@ -20,7 +22,7 @@ class Story(models.Model):
         ('Drama', 'Drama'),
         ('Erotic', 'Erotic'),
         ('Fable', 'Fable'),
-        ('Fan fiction', 'Fan fiction'),
+        ('Fan-fiction', 'Fan fiction'),
         ('Fairytale', 'Fairytale'),
         ('Fantasy', 'Fantasy'),
         ('Graphic novel', 'Graphic novel'),
@@ -47,7 +49,7 @@ class Story(models.Model):
         ('Young adult', 'Young adult'),
     )
     slug = models.SlugField(unique=True, default=uuid.uuid1, blank=True)
-    title = models.CharField(max_length=255, blank=True),
+    title = models.CharField(max_length=255, blank=True)
     genre = models.CharField(max_length=100, choices=GENRE_CHOICES, null=True, blank=True)
     album = models.OneToOneField(Album, on_delete=models.CASCADE, null=True, blank=True)
     author = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='stories', blank=True)
@@ -55,6 +57,10 @@ class Story(models.Model):
 
     def __str__(self):
         return self.title
+
+    @property
+    def url(self):
+        return "/stories/view/%s/" % (self.slug)
 
 class StoryCharacter(models.Model):
     ROLE_CHOICE_TYPES = (
@@ -75,6 +81,7 @@ class StoryCharacter(models.Model):
     role = models.CharField(max_length=100, choices=ROLE_CHOICE_TYPES, null=True, blank=True)
 
 class Premise(models.Model):
+    """docstring"""
     slug = models.SlugField(unique=True, default=uuid.uuid1, blank=True)
     setting = HTMLField(null=True, blank=True)
     antagonist = models.ForeignKey(StoryCharacter, related_name='antagonist_premises', on_delete=models.CASCADE, null=True, blank=True)
@@ -83,10 +90,13 @@ class Premise(models.Model):
     beginning = HTMLField(null=True, blank=True)
     synopsis = HTMLField(null=True, blank=True)
     story = models.OneToOneField(Story, on_delete=models.CASCADE, blank=True)
-    author = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='premises', blank=True)
 
     def __str__(self):
         return self.story.title + "'s Premise"
+
+    @property
+    def url(self):
+        return "/permises/view/%s/" % (self.slug)
     
 class Plot(models.Model):
     slug = models.SlugField(unique=True, default=uuid.uuid1, blank=True)
@@ -97,10 +107,13 @@ class Plot(models.Model):
     falling_action = HTMLField(null=True, blank=True)
     resolution = HTMLField(null=True, blank=True)
     story = models.OneToOneField(Story, on_delete=models.CASCADE, blank=True)
-    author = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='plots', blank=True)
 
     def __str__(self):
         return self.story.title + "'s Plot"
+
+    @property
+    def url(self):
+        return "/plots/view/%s/" % (self.slug)
 
 
 class Act(models.Model):
@@ -114,6 +127,10 @@ class Act(models.Model):
     def __str__(self):
         return self.title
 
+    @property
+    def url(self):
+        return "/acts/view/%s/" % (self.slug)
+
 
 class Chapter(models.Model):
     slug = models.SlugField(unique=True, default=uuid.uuid1, blank=True)
@@ -125,6 +142,10 @@ class Chapter(models.Model):
 
     def __str__(self):
         return self.title
+
+    @property
+    def url(self):
+        return "/chapters/view/%s/" % (self.slug)
 
 
 class Scene(models.Model):
@@ -142,8 +163,19 @@ class Scene(models.Model):
     def __str__(self):
         return self.title
 
+    @property
+    def url(self):
+        return "/scenes/view/%s/" % (self.slug)
+
 class Dialogue(models.Model):
     slug = models.SlugField(unique=True, default=uuid.uuid1, blank=True)
     scene = models.ForeignKey(Scene, on_delete=models.CASCADE, related_name='dialogues', blank=True)
     character = models.ForeignKey(Character, on_delete=models.CASCADE, related_name='dialogues', blank=True)
     content = HTMLField(blank=True)
+
+
+@receiver(post_save, sender=Story)
+def ensure_permise_plot_exists(sender, **kwargs):
+    if kwargs.get('created', False):
+        Premise.objects.get_or_create(story=kwargs.get('instance'))
+        Plot.objects.get_or_create(story=kwargs.get('instance'))

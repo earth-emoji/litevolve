@@ -1,0 +1,25 @@
+<div class="tab-pane fade show" id="v-pills-chap" role="tabpanel" aria-labelledby="v-pills-chap-tab">
+    <div class="card">
+        <div class="card-header">
+            <span>{{ act.title }}'s Chapters</span>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col">
+                    <form method="POST" id="chap-form">
+                        {% csrf_token %}
+                        <div class="input-group mb-3">
+                            <input type="text" name="title" id="title" class="form-control" placeholder="Chapter's title" aria-label="Chapter's title" aria-describedby="button-addon2">
+                            <input type="number" name="chap_number" id="chap_number" class="form-control" placeholder="Chapter number" aria-label="Chapter number" aria-describedby="button-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-second" type="submit" id="button-addon2"><i class="fas fa-plus"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="chapters">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

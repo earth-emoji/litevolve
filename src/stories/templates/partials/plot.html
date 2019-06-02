@@ -1,0 +1,61 @@
+<div class="tab-pane fade show" id="v-pills-plot" role="tabpanel" aria-labelledby="v-pills-plot-tab">
+    <h2><span id="plslug_{{story.plot.slug}}">Plot</span></h2>
+    <hr />
+    <ul class="nav nav-pills mb-3" id="pills-plot-info-tab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="pills-plot-overview-tab" data-toggle="pill" href="#pills-plot-overview" role="tab" aria-controls="pills-plot-overview" aria-selected="true">Overview</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="pills-expo-tab" data-toggle="pill" href="#pills-expo" role="tab" aria-controls="pills-expo" aria-selected="false">Exposition</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="pills-conflict-tab" data-toggle="pill" href="#pills-conflict" role="tab" aria-controls="pills-conflict" aria-selected="false">Confilct</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="pills-rising_action-tab" data-toggle="pill" href="#pills-rising_action" role="tab" aria-controls="pills-rising_action" aria-selected="true">Rising Action</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="pills-climax-tab" data-toggle="pill" href="#pills-climax" role="tab" aria-controls="pills-climax" aria-selected="false">Climax</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="pills-falling_action-tab" data-toggle="pill" href="#pills-falling_action" role="tab" aria-controls="pills-falling_action" aria-selected="false">Falling Action</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="pills-resolution-tab" data-toggle="pill" href="#pills-resolution" role="tab" aria-controls="pills-resolution" aria-selected="false">Resolution</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="pills-plot-tabContent">
+        <div class="tab-pane fade show active" id="pills-plot-overview" role="tabpanel" aria-labelledby="pills-plot-overview-tab">
+            <h3>Exposition</h3>
+            <div id="expo-content">{{ story.plot.exposition|safe }}</div>
+            <h3>Conflict</h3>
+            <div id="conflict-content">{{ story.plot.conflict|safe }}</div>
+            <h3>Rising Action</h3>
+            <div id="ract-content">{{ story.plot.rising_action|safe }}</div>
+            <h3>Climax</h3>
+            <div id="climax-content">{{ story.plot.climax|safe }}</div>
+            <h3>Falling Action</h3>
+            <div id="fact-content">{{ story.plot.falling_action|safe }}</div>
+            <h3>Resolution</h3>
+            <div id="reso-content">{{ story.plot.resolution|safe }}</div>
+        </div>
+        <div class="tab-pane fade" id="pills-expo" role="tabpanel" aria-labelledby="pills-expo-tab">
+            {% include "partials/text-editor.html" with form_id="expo-form" label="Provide an exposition " field_selector="expo" data=story.plot.exposition %}
+        </div>
+        <div class="tab-pane fade" id="pills-conflict" role="tabpanel" aria-labelledby="pills-conflict-tab">
+            {% include "partials/text-editor.html" with form_id="conflict-form" label="What's the conflict?" field_selector="conflict" data=story.plot.conflict %}
+        </div>
+        <div class="tab-pane fade" id="pills-rising_action" role="tabpanel" aria-labelledby="pills-rising_action-tab">
+            {% include "partials/text-editor.html" with form_id="ract-form" label="What's the rising action?" field_selector="ract" data=story.plot.rising_action %}
+        </div>
+        <div class="tab-pane fade" id="pills-climax" role="tabpanel" aria-labelledby="pills-climax-tab">
+            {% include "partials/text-editor.html" with form_id="climax-form" label="What's the climax?" field_selector="climax" data=story.plot.climax %}
+        </div>
+        <div class="tab-pane fade" id="pills-falling_action" role="tabpanel" aria-labelledby="pills-falling_action-tab">
+            {% include "partials/text-editor.html" with form_id="fact-form" label="What's the falling action" field_selector="fact" data=story.plot.falling_action %}
+        </div>
+        <div class="tab-pane fade" id="pills-resolution" role="tabpanel" aria-labelledby="pills-resolution-tab">
+            {% include "partials/text-editor.html" with form_id="reso-form" label="Provide a resolution" field_selector="reso" data=story.plot.resolution %}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,45 @@
+<div class="tab-pane fade show" id="v-pills-premise" role="tabpanel" aria-labelledby="v-pills-premise-tab">
+    <h2><span id="prslug_{{story.premise.slug}}">Premise</span></h2>
+    <hr />
+    <ul class="nav nav-pills mb-3" id="pills-pre-info-tab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="pills-pre-overview-tab" data-toggle="pill" href="#pills-pre-overview" role="tab" aria-controls="pills-pre-overview" aria-selected="true">Overview</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="pills-synopsis-tab" data-toggle="pill" href="#pills-synopsis" role="tab" aria-controls="pills-synopsis" aria-selected="false">Synopsis</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="pills-setting-tab" data-toggle="pill" href="#pills-setting" role="tab" aria-controls="pills-setting" aria-selected="false">Setting</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="pills-ending-tab" data-toggle="pill" href="#pills-ending" role="tab" aria-controls="pills-ending" aria-selected="false">Ending</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="pills-beginning-tab" data-toggle="pill" href="#pills-beginning" role="tab" aria-controls="pills-beginning" aria-selected="false">Beginning</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="pills-pre-tabContent">
+        <div class="tab-pane fade show active" id="pills-pre-overview" role="tabpanel" aria-labelledby="pills-pre-overview-tab">
+            <h3>Synopsis</h3>
+            <div id="synop-content">{{ story.premise.synopsis|safe }}</div>
+            <h3>Setting</h3>
+            <div id="setting-content">{{ story.premise.setting|safe }}</div>
+            <h3>Ending</h3>
+            <div id="ending-content">{{ story.premise.ending|safe }}</div>
+            <h3>Beginning</h3>
+            <div id="begin-content">{{ story.premise.beginning|safe }}</div>
+        </div>
+        <div class="tab-pane fade" id="pills-synopsis" role="tabpanel" aria-labelledby="pills-synopsis-tab">
+            {% include "partials/text-editor.html" with form_id="synop-form" label="Provide a synopsis " field_selector="synop" data=story.premise.synopsis %}
+        </div>
+        <div class="tab-pane fade" id="pills-setting" role="tabpanel" aria-labelledby="pills-setting-tab">
+            {% include "partials/text-editor.html" with form_id="set-form" label="Provide a setting " field_selector="set" data=story.premise.setting %}
+        </div>
+        <div class="tab-pane fade" id="pills-ending" role="tabpanel" aria-labelledby="pills-ending-tab">
+            {% include "partials/text-editor.html" with form_id="end-form" label="Provide an ending " field_selector="end" data=story.premise.ending %}
+        </div>
+        <div class="tab-pane fade" id="pills-beginning" role="tabpanel" aria-labelledby="pills-beginning-tab">
+            {% include "partials/text-editor.html" with form_id="begin-form" label="Provide a beginning " field_selector="begin" data=story.premise.beginning %}
+        </div>
+    </div>
+</div>

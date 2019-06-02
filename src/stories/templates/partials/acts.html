@@ -1,0 +1,25 @@
+<div class="tab-pane fade show" id="v-pills-acts" role="tabpanel" aria-labelledby="v-pills-acts-tab">
+    <div class="card">
+        <div class="card-header">
+            <span>{{story.title }}'s Acts</span>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col">
+                <form method="POST" id="act-form">
+                        {% csrf_token %}
+                        <div class="input-group mb-3">
+                            <input type="text" name="title" id="title" class="form-control" placeholder="Act's title" aria-label="Act's title" aria-describedby="button-addon2">
+                            <input type="number" name="act_number" id="act_number" class="form-control" placeholder="Act number" aria-label="Act number title" aria-describedby="button-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-second" type="submit" id="button-addon2"><i class="fas fa-plus"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="acts">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
