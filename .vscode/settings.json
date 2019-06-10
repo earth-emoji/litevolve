@@ -1,4 +1,0 @@
-{
-    "editor.renderWhitespace": "boundary",
-    "python.pythonPath": ".env\\Scripts\\python.exe"
-}
